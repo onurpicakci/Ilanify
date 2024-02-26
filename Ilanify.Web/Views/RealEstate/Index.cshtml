@@ -1,0 +1,27 @@
+@model IEnumerable<Ilanify.Domain.Entities.RealEstate>
+
+<h2>Real Estates</h2>
+
+<a asp-action="Create">Yeni İlan Ekle</a>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <!-- Diğer sütunları ekleyebilirsiniz -->
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var realEstate in Model)
+    {
+        <tr>
+            <td>@realEstate.Id</td>
+            <td>@realEstate.Title</td>
+            <td>@realEstate.Description</td>
+            <!-- Diğer sütun değerlerini ekleyebilirsiniz -->
+        </tr>
+    }
+    </tbody>
+</table>

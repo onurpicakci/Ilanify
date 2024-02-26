@@ -1,7 +1,17 @@
+using Ilanify.Application.Interfaces;
+using Ilanify.Application.Services;
+using Ilanify.DataAccess.Context;
+using Ilanify.DataAccess.Interfaces;
+using Ilanify.DataAccess.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<IlanifyDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IRealEstateService, RealEstateService>();
+builder.Services.AddScoped<IRealEstateRepository, RealEstateRepository>();
 
 var app = builder.Build();
 

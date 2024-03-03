@@ -1,14 +1,17 @@
 using Ilanify.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Ilanify.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class RealEstateController : Controller
 {
     private readonly IRealEstateService _realEstateService;
+    private readonly ICategoryService _categoryService;
 
-    public RealEstateController(IRealEstateService realEstateService)
+    public RealEstateController(IRealEstateService realEstateService, ICategoryService categoryService)
     {
         _realEstateService = realEstateService;
+        _categoryService = categoryService;
     }
 
     public IActionResult Index()
@@ -19,6 +22,8 @@ public class RealEstateController : Controller
 
     public IActionResult Create()
     {
+        var categories = _categoryService.GetCategoriesAsync();
+        ViewBag.Categories = new SelectList(categories.Result, "Id", "Name");
         
         return View();
     }

@@ -5,7 +5,7 @@
 <form asp-action="Create" method="post">
     <div class="form-group">
         <label for="Title">Başlık</label>
-        <input asp-for="Title" class="form-control" />
+        <input asp-for="Title" class="form-control"/>
     </div>
     <div class="form-group">
         <label for="Description">Açıklama</label>
@@ -13,12 +13,24 @@
     </div>
     <div class="form-group">
         <label for="Price">Fiyat</label>
-        <input asp-for="Price" class="form-control" />
+        <input asp-for="Price" class="form-control"/>
     </div>
     <div class="form-group">
-        <label for="ListingDate">Listeleme Tarihi</label>
-        <input asp-for="ListingDate" type="date" class="form-control" />
+        <label for="SquareMeters">Metrekare</label>
+        <input asp-for="SquareMeters" class="form-control"/>
     </div>
-    <!-- Diğer gerekli alanları ekleyebilirsiniz -->
+    <div class="form-group">
+        <label for="Location">Lokasyon</label>
+        <input asp-for="Location.Id" type="hidden"/>
+        <input asp-for="Location.City" placeholder="Şehir" class="form-control"/>
+        <input asp-for="Location.District" placeholder="İlçe" class="form-control"/>
+        <input asp-for="Location.Neighboord" placeholder="Mahalle" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="Category">Kategori</label>
+        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
+            <option value="">-- Seçiniz --</option>
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">İlanı Ekle</button>
 </form>

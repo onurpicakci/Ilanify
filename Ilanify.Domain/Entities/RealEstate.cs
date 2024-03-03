@@ -2,7 +2,7 @@ using Ilanify.Domain.Enums;
 
 namespace Ilanify.Domain.Entities;
 
-public abstract class RealEstate
+public class RealEstate
 {
     public int Id { get; set; }
     public string Title { get; set; }

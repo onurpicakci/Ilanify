@@ -16,6 +16,9 @@ namespace Ilanify.DataAccess.Context
         public DbSet<Location> Locations { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<RealEstateImage> RealEstateImages { get; set; }
+        public DbSet<House> Houses { get; set; }
+        public DbSet<Workplace> Workplaces { get; set; }
+        public DbSet<Land> Lands { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

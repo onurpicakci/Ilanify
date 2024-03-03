@@ -4,6 +4,7 @@ using Ilanify.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ilanify.DataAccess.Migrations
 {
     [DbContext(typeof(IlanifyDbContext))]
-    partial class IlanifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240303190411_New_Entities")]
+    partial class New_Entities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,9 +172,6 @@ namespace Ilanify.DataAccess.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("SquareMeters")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -355,31 +355,43 @@ namespace Ilanify.DataAccess.Migrations
                     b.HasBaseType("Ilanify.Domain.Entities.RealEstate");
 
                     b.Property<string>("HasBalcony")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("HasGarage")
+                    b.Property<bool>("HasGarage")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("HasGarden")
+                    b.Property<bool>("HasGarden")
                         .HasColumnType("bit");
 
                     b.Property<string>("HeatingType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsFurnished")
+                    b.Property<bool>("IsFurnished")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("NumberOfBathrooms")
+                    b.Property<int>("NumberOfBathrooms")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NumberOfFloors")
+                    b.Property<int>("NumberOfFloors")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NumberOfRooms")
+                    b.Property<int>("NumberOfRooms")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SquareMeters")
                         .HasColumnType("int");
 
                     b.Property<string>("YearBuilt")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("RealEstates", t =>
+                        {
+                            t.Property("SquareMeters")
+                                .HasColumnName("House_SquareMeters");
+                        });
 
                     b.HasDiscriminator().HasValue("House");
                 });
@@ -388,10 +400,14 @@ namespace Ilanify.DataAccess.Migrations
                 {
                     b.HasBaseType("Ilanify.Domain.Entities.RealEstate");
 
-                    b.Property<bool?>("IsInRegulation")
+                    b.Property<bool>("IsInRegulation")
                         .HasColumnType("bit");
 
+                    b.Property<int>("SquareMeters")
+                        .HasColumnType("int");
+
                     b.Property<string>("ZoningStatus")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Land");
@@ -402,25 +418,35 @@ namespace Ilanify.DataAccess.Migrations
                     b.HasBaseType("Ilanify.Domain.Entities.RealEstate");
 
                     b.Property<string>("BusinessType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("HasElevator")
+                    b.Property<bool>("HasElevator")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("HasKitchenFacilities")
+                    b.Property<bool>("HasKitchenFacilities")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("HasMeetingRooms")
+                    b.Property<bool>("HasMeetingRooms")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("HasParking")
+                    b.Property<bool>("HasParking")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("HasParkingSpace")
+                    b.Property<bool>("HasParkingSpace")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("HasSecurity")
+                    b.Property<bool>("HasSecurity")
                         .HasColumnType("bit");
+
+                    b.Property<int>("SquareMeters")
+                        .HasColumnType("int");
+
+                    b.ToTable("RealEstates", t =>
+                        {
+                            t.Property("SquareMeters")
+                                .HasColumnName("Workplace_SquareMeters");
+                        });
 
                     b.HasDiscriminator().HasValue("Workplace");
                 });

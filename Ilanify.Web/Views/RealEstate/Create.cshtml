@@ -1,4 +1,5 @@
-@model Ilanify.Domain.Entities.RealEstate
+@using Ilanify.Domain.Entities
+@model RealEstate
 
 <h2>Yeni İlan Ekle</h2>
 
@@ -28,7 +29,7 @@
     </div>
     <div class="form-group">
         <label for="Category">Kategori</label>
-        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
+        <select id="categorySelect" asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
             <option value="">-- Seçiniz --</option>
         </select>
     </div>

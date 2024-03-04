@@ -3,6 +3,8 @@ using Ilanify.Application.Services;
 using Ilanify.DataAccess.Context;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.DataAccess.Repositories;
+using Ilanify.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,10 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddScoped<IRealEstateRepository, RealEstateRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<IlanifyDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 

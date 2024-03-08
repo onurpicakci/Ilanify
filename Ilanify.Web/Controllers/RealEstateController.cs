@@ -1,8 +1,10 @@
-using Ilanify.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
 using Ilanify.Application.Interfaces;
+using Ilanify.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace Ilanify.Controllers;
 
 public class RealEstateController : Controller
 {
@@ -17,16 +19,16 @@ public class RealEstateController : Controller
         _userManager = userManager;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-       var realEstates = _realEstateService.GetAllAsync();
-        return View(realEstates.Result);
+        var realEstates = await _realEstateService.GetAllAsync();
+        return View(realEstates);
     }
 
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        var categories = _categoryService.GetCategoriesAsync();
-        ViewBag.Categories = new SelectList(categories.Result, "Id", "Name");
+        var categories = await _categoryService.GetCategoriesAsync();
+        ViewBag.Categories = new SelectList(categories, "Id", "Name");
         
         return View();
     }

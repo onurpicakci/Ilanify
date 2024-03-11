@@ -8,7 +8,6 @@ public class RealEstate
     public string Title { get; set; }
     public string Description { get; set; }
     public decimal Price { get; set; }
-    
     public int? SquareMeters { get; set; }
     public DateTime ListingDate { get; set; }
     public int LocationId { get; set; }
@@ -19,5 +18,7 @@ public class RealEstate
     public ApplicationUser ApplicationUser { get; set; }
     public List<RealEstateImage> Images { get; set; }
     public RealEstateType Type { get; set; }
+    public List<AttributeValue> AttributeValues { get; set; } // Eklendi
+
 }
 

@@ -29,9 +29,41 @@
     </div>
     <div class="form-group">
         <label for="Category">Kategori</label>
-        <select id="categorySelect" asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
+        <select id="categorySelect" asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control" onchange="loadCategoryAttributes()">
             <option value="">-- Seçiniz --</option>
         </select>
     </div>
+    <div id="categoryAttributes"></div> <!-- Kategori özelliklerinin yükleneceği yer -->
     <button type="submit" class="btn btn-primary">İlanı Ekle</button>
 </form>
+
+@section Scripts {
+    <script>
+       function loadCategoryAttributes() {
+           const categoryId = $('#categorySelect').val();
+           if (!categoryId) {
+               $('#categoryAttributes').empty();
+               return;
+           }
+       
+           $.ajax({
+               url: `/GetCategoryAttributes/${categoryId}`,
+               method: 'GET',
+               success: function(data) {
+                   let attributesHtml = '';
+                   $.each(data, function(index, attr) {
+                       attributesHtml += '<div class="form-group">';
+                       attributesHtml += '<label for="attributes[' + attr.id + ']">' + attr.name + '</label>';
+                       attributesHtml += '<input type="text" name="attributes[' + attr.id + ']" class="form-control"/>';
+                       attributesHtml += '</div>';
+                   });
+                   $('#categoryAttributes').html(attributesHtml);
+               },
+               error: function(xhr, status, error) {
+                   console.error('Error loading category attributes:', error);
+               }
+           });
+       }
+
+    </script>
+}

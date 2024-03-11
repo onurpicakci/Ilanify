@@ -19,4 +19,11 @@ public class CategoryRepository : EfRepository<Category>, ICategoryRepository
     {
         return await _ilanifyDbContext.Categories.ToListAsync();
     }
+
+    public async Task<List<CategoryAttribute>> GetCategoryAttributesAsync(int categoryId)
+    {
+        return await _ilanifyDbContext.CategoryAttributes
+            .Where(x => x.CategoryId == categoryId)
+            .ToListAsync();
+    }
 }

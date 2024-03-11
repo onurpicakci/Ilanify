@@ -34,23 +34,37 @@ public class RealEstateController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(RealEstate realEstate)
+    public async Task<IActionResult> Create(RealEstate realEstate, [FromForm] List<AttributeValue> attributeValues)
     {
         if (!ModelState.IsValid)
         {
-            var loggedUser = await _userManager.GetUserAsync(HttpContext.User);
-            
-            if (loggedUser != null)
-            {
-                realEstate.ApplicationUserId = loggedUser.Id;
-                await _realEstateService.AddAsync(realEstate);
-        
-                return RedirectToAction("Index");
-            }
+            return View(realEstate);
         }
-        
-        var categories = _categoryService.GetCategoriesAsync();
-        ViewBag.Categories = new SelectList(categories.Result, "Id", "Name");
-        return View(realEstate);
+
+        var loggedUser = await _userManager.GetUserAsync(HttpContext.User);
+        if (loggedUser == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
+        realEstate.ApplicationUserId = loggedUser.Id;
+
+        realEstate.AttributeValues = attributeValues;
+
+        await _realEstateService.AddAsync(realEstate);
+
+        return RedirectToAction("Index");
+    }
+    
+    [HttpGet("GetCategoryAttributes/{categoryId}")]
+    public async Task<IActionResult> GetCategoryAttributes(int categoryId)
+    {
+        var attributes = await _categoryService.GetCategoryAttributesAsync(categoryId);
+        if (attributes == null || !attributes.Any())
+        {
+            return NotFound();
+        }
+
+        return Ok(attributes);
     }
 }

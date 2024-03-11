@@ -17,4 +17,9 @@ public class CategoryService : ICategoryService
     {
         return await _categoryRepository.GetCategoriesAsync();
     }
+
+    public async Task<List<CategoryAttribute>> GetCategoryAttributesAsync(int categoryId)
+    {
+        return await _categoryRepository.GetCategoryAttributesAsync(categoryId);
+    }
 }

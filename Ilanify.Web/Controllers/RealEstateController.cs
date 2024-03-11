@@ -36,11 +36,6 @@ public class RealEstateController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(RealEstate realEstate, [FromForm] List<AttributeValue> attributeValues)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(realEstate);
-        }
-
         var loggedUser = await _userManager.GetUserAsync(HttpContext.User);
         if (loggedUser == null)
         {
@@ -48,13 +43,19 @@ public class RealEstateController : Controller
         }
 
         realEstate.ApplicationUserId = loggedUser.Id;
-
-        realEstate.AttributeValues = attributeValues;
-
+        
         await _realEstateService.AddAsync(realEstate);
-
+        
+        foreach (var attributeValue in attributeValues)
+        {
+            attributeValue.RealEstateId = realEstate.Id;
+        }
+        
+        realEstate.AttributeValues = attributeValues;
+        
         return RedirectToAction("Index");
     }
+
     
     [HttpGet("GetCategoryAttributes/{categoryId}")]
     public async Task<IActionResult> GetCategoryAttributes(int categoryId)

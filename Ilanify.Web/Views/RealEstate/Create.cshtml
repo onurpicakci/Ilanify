@@ -33,7 +33,7 @@
             <option value="">-- Seçiniz --</option>
         </select>
     </div>
-    <div id="categoryAttributes"></div> <!-- Kategori özelliklerinin yükleneceği yer -->
+    <div id="categoryAttributes"></div>
     <button type="submit" class="btn btn-primary">İlanı Ekle</button>
 </form>
 
@@ -48,14 +48,17 @@
        
            $.ajax({
                url: `/GetCategoryAttributes/${categoryId}`,
-               method: 'GET',
                success: function(data) {
                    let attributesHtml = '';
                    $.each(data, function(index, attr) {
-                       attributesHtml += '<div class="form-group">';
-                       attributesHtml += '<label for="attributes[' + attr.id + ']">' + attr.name + '</label>';
-                       attributesHtml += '<input type="text" name="attributes[' + attr.id + ']" class="form-control"/>';
-                       attributesHtml += '</div>';
+                       attributesHtml += `<div class="form-group">`;
+                       attributesHtml += `<label>${attr.name}</label>`;
+                       attributesHtml += `<input type="hidden" name="attributeValues[${index}].AttributeId" value="${attr.id}" />`;
+                       attributesHtml += `<input type="hidden" name="attributeValues[${index}].CategoryAttributeId" value="${attr.id}" />`;
+                       attributesHtml += `<input type="text" name="attributeValues[${index}].Value" class="form-control" />`;
+                       attributesHtml += `</div>`;
+                       debugger
+                       console.log("id:" + attr.id);
                    });
                    $('#categoryAttributes').html(attributesHtml);
                },
@@ -64,6 +67,5 @@
                }
            });
        }
-
     </script>
 }

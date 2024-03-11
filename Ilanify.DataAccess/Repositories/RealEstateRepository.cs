@@ -21,4 +21,10 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
             .Where(re => re.CategoryId == categoryId)
             .ToListAsync();
     }
+
+    public async Task UploadImageAsync(RealEstateImage realEstateImage)
+    {
+        await _context.RealEstateImages.AddAsync(realEstateImage);
+        await _context.SaveChangesAsync();
+    }
 }

@@ -12,7 +12,8 @@ public class RealEstateController : Controller
     private readonly ICategoryService _categoryService;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public RealEstateController(IRealEstateService realEstateService, ICategoryService categoryService, UserManager<ApplicationUser> userManager)
+    public RealEstateController(IRealEstateService realEstateService, ICategoryService categoryService,
+        UserManager<ApplicationUser> userManager)
     {
         _realEstateService = realEstateService;
         _categoryService = categoryService;
@@ -29,12 +30,13 @@ public class RealEstateController : Controller
     {
         var categories = await _categoryService.GetCategoriesAsync();
         ViewBag.Categories = new SelectList(categories, "Id", "Name");
-        
+
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(RealEstate realEstate, [FromForm] List<AttributeValue> attributeValues)
+    public async Task<IActionResult> Create(RealEstate realEstate, [FromForm] List<AttributeValue> attributeValues,
+        List<IFormFile> images)
     {
         var loggedUser = await _userManager.GetUserAsync(HttpContext.User);
         if (loggedUser == null)
@@ -43,20 +45,36 @@ public class RealEstateController : Controller
         }
 
         realEstate.ApplicationUserId = loggedUser.Id;
-        
+
         await _realEstateService.AddAsync(realEstate);
-        
+
+        if (images != null && images.Any())
+        {
+            foreach (var image in images)
+            {
+                var imageUrl = await UploadImage(image);
+                if (imageUrl != null)
+                {
+                    var realEstateImage = new RealEstateImage
+                    {
+                        ImageUrl = imageUrl,
+                        RealEstateId = realEstate.Id
+                    };
+                    await _realEstateService.UploadImageAsync(realEstateImage);
+                }
+            }
+        }
+
         foreach (var attributeValue in attributeValues)
         {
             attributeValue.RealEstateId = realEstate.Id;
         }
-        
+
         realEstate.AttributeValues = attributeValues;
-        
+
         return RedirectToAction("Index");
     }
 
-    
     [HttpGet("GetCategoryAttributes/{categoryId}")]
     public async Task<IActionResult> GetCategoryAttributes(int categoryId)
     {
@@ -67,5 +85,23 @@ public class RealEstateController : Controller
         }
 
         return Ok(attributes);
+    }
+
+    private async Task<string> UploadImage(IFormFile image)
+    {
+        if (image == null)
+        {
+            return null;
+        }
+
+        var uniqueFileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
+
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", uniqueFileName);
+        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        {
+            await image.CopyToAsync(fileStream);
+        }
+
+        return uniqueFileName;
     }
 }

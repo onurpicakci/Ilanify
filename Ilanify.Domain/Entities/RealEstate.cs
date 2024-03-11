@@ -18,7 +18,6 @@ public class RealEstate
     public ApplicationUser ApplicationUser { get; set; }
     public List<RealEstateImage> Images { get; set; }
     public RealEstateType Type { get; set; }
-    public List<AttributeValue> AttributeValues { get; set; } // Eklendi
-
+    public List<AttributeValue> AttributeValues { get; set; } 
 }
 

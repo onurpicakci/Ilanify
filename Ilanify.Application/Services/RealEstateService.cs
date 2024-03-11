@@ -18,6 +18,11 @@ public class RealEstateService : IRealEstateService
         return await _realEstateRepository.GetRealEstatesByCategoryAsync(categoryId);
     }
 
+    public async Task UploadImageAsync(RealEstateImage realEstateImage)
+    {
+        await _realEstateRepository.UploadImageAsync(realEstateImage);
+    }
+
     public async Task<RealEstate> GetByIdAsync(int id)
     {
         return await _realEstateRepository.GetByIdAsync(id);

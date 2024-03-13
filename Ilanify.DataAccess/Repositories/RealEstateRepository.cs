@@ -27,4 +27,12 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
         await _context.RealEstateImages.AddAsync(realEstateImage);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<IGrouping<int, RealEstate>>> GetRealEstatesGroupedByLocationAsync()
+    {
+        return await _context.RealEstates
+            .Include(re => re.Location)
+            .GroupBy(re => re.LocationId)
+            .ToListAsync();
+    }
 }

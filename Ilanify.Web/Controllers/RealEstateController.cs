@@ -22,8 +22,8 @@ public class RealEstateController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var realEstates = await _realEstateService.GetAllAsync();
-        return View(realEstates);
+        var locations = await _realEstateService.GetRealEstatesGroupedByLocationAsync();
+        return View(locations);
     }
 
     public async Task<IActionResult> Create()

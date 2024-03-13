@@ -23,6 +23,11 @@ public class RealEstateService : IRealEstateService
         await _realEstateRepository.UploadImageAsync(realEstateImage);
     }
 
+    public async Task<IEnumerable<IGrouping<int, RealEstate>>> GetRealEstatesGroupedByLocationAsync()
+    {
+        return await _realEstateRepository.GetRealEstatesGroupedByLocationAsync();
+    }
+
     public async Task<RealEstate> GetByIdAsync(int id)
     {
         return await _realEstateRepository.GetByIdAsync(id);

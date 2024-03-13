@@ -74,6 +74,18 @@ public class RealEstateController : Controller
 
         return RedirectToAction("Index");
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var realEstate = await _realEstateService.GetByIdAsync(id);
+        if (realEstate == null)
+        {
+            return NotFound();
+        }
+
+        return View(realEstate);
+    }
 
     [HttpGet("GetCategoryAttributes/{categoryId}")]
     public async Task<IActionResult> GetCategoryAttributes(int categoryId)

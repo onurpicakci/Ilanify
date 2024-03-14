@@ -19,6 +19,7 @@ html {
 
 body {
     margin-bottom: 60px;
+    background-color: #f2f2f2;
 }
 
 .navbar {
@@ -27,28 +28,16 @@ body {
     margin: 20px;
     border-radius: 16px;
     padding: 0.5rem;
-
+    transition: top 0.3s;
+    position: fixed;
+    z-index: 9999;
 }
 
 .navbar-brand {
     font-weight: 500;
-    color: #009970;
+    color: #c51b2e;
     font-size: 24px;
     transition: 0.3s color;
-}
-
-.login-button {
-    background-color: #009970;
-    color: #fff;
-    font-size: 14px;
-    padding: 8px 20px;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: 0.3s background-color;
-}
-
-.login-button:hover {
-    background-color: #00b383;
 }
 
 .navbar-toggler {
@@ -80,7 +69,7 @@ body {
         transform: translateX(-50%);
         width: 100%;
         height: 2px;
-        background-color: #009970;
+        background-color: #c51b2e;
         visibility: hidden;
         transition: ease-in-out 0.1s;
     }
@@ -92,7 +81,6 @@ body {
 }
 
 .hero-section {
-    /*background-color: url(../img/hero-bg.jpg) no-repeat center;*/
     background-size: cover;
     width: 100%;
     height: 100vh;
@@ -137,17 +125,19 @@ body {
     margin-bottom: 20px;
     border-radius: 16px;
     padding: 0.5rem;
+    z-index: 1050;
+    position: fixed;
 }
 
 .navbar-brand {
     font-weight: 500;
-    color: #009970;
+    color: #c51b2e;
     font-size: 24px;
     transition: 0.3s color;
 }
 
 .estate-button {
-    background-color: #009970;
+    background-color: #c51b2e;
     color: #fff;
     font-size: 14px;
     padding: 8px 20px;
@@ -157,8 +147,8 @@ body {
 }
 
 .estate-button:hover {
-    background-color: #00b383;
-    color: #fff;
+    background-color: #c51b2e;
+    color: #000000;
 }
 
 .navbar-toggler {
@@ -190,7 +180,7 @@ body {
         transform: translateX(-50%);
         width: 100%;
         height: 2px;
-        background-color: #009970;
+        background-color: #c51b2e;
         visibility: hidden;
         transition: ease-in-out 0.1s;
     }
@@ -202,21 +192,22 @@ body {
 }
 
 .hero-section {
-    background: url(../images/home.jpg) no-repeat center;
+    background: url(../images/hero-section.webp) no-repeat center;
     background-size: cover;
     width: 100%;
-    height: 50vh;
+    height: 55vh;
+    position: relative;
 }
 
 .hero-section::before {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgb(84, 4, 4, 0.5);
     content: "";
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    height: 50vh; 
+    height: 55vh; 
 }
 
 .main-container {
@@ -230,5 +221,43 @@ body {
     }
 }
 
+.location-page {
+    padding-top: 4rem;
+}
 
+.search-container {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-input {
+    height: 60px; 
+    width: 550px;
+    padding: 20px;
+    margin-right: 5px; 
+    border: 1px solid #ccc;
+    border-radius: 50px; 
+    font-size: 16px; 
+}
+
+.search-button {
+    height: 60px; 
+    width: 80px;
+    background-color: #c51b2e;
+    color: white;
+    border: none;
+    border-radius: 40px; 
+    padding: 0 20px;
+    cursor: pointer;
+    font-size: 16px; 
+}
+
+.search-button:hover {
+    background-color: #000000;
+}
 

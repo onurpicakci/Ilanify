@@ -15,15 +15,19 @@
     {
         <section class="hero-section">
             <div class="container d-flex align-items-center justify-content-center fs-1">
+                <div class="search-container">
+                    <input type="text" placeholder="Konum, ilan no ya da emlak ofisi adıyla arayın (Örn. 1234-123456)" class="search-input">
+                    <button class="search-button">Ara</button>
+                </div>
             </div>
         </section>
     }
 </header>
 
 <div class="container main-container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 </div>
 
 <footer class="border-top footer text-muted">

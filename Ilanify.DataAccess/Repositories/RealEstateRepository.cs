@@ -40,15 +40,8 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
     {
         return await _context.RealEstates
             .Include(re => re.Location)
-            .Where(re => re.Location.City == location)
-            .ToListAsync();
-    }
-
-    public async Task<IEnumerable<RealEstate>> GetRealEstateImagesAsync(int realEstateId)
-    {
-        return await _context.RealEstates
             .Include(re => re.Images)
-            .Where(re => re.Id == realEstateId)
+            .Where(re => re.Location.City == location)
             .ToListAsync();
     }
 }

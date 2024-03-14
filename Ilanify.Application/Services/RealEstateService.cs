@@ -32,12 +32,7 @@ public class RealEstateService : IRealEstateService
     {
         return await _realEstateRepository.GetRealEstatesByLocationAsync(location);
     }
-
-    public async Task<IEnumerable<RealEstate>> GetRealEstateImagesAsync(int realEstateId)
-    {
-        return await _realEstateRepository.GetRealEstateImagesAsync(realEstateId);
-    }
-
+    
     public async Task<RealEstate> GetByIdAsync(int id)
     {
         return await _realEstateRepository.GetByIdAsync(id);

@@ -8,7 +8,6 @@ public interface IRealEstateService
     Task UploadImageAsync(RealEstateImage realEstateImage);
     Task<IEnumerable<IGrouping<string, RealEstate>>> GetRealEstatesGroupedByLocationAsync();
     Task<IEnumerable<RealEstate>> GetRealEstatesByLocationAsync(string location);
-    Task<IEnumerable<RealEstate>> GetRealEstateImagesAsync(int realEstateId);
     Task<RealEstate> GetByIdAsync(int id);
     Task<IEnumerable<RealEstate>> GetAllAsync();
     Task AddAsync(RealEstate entity);

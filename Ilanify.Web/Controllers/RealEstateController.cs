@@ -1,5 +1,6 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.Domain.Entities;
+using Ilanify.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -97,6 +98,13 @@ public class RealEstateController : Controller
         }
 
         return Ok(attributes);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> ListRealEstatesByLocation(string location)
+    {
+        var realEstates = await _realEstateService.GetRealEstatesByLocationAsync(location);
+        return View(realEstates);
     }
 
     private async Task<string> UploadImage(IFormFile image)

@@ -1,6 +1,24 @@
-@model IEnumerable<IGrouping<int, Ilanify.Domain.Entities.RealEstate>>
+@model IEnumerable<IGrouping<string, Ilanify.Domain.Entities.RealEstate>>
 
 @{
     ViewData["Title"] = "Anasayfa";
 }
 
+<h1>Anasayfa</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var locationGroup in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@locationGroup.Key</h5>
+                        <p class="card-text">Toplam @locationGroup.Count() ilan</p>
+                        <a href="@Url.Action("ListRealEstatesByLocation", "RealEstate", new { location = locationGroup.Key })" class="btn btn-primary">İlanları Gör</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

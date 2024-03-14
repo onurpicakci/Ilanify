@@ -63,15 +63,14 @@
                         citySelect.empty();
                         citySelect.append('<option value="">Şehir Seçiniz</option>');
                         $.each(data.geonames, function (index, city) {
-                            citySelect.append('<option value="' + city.name + '||' + city.adminCodes1.ISO3166_2 + '">' + city.name + ' ' + city.adminCodes1.ISO3166_2 + '</option>');
+                            citySelect.append('<option value="' + city.name + '" data-code="' + city.adminCodes1.ISO3166_2 + '">' + city.name + '</option>');
                         });
                     }
                 });
             }
             
             window.loadDistricts = function() {
-                var selectedCityCode = $("#citySelect option:selected").attr('value').split('||')[1];
-                debugger
+                var selectedCityCode = $("#citySelect option:selected").attr('data-code');
                 if (selectedCityCode) {
                     $.ajax({
                         url: `http://api.geonames.org/searchJSON?country=TR&featureClass=A&maxRows=500&adminCode1=${selectedCityCode}&username=onurpicakci`,

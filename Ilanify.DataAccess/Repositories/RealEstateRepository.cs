@@ -28,11 +28,27 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<IGrouping<int, RealEstate>>> GetRealEstatesGroupedByLocationAsync()
+    public async Task<IEnumerable<IGrouping<string, RealEstate>>> GetRealEstatesGroupedByLocationAsync()
     {
         return await _context.RealEstates
             .Include(re => re.Location)
-            .GroupBy(re => re.LocationId)
+            .GroupBy(re => re.Location.City)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<RealEstate>> GetRealEstatesByLocationAsync(string location)
+    {
+        return await _context.RealEstates
+            .Include(re => re.Location)
+            .Where(re => re.Location.City == location)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<RealEstate>> GetRealEstateImagesAsync(int realEstateId)
+    {
+        return await _context.RealEstates
+            .Include(re => re.Images)
+            .Where(re => re.Id == realEstateId)
             .ToListAsync();
     }
 }

@@ -261,3 +261,30 @@ body {
     background-color: #000000;
 }
 
+.listing-date {
+    float: right;
+    margin-left: 850px;
+    margin-top: 10px;
+}
+
+.estate-price {
+    font-size: 22px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.estate-title {
+    font-size: 19px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.estate-property {
+    font-size: 16px;
+    font-weight: 500;
+    color: #666777;
+    margin-bottom: 10px;
+}
+

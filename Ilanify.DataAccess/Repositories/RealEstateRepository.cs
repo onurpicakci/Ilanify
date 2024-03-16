@@ -41,7 +41,11 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
         return await _context.RealEstates
             .Include(re => re.Location)
             .Include(re => re.Images)
+            .Include(re => re.Category)
+            .Include(re => re.AttributeValues) 
+            .ThenInclude(av => av.CategoryAttribute) 
             .Where(re => re.Location.City == location)
             .ToListAsync();
     }
+
 }

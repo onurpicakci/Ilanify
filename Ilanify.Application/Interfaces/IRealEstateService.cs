@@ -1,3 +1,4 @@
+using Ilanify.DataAccess.Dtos;
 using Ilanify.Domain.Entities;
 
 namespace Ilanify.Application.Interfaces;
@@ -6,7 +7,7 @@ public interface IRealEstateService
 {
     Task<IEnumerable<RealEstate>> GetRealEstatesByCategoryAsync(int categoryId);
     Task UploadImageAsync(RealEstateImage realEstateImage);
-    Task<IEnumerable<IGrouping<string, RealEstate>>> GetRealEstatesGroupedByLocationAsync();
+    Task<IEnumerable<CityRealEstateCount>> GetRealEstatesGroupedByLocationAsync();
     Task<IEnumerable<RealEstate>> GetRealEstatesByLocationAsync(string location);
     Task<RealEstate> GetByIdAsync(int id);
     Task<IEnumerable<RealEstate>> GetAllAsync();

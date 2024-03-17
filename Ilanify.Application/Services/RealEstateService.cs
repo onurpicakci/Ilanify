@@ -1,4 +1,5 @@
 using Ilanify.Application.Interfaces;
+using Ilanify.DataAccess.Dtos;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
 
@@ -23,9 +24,9 @@ public class RealEstateService : IRealEstateService
         await _realEstateRepository.UploadImageAsync(realEstateImage);
     }
 
-    public async Task<IEnumerable<IGrouping<string, RealEstate>>> GetRealEstatesGroupedByLocationAsync()
+    public async Task<IEnumerable<CityRealEstateCount>> GetRealEstatesGroupedByLocationAsync()
     {
-        return await _realEstateRepository.GetRealEstatesGroupedByLocationAsync();
+        return await _realEstateRepository.GetTop4CitiesByRealEstateCountAsync();
     }
 
     public async Task<IEnumerable<RealEstate>> GetRealEstatesByLocationAsync(string location)

@@ -1,6 +1,5 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.Domain.Entities;
-using Ilanify.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -76,7 +75,7 @@ public class RealEstateController : Controller
 
         return RedirectToAction("Index");
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
@@ -100,7 +99,7 @@ public class RealEstateController : Controller
 
         return Ok(attributes);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> ListRealEstatesByLocation(string location)
     {

@@ -1,6 +1,10 @@
 @using Ilanify.Domain.Entities
 @model RealEstate
 
+@{
+    ViewBag.SpecificScript = true;
+}
+
 <h2>Yeni İlan Ekle</h2>
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -40,7 +44,13 @@
         <label for="Location.Neighborhood">Mahalle</label>
         <input id="neighborhoodInput" asp-for="Location.Neighboord" class="form-control" placeholder="Mahalle giriniz">
     </div>
-
+    <div class="form-group">
+        <label for="RealEstateType">İlan Tipi</label>
+        <select asp-for="Type" class="form-control">
+            <option value="1">Satılık</option>
+            <option value="2">Kiralık</option>
+        </select>
+    </div>
     <div class="form-group">
         <label for="Category">Kategori</label>
         <select id="categorySelect" asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control" onchange="loadCategoryAttributes()">
@@ -50,103 +60,3 @@
     <div id="categoryAttributes"></div>
     <button type="submit" class="btn btn-primary">İlanı Ekle</button>
 </form>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            function loadCities() {
-                $.ajax({
-                    url: 'http://api.geonames.org/searchJSON?country=TR&featureClass=P&maxRows=81&username=onurpicakci',
-                    type: 'GET',
-                    success: function (data) {
-                        var citySelect = $('#citySelect');
-                        citySelect.empty();
-                        citySelect.append('<option value="">Şehir Seçiniz</option>');
-                        $.each(data.geonames, function (index, city) {
-                            citySelect.append('<option value="' + city.name + '" data-code="' + city.adminCodes1.ISO3166_2 + '">' + city.name + '</option>');
-                        });
-                    }
-                });
-            }
-            
-            window.loadDistricts = function() {
-                var selectedCityCode = $("#citySelect option:selected").attr('data-code');
-                if (selectedCityCode) {
-                    $.ajax({
-                        url: `http://api.geonames.org/searchJSON?country=TR&featureClass=A&maxRows=500&adminCode1=${selectedCityCode}&username=onurpicakci`,
-                        type: 'GET',
-                        success: function (data) {
-                            var districtSelect = $('#districtSelect');
-                            districtSelect.empty();
-                            districtSelect.append('<option value="">İlçe Seçiniz</option>');
-                            $.each(data.geonames, function (index, district) {
-                                districtSelect.append('<option value="' + district.name + '">' + district.name + '</option>');
-                            });
-                        }
-                    });
-                }
-            }
-
-            function loadNeighborhoods() {
-                var selectedCity = $('#citySelect').val();
-                var selectedDistrict = $('#districtSelect').val();
-                if (selectedCity && selectedDistrict) {
-                    $.ajax({
-                        url: 'http://api.geonames.org/searchJSON?country=TR&featureClass=L&maxRows=500&adminCode1=' + selectedCity + '&adminCode2=' + selectedDistrict + '&username=onurpicakci',
-                        type: 'GET',
-                        success: function (data) {
-                            var neighborhoodSelect = $('#neighborhoodSelect');
-                            neighborhoodSelect.empty();
-                            neighborhoodSelect.append('<option value="">Mahalle Seçiniz</option>');
-                            $.each(data.geonames, function (index, neighborhood) {
-                                neighborhoodSelect.append('<option value="' + neighborhood.name + '">' + neighborhood.name + '</option>');
-                            });
-                        }
-                    });
-                }
-            }
-
-            function loadCategoryAttributes() {
-                var categoryId = $('#categorySelect').val();
-                if (categoryId) {
-                    $.ajax({
-                        url: '/GetCategoryAttributes/' + categoryId,
-                        type: 'GET',
-                        success: function (data) {
-                            var attributesContainer = $('#categoryAttributes');
-                            attributesContainer.empty();
-                            $.each(data, function (index, attr) {
-                                var attributeHtml = '<div class="form-group">';
-                                attributeHtml += '<label>' + attr.name + '</label>';
-                                attributeHtml += '<input type="hidden" name="attributeValues[' + index + '].AttributeId" value="' + attr.id + '" />';
-                                attributeHtml += '<input type="hidden" name="attributeValues[' + index + '].CategoryAttributeId" value="' + attr.id + '" />';
-                                attributeHtml += '<input type="text" name="attributeValues[' + index + '].Value" class="form-control" />';
-                                attributeHtml += '</div>';
-                                attributesContainer.append(attributeHtml);
-                            });
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error loading category attributes:', error);
-                        }
-                    });
-                } else {
-                    $('#categoryAttributes').empty();
-                }
-            }
-
-            $('#citySelect').change(function () {
-                loadDistricts();
-            });
-
-            $('#districtSelect').change(function () {
-                loadNeighborhoods();
-            });
-
-            $('#categorySelect').change(function () {
-                loadCategoryAttributes();
-            });
-
-            loadCities();
-        });
-    </script>
-}

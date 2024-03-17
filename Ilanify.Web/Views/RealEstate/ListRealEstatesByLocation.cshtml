@@ -32,6 +32,14 @@
                                 <p class="card-text">
                                     <small class="estate-property">@realEstate.Type @realEstate.Category.Name</small>
                                     <small class="estate-property">| @realEstate.SquareMeters m²</small>
+                                    @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Oda Sayısı"))
+                                    {
+                                        <small class="estate-property">| @attributeValue.Value</small>
+                                    }
+                                    @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Kat Sayısı"))
+                                    {
+                                        <small class="estate-property">| @(attributeValue.Value). Kat</small>
+                                    }
                                 </p>
                                 <p class="card-text">
                                     <i class="fa-regular fa-location-dot"></i><small class="text-muted"> @realEstate.Location.District, @realEstate.Location.Neighboord</small>

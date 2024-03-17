@@ -2,6 +2,6 @@ namespace Ilanify.Domain.Enums;
 
 public enum RealEstateType
 {
-    Satılık,
-    Kiralık,
+    Satılık = 1,
+    Kiralık = 2,
 }

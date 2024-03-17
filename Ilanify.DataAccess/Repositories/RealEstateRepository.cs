@@ -1,4 +1,5 @@
 using Ilanify.DataAccess.Context;
+using Ilanify.DataAccess.Dtos;
 using Ilanify.DataAccess.EntityFramework;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
@@ -28,11 +29,18 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<IGrouping<string, RealEstate>>> GetRealEstatesGroupedByLocationAsync()
+    public async Task<IEnumerable<CityRealEstateCount>> GetTop4CitiesByRealEstateCountAsync()
     {
         return await _context.RealEstates
             .Include(re => re.Location)
             .GroupBy(re => re.Location.City)
+            .Select(group => new CityRealEstateCount 
+            { 
+                City = group.Key, 
+                Count = group.Count() 
+            })
+            .OrderByDescending(x => x.Count)
+            .Take(4)
             .ToListAsync();
     }
 

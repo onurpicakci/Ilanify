@@ -1,5 +1,6 @@
-@model IEnumerable<IGrouping<string, Ilanify.Domain.Entities.RealEstate>>
-
+@using Ilanify.DataAccess.Dtos
+@model List<CityRealEstateCount>
+ 
 @{
     ViewData["Title"] = "Anasayfa";
 }
@@ -13,9 +14,9 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">@locationGroup.Key</h5>
-                        <p class="card-text">Toplam @locationGroup.Count() ilan</p>
-                        <a href="@Url.Action("ListRealEstatesByLocation", "RealEstate", new { location = locationGroup.Key })" class="btn btn-primary">İlanları Gör</a>
+                        <h5 class="card-title">@locationGroup.City</h5>
+                        <p class="card-text">Toplam @locationGroup.Count ilan</p>
+                        <a href="@Url.Action("ListRealEstatesByLocation", "RealEstate", new { location = locationGroup.City })" class="btn btn-primary">İlanları Gör</a>
                     </div>
                 </div>
             </div>

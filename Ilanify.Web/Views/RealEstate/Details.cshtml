@@ -2,8 +2,48 @@
 @model RealEstate
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "İlan Detayı";
     Layout = "_Layout";
 }
 
-<h2>@Model.Title</h2>
+<div class="detail-page">
+    <div class="row">
+        <div class="col-md-9">
+            <p class="detail-title">@Model.Title</p>
+            <div class="detail-card">
+                <img src="/images/@Model.Images.FirstOrDefault()?.ImageUrl" alt="Ana İlan Resmi" class="detail-main-image"/>
+                <div class="thumbnail-container">
+                    @foreach (var image in Model.Images)
+                    {
+                        <img src="/images/@image.ImageUrl" alt="İlan Resmi" class="detail-thumbnail-image"/>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <p class="detail-price">@Model.Price.ToString("N1") TL</p>
+            <div class="container m-auto">
+                <div class="row">
+                    @foreach (var attributeValue in Model.AttributeValues.Where(av => av.CategoryAttribute.Name == "Oda Sayısı"))
+                    {
+                        <p class="detail-property">@attributeValue.Value</p>
+                    }
+                    @foreach (var attributeValue in Model.AttributeValues.Where(av => av.CategoryAttribute.Name == "Kat Sayısı"))
+                    {
+                        <p class="detail-property">@(attributeValue.Value). Kat</p>
+                    }
+                    <p class="detail-property">@Model.SquareMeters m²</p>
+                </div>
+            </div>
+        </div>
+        <div class="attributes">
+            @foreach (var attributeValue in Model.AttributeValues)
+            {
+                <div class="attribute">
+                    <strong>@attributeValue.CategoryAttribute.Name:</strong> @attributeValue.Value
+                </div>
+            }
+        </div>
+    </div>
+</div>

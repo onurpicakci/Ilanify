@@ -22,7 +22,7 @@ public class RealEstateController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var locations = await _realEstateService.GetRealEstatesGroupedByLocationAsync();
+        var locations = await _realEstateService.GetTop4CitiesByRealEstateCountAsync();
         return View(locations);
     }
 
@@ -77,9 +77,9 @@ public class RealEstateController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Details(int id)
+    public async Task<IActionResult> Details(int realEstateId)
     {
-        var realEstate = await _realEstateService.GetByIdAsync(id);
+        var realEstate = await _realEstateService.GetRealEstateByIdWithDetailsAsync(realEstateId);
         if (realEstate == null)
         {
             return NotFound();

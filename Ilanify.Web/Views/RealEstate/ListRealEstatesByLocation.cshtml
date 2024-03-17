@@ -14,6 +14,7 @@
         <div class="col-md-9">
             @foreach (var realEstate in Model)
             {
+                <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="text-decoration-none">
                 <div class="card mb-3">
                     <div class="listing-date position-absolute">
                         <small class="text-muted">@realEstate.ListingDate.ToString("dd.MM.yyyy")</small>
@@ -40,6 +41,13 @@
                                     {
                                         <small class="estate-property">| @(attributeValue.Value). Kat</small>
                                     }
+                                    @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Bina Yaşı"))
+                                    {
+                                        if(int.TryParse(attributeValue.Value, out int age))
+                                        {
+                                            <small class="estate-property">| @(2024 - age) Yaşında</small>
+                                        }
+                                    }
                                 </p>
                                 <p class="card-text">
                                     <i class="fa-regular fa-location-dot"></i><small class="text-muted"> @realEstate.Location.District, @realEstate.Location.Neighboord</small>
@@ -48,6 +56,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             }
         </div>
     </div>

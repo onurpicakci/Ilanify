@@ -56,4 +56,23 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
             .ToListAsync();
     }
 
+    public async Task<RealEstate> GetRealEstateByIdWithDetailsAsync(int realEstateId)
+    {
+        var realEstate = await _context.RealEstates
+            .Include(re => re.Images)
+            .Include(re => re.Location)
+            .Include(re => re.Category)
+            .ThenInclude(c => c.CategoryAttributes)
+            .Include(re => re.AttributeValues)
+            .ThenInclude(av => av.CategoryAttribute)
+            .Include(re => re.ApplicationUser)
+            .FirstOrDefaultAsync(re => re.Id == realEstateId);
+
+        if (realEstate == null)
+        {
+            return null;
+        }
+        
+        return realEstate;
+    }
 }

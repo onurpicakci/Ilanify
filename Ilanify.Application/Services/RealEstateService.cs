@@ -24,7 +24,7 @@ public class RealEstateService : IRealEstateService
         await _realEstateRepository.UploadImageAsync(realEstateImage);
     }
 
-    public async Task<IEnumerable<CityRealEstateCount>> GetRealEstatesGroupedByLocationAsync()
+    public async Task<IEnumerable<CityRealEstateCount>> GetTop4CitiesByRealEstateCountAsync()
     {
         return await _realEstateRepository.GetTop4CitiesByRealEstateCountAsync();
     }
@@ -33,7 +33,12 @@ public class RealEstateService : IRealEstateService
     {
         return await _realEstateRepository.GetRealEstatesByLocationAsync(location);
     }
-    
+
+    public async Task<RealEstate> GetRealEstateByIdWithDetailsAsync(int realEstateId)
+    {
+        return await _realEstateRepository.GetRealEstateByIdWithDetailsAsync(realEstateId);
+    }
+
     public async Task<RealEstate> GetByIdAsync(int id)
     {
         return await _realEstateRepository.GetByIdAsync(id);

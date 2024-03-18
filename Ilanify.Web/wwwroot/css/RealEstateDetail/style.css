@@ -92,8 +92,33 @@
     margin-top: 1rem;
 }
 
-.attributes {
-    margin-top: 2rem;
+.location-card {
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.location-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.location-text {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 1rem;
+    padding-left: 20px;
+}
+
+.fa-location-dot {
+    margin-right: 5px;
+    padding-top: 2px;
+    position: absolute;
+    color: #333;
 }
 
 .attribute {
@@ -265,4 +290,30 @@
     .detail-thumbnail-image {
         width: 48%;
     }
+}
+
+.property-card {
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.property-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.property-text{
+    background-color: #f7f7f7; /* Match the background color to the screenshot */
+    padding: 10px;
+    border-radius: 5px; /* Match the border-radius to the screenshot */
+    margin-bottom: 10px; /* Adjust spacing between items */
+    width: calc(50% - 10px);
 }

@@ -65,6 +65,31 @@ function makeCall(event) {
     event.preventDefault();
 }
 
+$(document).ready(function () {
+    var mapElement = $('#map');
+    var city = mapElement.data('city');
+    var district = mapElement.data('district');
+    var neighborhood = mapElement.data('neighborhood');
 
+    var query = `${neighborhood}, ${district}, ${city}`;
 
+    $.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`, function(data) {
+        if (data.length > 0) {
+            var lat = data[0].lat;
+            var lon = data[0].lon;
+
+            var map = L.map('map').setView([lat, lon], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup(query)
+                .openPopup();
+        } else {
+            console.error('Konum bulunamadı.');
+        }
+    });
+});
 

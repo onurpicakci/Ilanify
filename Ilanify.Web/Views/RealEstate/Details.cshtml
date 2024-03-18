@@ -32,12 +32,23 @@
                     </div>
                     <div class="thumbnail-nav right-arrow" onclick="navigateThumbnail(1)">&#10095;</div>
                 </div>
-                <div class="attributes">
+            </div>
+            <div class="location-card">
+                <h2 class="location-title">İlan Konumu</h2>
+                <i class="fa-regular fa-location-dot"></i>
+                <p class="location-text">@Model.Location.City - @Model.Location.District - @Model.Location.Neighboord</p>
+                <div id="map" style="height: 400px;"
+                     data-city="@Model.Location.City"
+                     data-district="@Model.Location.District"
+                     data-neighborhood="@Model.Location.Neighboord">
+                </div>
+            </div>
+            <div class="property-card">
+                <p class="property-title">İlan Bilgileri</p>
+                <div class="row">
                     @foreach (var attributeValue in Model.AttributeValues)
                     {
-                        <p class="attribute">
-                            <strong>@attributeValue.CategoryAttribute.Name:</strong> @attributeValue.Value
-                        </p>
+                        <p class="property-text">@attributeValue.CategoryAttribute.Name: @attributeValue.Value</p>
                     }
                 </div>
             </div>

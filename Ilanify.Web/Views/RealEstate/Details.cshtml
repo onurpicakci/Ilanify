@@ -4,46 +4,73 @@
 @{
     ViewBag.Title = "İlan Detayı";
     Layout = "_Layout";
+    var images = Model.Images.ToList();
 }
 
-<div class="detail-page">
+<div class="container detail-page">
     <div class="row">
         <div class="col-md-9">
-            <p class="detail-title">@Model.Title</p>
             <div class="detail-card">
-                <img src="/images/@Model.Images.FirstOrDefault()?.ImageUrl" alt="Ana İlan Resmi" class="detail-main-image"/>
-                <div class="thumbnail-container">
-                    @foreach (var image in Model.Images)
+                <h1 class="detail-title">@Model.Title</h1>
+                <div class="main-image-container">
+                    <button class="image-nav left-arrow" onclick="navigateMainImage(-1)">&#10094;</button>
+                    <img id="main-image" src="/images/@Model.Images.FirstOrDefault()?.ImageUrl" alt="İlan Resmi" class="detail-main-image"/>
+                    <button class="image-nav right-arrow" onclick="navigateMainImage(1)">&#10095;</button>
+                </div>
+                <div class="thumbnail-navigation">
+                    <div class="thumbnail-nav left-arrow" onclick="navigateThumbnail(-1)">&#10094;</div>
+                    <div class="thumbnails-wrapper">
+                        @foreach (var image in Model.Images.Select((value, index) => new { value, index }))
+                        {
+                            <img src="/images/@image.value.ImageUrl"
+                                 alt="İlan Resmi"
+                                 class="detail-thumbnail-image"
+                                 data-index="@image.index"
+                                 data-image-url="/images/@image.value.ImageUrl"
+                                 onclick="changeMainImage(@image.index)">
+                        }
+                    </div>
+                    <div class="thumbnail-nav right-arrow" onclick="navigateThumbnail(1)">&#10095;</div>
+                </div>
+                <div class="attributes">
+                    @foreach (var attributeValue in Model.AttributeValues)
                     {
-                        <img src="/images/@image.ImageUrl" alt="İlan Resmi" class="detail-thumbnail-image"/>
+                        <p class="attribute">
+                            <strong>@attributeValue.CategoryAttribute.Name:</strong> @attributeValue.Value
+                        </p>
                     }
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <p class="detail-price">@Model.Price.ToString("N1") TL</p>
-            <div class="container m-auto">
-                <div class="row">
-                    @foreach (var attributeValue in Model.AttributeValues.Where(av => av.CategoryAttribute.Name == "Oda Sayısı"))
-                    {
-                        <p class="detail-property">@attributeValue.Value</p>
-                    }
-                    @foreach (var attributeValue in Model.AttributeValues.Where(av => av.CategoryAttribute.Name == "Kat Sayısı"))
-                    {
-                        <p class="detail-property">@(attributeValue.Value). Kat</p>
-                    }
-                    <p class="detail-property">@Model.SquareMeters m²</p>
+        </div>
+        <div class="col-md-3 p-lg-2">
+            <div class="detail-price">@Model.Price.ToString("N1") TL</div>
+            <div class="selected-attributes">
+                <p class="selected-attribute">@Model.AttributeValues.FirstOrDefault(av => av.CategoryAttribute.Name == "Oda Sayısı")?.Value</p>
+                <p class="selected-attribute">@Model.SquareMeters m²</p>
+                <p class="selected-attribute">@(Model.AttributeValues.FirstOrDefault(av => av.CategoryAttribute.Name == "Kat Sayısı")?.Value). Kat</p>
+            </div>
+            <div class="estate-id">
+                <i class="fa fa-id-card" aria-hidden="true"></i>
+                <small class="text-muted estate-id-text">İlan No: @Model.Id</small>
+            </div>
+            <div class="detail-listed-date">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <small class="text-muted">@Model.ListingDate.ToString("dd.MM.yyyy")</small>
+            </div>
+            <div class="detail-user-card">
+                <img src="/images/user.png" alt="Kullanıcı Resmi" class="detail-user-image" onerror="this.src='/images/no-image.webp'"/>
+                <h2 class="detail-user-name">@Model.ApplicationUser.FirstName @Model.ApplicationUser.LastName</h2>
+                <a class="detail-user-phone" href="tel:" data-phone-number="@Model.ApplicationUser.PhoneNumber">Telefonu Gör</a>
+                <div class="detail-actions">
+                    <button class="action-button favorite">
+                        <i class="fa fa-heart" aria-hidden="true"></i> Favorilere Ekle
+                    </button>
+                    <button class="action-button share">
+                        <i class="fa fa-share-alt" aria-hidden="true"></i> İlanı Paylaş
+                    </button>
                 </div>
             </div>
-        </div>
-        <div class="attributes">
-            @foreach (var attributeValue in Model.AttributeValues)
-            {
-                <div class="attribute">
-                    <strong>@attributeValue.CategoryAttribute.Name:</strong> @attributeValue.Value
-                </div>
-            }
         </div>
     </div>
 </div>

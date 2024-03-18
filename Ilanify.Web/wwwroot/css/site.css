@@ -22,6 +22,11 @@ body {
     background-color: #f2f2f2;
 }
 
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
 .navbar {
     background-color: #fff;
     height: 80px;
@@ -207,7 +212,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    height: 55vh; 
+    height: 55vh;
 }
 
 .main-container {
@@ -217,12 +222,8 @@ body {
 @media (max-width: 767px) {
     .estate-button {
         font-size: 10px;
-        padding: 6px 12px; 
+        padding: 6px 12px;
     }
-}
-
-.location-page {
-    padding-top: 4rem;
 }
 
 .search-container {
@@ -236,117 +237,37 @@ body {
 }
 
 .search-input {
-    height: 60px; 
+    height: 60px;
     width: 550px;
     padding: 20px;
-    margin-right: 5px; 
+    margin-right: 5px;
     border: 1px solid #ccc;
-    border-radius: 50px; 
-    font-size: 16px; 
+    border-radius: 50px;
+    font-size: 16px;
 }
 
 .search-button {
-    height: 60px; 
+    height: 60px;
     width: 80px;
     background-color: #c51b2e;
     color: white;
     border: none;
-    border-radius: 40px; 
+    border-radius: 40px;
     padding: 0 20px;
     cursor: pointer;
-    font-size: 16px; 
+    font-size: 16px;
 }
 
 .search-button:hover {
     background-color: #000000;
 }
 
-.listing-date {
-    float: right;
-    margin-left: 880px;
-    margin-top: 10px;
-}
-
-.estate-price {
-    font-size: 22px;
-    font-weight: 500;
-    color: #000;
-    margin-bottom: 10px;
-}
-
-.estate-title {
-    font-size: 19px;
-    font-weight: 500;
-    color: #000;
-    margin-bottom: 10px;
-}
-
-.estate-property {
-    font-size: 16px;
-    font-weight: 500;
-    color: #666777;
-    margin-bottom: 10px;
-}
-
-.detail-page {
+.create-page {
     padding-top: 4rem;
-}
-
-.detail-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-}
-
-.detail-title {
-    font-size: 30px;
-    font-weight: 500;
-    color: #000;
-    margin-bottom: 10px;
-}
-
-.detail-main-image {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    margin-bottom: 20px;
-}
-
-.detail-thumbnail-image {
-    margin-left: 10px;
-    height: 100px;
-    object-fit: cover;
-    margin-bottom: 20px;
-}
-
-.detail-price {
-    font-size: 30px;
-    font-weight: bold;
-    color: #000;
-    margin-bottom: 10px;
-    margin-left: 10px;
-}
-
-.detail-property-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-    height: 642px;
+    padding-bottom: 2rem;
 }
 
 
 
-.detail-property {
-    font-size: 10px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    padding: 10px; 
-    width: auto;
-    border: 1px solid #ccc;
-    border-radius: 17px;
-    background-color: #c51b2e; 
-    color: white;
-    margin-right: 15px;
-}
+
 

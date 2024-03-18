@@ -15,47 +15,46 @@
             @foreach (var realEstate in Model)
             {
                 <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="text-decoration-none">
-                <div class="card mb-3">
-                    <div class="listing-date position-absolute">
-                        <small class="text-muted">@realEstate.ListingDate.ToString("dd.MM.yyyy")</small>
-                    </div>
-                    <div class="row no-gutters m-1">
-                        <div class="col-md-4 mt-3 mb-3">
-                            @foreach (var image in realEstate.Images)
-                            {
-                                <img src="/images/@image.ImageUrl" class="card-img" style="width:280px; height:210px;">
-                            }
+                    <div class="card mb-3">
+                        <div class="listing-date position-absolute">
+                            <small class="text-muted">@realEstate.ListingDate.ToString("dd.MM.yyyy")</small>
                         </div>
-                        <div class="col-md-7">
-                            <div class="card-body">
-                                <h5 class="estate-price">@realEstate.Price.ToString("N1") TL</h5>
-                                <p class="estate-title">@realEstate.Title</p>
-                                <p class="card-text">
-                                    <small class="estate-property">@realEstate.Type @realEstate.Category.Name</small>
-                                    <small class="estate-property">| @realEstate.SquareMeters m²</small>
-                                    @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Oda Sayısı"))
-                                    {
-                                        <small class="estate-property">| @attributeValue.Value</small>
-                                    }
-                                    @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Kat Sayısı"))
-                                    {
-                                        <small class="estate-property">| @(attributeValue.Value). Kat</small>
-                                    }
-                                    @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Bina Yaşı"))
-                                    {
-                                        if(int.TryParse(attributeValue.Value, out int age))
+                        <div class="row no-gutters m-1">
+                            <div class="col-md-4 mt-3 mb-3">
+                                @foreach (var image in realEstate.Images)
+                                {
+                                    <img src="/images/@image.ImageUrl" class="card-img" style="width:100%; height:auto;">
+                                }
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="estate-price">@realEstate.Price.ToString("N1") TL</h5>
+                                    <p class="estate-title">@realEstate.Title</p>
+                                    <p class="card-text">
+                                        <small class="estate-property">@realEstate.Type @realEstate.Category.Name | @realEstate.SquareMeters m²</small>
+                                        @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Oda Sayısı"))
                                         {
-                                            <small class="estate-property">| @(2024 - age) Yaşında</small>
+                                            <small class="estate-property">| @attributeValue.Value</small>
                                         }
-                                    }
-                                </p>
-                                <p class="card-text">
-                                    <i class="fa-regular fa-location-dot"></i><small class="text-muted"> @realEstate.Location.District, @realEstate.Location.Neighboord</small>
-                                </p>
+                                        @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Kat Sayısı"))
+                                        {
+                                            <small class="estate-property">| @(attributeValue.Value). Kat</small>
+                                        }
+                                        @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Bina Yaşı"))
+                                        {
+                                            if (int.TryParse(attributeValue.Value, out int age))
+                                            {
+                                                <small class="estate-property">| @(2024 - age) Yaşında</small>
+                                            }
+                                        }
+                                    </p>
+                                    <p class="card-text">
+                                        <i class="fa-regular fa-location-dot"></i><small class="text-muted"> @realEstate.Location.District, @realEstate.Location.Neighboord</small>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </a>
             }
         </div>

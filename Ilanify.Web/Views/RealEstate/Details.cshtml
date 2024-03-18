@@ -61,7 +61,9 @@
             <div class="detail-user-card">
                 <img src="/images/user.png" alt="Kullanıcı Resmi" class="detail-user-image" onerror="this.src='/images/no-image.webp'"/>
                 <h2 class="detail-user-name">@Model.ApplicationUser.FirstName @Model.ApplicationUser.LastName</h2>
-                <a class="detail-user-phone" href="tel:" data-phone-number="@Model.ApplicationUser.PhoneNumber">Telefonu Gör</a>
+                <a href="#" data-phone-number="@Model.ApplicationUser.PhoneNumber" class="detail-user-phone" onclick="showPhoneNumberAndEnableCall(this); return false;">
+                    <span class="phone-number">Telefonu Gör</span>
+                </a>
                 <div class="detail-actions">
                     <button class="action-button favorite">
                         <i class="fa fa-heart" aria-hidden="true"></i> Favorilere Ekle

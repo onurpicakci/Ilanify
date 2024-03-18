@@ -34,3 +34,30 @@ document.querySelector('.left-arrow').addEventListener('click', function () {
 document.querySelector('.right-arrow').addEventListener('click', function () {
     navigateMainImage(1);
 });
+
+function showPhoneNumberAndEnableCall(element) {
+    var phoneNumber = element.getAttribute('data-phone-number');
+    if (phoneNumber) {
+        element.innerHTML = phoneNumber;
+        element.classList.add('phone-number-visible');
+        element.setAttribute('href', '#');
+        element.removeEventListener('click', showPhoneNumberAndEnableCall);
+        element.addEventListener('click', makeCall);
+    } else {
+        console.error('Telefon numarası bulunamadı.');
+    }
+}
+
+function makeCall(event) {
+    var phoneNumber = this.getAttribute('data-phone-number');
+    if (phoneNumber) {
+        window.location.href = 'tel:' + phoneNumber;
+    } else {
+        console.error('Telefon numarası bulunamadı.');
+    }
+    event.preventDefault();
+}
+
+
+
+

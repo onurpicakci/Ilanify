@@ -311,9 +311,9 @@
 }
 
 .property-text{
-    background-color: #f7f7f7; /* Match the background color to the screenshot */
+    background-color: #f7f7f7; 
     padding: 10px;
-    border-radius: 5px; /* Match the border-radius to the screenshot */
-    margin-bottom: 10px; /* Adjust spacing between items */
+    border-radius: 5px;
+    margin-bottom: 10px; 
     width: calc(50% - 10px);
 }

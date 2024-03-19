@@ -149,6 +149,8 @@ body {
     border-radius: 50px;
     text-decoration: none;
     transition: 0.3s background-color;
+    margin-left: 10px;
+    position: relative;
 }
 
 .estate-button:hover {

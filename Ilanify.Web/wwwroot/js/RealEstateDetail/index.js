@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     var query = `${neighborhood}, ${district}, ${city}`;
 
-    $.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`, function(data) {
+    $.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`, function (data) {
         if (data.length > 0) {
             var lat = data[0].lat;
             var lon = data[0].lon;

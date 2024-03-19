@@ -6,6 +6,7 @@
 }
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="col-md-12 create-page">
         <div class="form-group">
             <label for="Title">Başlık</label>

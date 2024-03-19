@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Ilanify.Domain.Enums;
 
 namespace Ilanify.Domain.Entities;
@@ -5,9 +6,19 @@ namespace Ilanify.Domain.Entities;
 public class RealEstate
 {
     public int Id { get; set; }
+    
+    [Required]
+    [MaxLength(200)]
     public string Title { get; set; }
+    
+    [Required]
+    [MaxLength(1500)]
     public string Description { get; set; }
+    
+    [Required]
     public decimal Price { get; set; }
+    
+    [Required]
     public int? SquareMeters { get; set; }
     public DateTime ListingDate { get; set; }
     public DateTime? UpdatedDate { get; set; }

@@ -1,3 +1,7 @@
+@using Microsoft.AspNetCore.Identity
+@using Ilanify.Domain.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand me-auto" href="#">Logo</a>
@@ -23,8 +27,17 @@
                 </ul>
             </div>
         </div>
-        <a href="/Account/Login" class="estate-button m-2">Giriş Yap</a>
-        <a href="/RealEstate/Create" class="estate-button">Ücretsiz İlan Ver</a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a href="/Account/Profile" class="estate-button">Hesabım</a>
+            <a href="/RealEstate/Create" class="estate-button">İlan Ver</a>
+            <a href="/Account/Logout" class="estate-button">Çıkış Yap</a>
+        }
+        else
+        {
+            <a href="/Account/Login" class="estate-button">Giriş Yap</a>
+            <a href="/Account/Login" class="estate-button">İlan Ver</a>
+        }
         <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>

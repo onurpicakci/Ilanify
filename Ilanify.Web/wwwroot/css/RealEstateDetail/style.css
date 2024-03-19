@@ -15,7 +15,7 @@
 
 .detail-title {
     font-size: 1.8rem;
-    font-weight: bold;
+    font-weight: normal;
     color: #333;
     margin-bottom: 2rem;
 }
@@ -102,7 +102,7 @@
 
 .location-title {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: normal;
     color: #333;
     margin-bottom: 1rem;
 }
@@ -293,27 +293,57 @@
 }
 
 .property-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
     padding: 1rem;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-bottom: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .property-title {
-    font-size: 1.5rem;
-    font-weight: bold;
+    grid-column: 1 / -1;
+    font-size: 1.5rem; 
+    font-weight: normal; 
     color: #333;
     margin-bottom: 1rem;
 }
 
-.property-text{
-    background-color: #f7f7f7; 
+.property-text {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: #f7f7f7;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 10px; 
-    width: calc(50% - 10px);
+    margin-bottom: 10px;
+    font-weight: normal; 
+    font-size: 0.9rem; 
 }
+
+.property-text > strong {
+    margin-right: 0.5rem; 
+}
+
+.property-text > span {
+    text-align: right;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .property-card {
+        padding: 0.5rem;
+    }
+
+    .property-title {
+        font-size: 1rem;
+    }
+
+    .property-text {
+        padding: 8px;
+        font-size: 0.8rem; 
+    }
+}
+

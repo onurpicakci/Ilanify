@@ -45,12 +45,17 @@
             </div>
             <div class="property-card">
                 <p class="property-title">İlan Bilgileri</p>
-                <div class="row">
-                    @foreach (var attributeValue in Model.AttributeValues)
-                    {
-                        <p class="property-text">@attributeValue.CategoryAttribute.Name: @attributeValue.Value</p>
-                    }
-                </div>
+                <div class="property-text"><strong>İlan Numarası</strong> <span>@Model.Id</span></div>
+                <div class="property-text"><strong>İlan Oluşturma Tarihi</strong> <span>@Model.ListingDate.ToString("dd.MM.yyyy")</span></div>
+                <div class="property-text"><strong>İlan Kategorisi</strong> <span>@Model.Category.Name</span></div>
+                <div class="property-text"><strong>Türü</strong> <span>@Model.Type</span></div>
+                <div class="property-text"><strong>Metrekare</strong> <span>@Model.SquareMeters m²</span></div>
+                @foreach (var attributeValue in Model.AttributeValues)
+                {
+                    <div class="property-text">
+                        <strong>@attributeValue.CategoryAttribute.Name</strong> <span>@attributeValue.Value</span>
+                    </div>
+                }
             </div>
 
         </div>

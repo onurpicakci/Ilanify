@@ -10,6 +10,7 @@ public class RealEstate
     public decimal Price { get; set; }
     public int? SquareMeters { get; set; }
     public DateTime ListingDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
     public int LocationId { get; set; }
     public Location Location { get; set; }
     public int CategoryId { get; set; }

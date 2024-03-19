@@ -71,7 +71,7 @@ $(document).ready(function () {
                             case 2: // Number
                                 if(attr.name === "Oda Sayısı") {
                                     attributeHtml += '<select name="attributeValues[' + index + '].Value" class="form-control">';
-                                    attributeHtml += '<option value="">Seçiniz</option>'; // Varsayılan seçenek
+                                    attributeHtml += '<option value="">Seçiniz</option>'; 
                                     attributeHtml += '<option value="1+0">1+0</option>';
                                     attributeHtml += '<option value="1+1">1+1</option>';
                                     attributeHtml += '<option value="2+1">2+1</option>';
@@ -86,7 +86,14 @@ $(document).ready(function () {
                                 }
                                 break;
                             case 3: // Boolean
-                                attributeHtml += '<input type="checkbox" name="attributeValues[' + index + '].Value" class="form-check-input" />';
+                                attributeHtml +=  '<div class="btn-group btn-group-toggle" data-toggle="buttons">';
+                                attributeHtml +=  '<label class="btn btn-danger">';
+                                attributeHtml +=  '<input type="radio" name="attributeValues[' + index + '].Value" value="Evet"> Evet';
+                                attributeHtml +=  '</label>';
+                                attributeHtml +=  '<label class="btn btn-dark">';
+                                attributeHtml +=  '<input type="radio" name="attributeValues[' + index + '].Value" value="Hayır"> Hayır';
+                                attributeHtml +=  '</label>';
+                                attributeHtml +=  '</div>';
                                 break;
                             default:
                                 attributeHtml += '<input type="text" name="attributeValues[' + index + '].Value" class="form-control" />';

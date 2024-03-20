@@ -269,6 +269,51 @@ body {
     padding-bottom: 2rem;
 }
 
+.profile-page {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+}
+
+.leftbar {
+    width: 250px; 
+    background-color: #f8f9fa; 
+    margin-top: 20px; /
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+    border-radius: 4px;
+}
+
+.leftbar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.leftbar-menu li {
+    border-bottom: 1px solid #dee2e6; 
+}
+
+.leftbar-menu li:last-child {
+    border-bottom: none; 
+}
+
+.leftbar-menu li a {
+    display: block;
+    padding: 10px 15px; 
+    color: #c51b2e; 
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.leftbar-menu li a:hover {
+    background-color: #e2e6ea; 
+}
+
+.leftbar-menu li a.active {
+    font-weight: bold;
+    color: #495057; 
+}
+
+
 
 
 

@@ -5,30 +5,39 @@
     Layout = "_Layout";
 }
 
-<form asp-action="Profile" asp-controller="Account" method="post">
-    <div class="mb-3">
-        <label for="firstName" class="form-label">Adınız</label>
-        <input type="text" class="form-control" id="firstName" name="FirstName" value="@Model.FirstName">
+<div class="container  profile-page">
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("/Views/Default/_Leftbar.cshtml")
+        </div>
+        <div class="col-md-9">
+            <form asp-action="Profile" asp-controller="Account" method="post">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Adınız</label>
+                    <input type="text" class="form-control" id="firstName" name="FirstName" value="@Model.FirstName">
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Soyadınız</label>
+                    <input type="text" class="form-control" id="lastName" name="LastName" value="@Model.LastName">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-posta Adresiniz</label>
+                    <input type="email" class="form-control" id="email" name="Email" value="@Model.Email" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Telefon Numaranız</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Şifreniz</label>
+                    <input type="password" class="form-control" id="password" name="Password" placeholder="Yeni şifrenizi belirleyin">
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Şifrenizi Onaylayın</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" placeholder="Yeni şifrenizi tekrar girin">
+                </div>
+                <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
+            </form>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="lastName" class="form-label">Soyadınız</label>
-        <input type="text" class="form-control" id="lastName" name="LastName" value="@Model.LastName">
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">E-posta Adresiniz</label>
-        <input type="email" class="form-control" id="email" name="Email" value="@Model.Email" readonly>
-    </div>
-    <div class="mb-3">
-        <label for="phoneNumber" class="form-label">Telefon Numaranız</label>
-        <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Şifreniz</label>
-        <input type="password" class="form-control" id="password" name="Password" placeholder="Yeni şifrenizi belirleyin">
-    </div>
-    <div class="mb-3">
-        <label for="confirmPassword" class="form-label">Şifrenizi Onaylayın</label>
-        <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" placeholder="Yeni şifrenizi tekrar girin">
-    </div>
-    <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
-</form>
+</div> 

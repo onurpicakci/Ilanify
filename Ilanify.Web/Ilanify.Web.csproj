@@ -26,7 +26,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\images\" />
+      <Folder Include="wwwroot\images\cities\" />
+      <Folder Include="wwwroot\images\profile-pictures\" />
+      <Folder Include="wwwroot\images\real-estate-images\" />
     </ItemGroup>
 
 </Project>

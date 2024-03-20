@@ -16,7 +16,7 @@
                 <h1 class="detail-title">@Model.Title</h1>
                 <div class="main-image-container">
                     <button class="image-nav left-arrow" onclick="navigateMainImage(-1)">&#10094;</button>
-                    <img id="main-image" src="/images/@Model.Images.FirstOrDefault()?.ImageUrl" alt="İlan Resmi" class="detail-main-image"/>
+                    <img id="main-image" src="/images/real-estate-images/@Model.Images.FirstOrDefault()?.ImageUrl" alt="İlan Resmi" class="detail-main-image"/>
                     <button class="image-nav right-arrow" onclick="navigateMainImage(1)">&#10095;</button>
                 </div>
                 <div class="thumbnail-navigation">
@@ -24,7 +24,7 @@
                     <div class="thumbnails-wrapper">
                         @foreach (var image in Model.Images.Select((value, index) => new { value, index }))
                         {
-                            <img src="/images/@image.value.ImageUrl"
+                            <img src="/images/real-estate-images/@image.value.ImageUrl"
                                  alt="İlan Resmi"
                                  class="detail-thumbnail-image"
                                  data-index="@image.index"
@@ -59,7 +59,11 @@
                     </div>
                 }
             </div>
-
+            
+            <div class="description-card">
+                <p class="description-title">İlan Açıklaması</p>
+                <p class="description-text">@Model.Description</p>
+            </div>
         </div>
         <div class="col-md-3 p-lg-2">
             <div class="detail-price">@Model.Price.ToString("N1") TL</div>

@@ -23,7 +23,7 @@
                             <div class="col-md-4 mt-3 mb-3">
                                 @foreach (var image in realEstate.Images)
                                 {
-                                    <img src="/images/@image.ImageUrl" class="card-img" style="width:100%; height:auto;">
+                                    <img src="/images/real-estate-images/@image.ImageUrl" class="card-img" style="width:100%; height:auto;">
                                 }
                             </div>
                             <div class="col-md-8">
@@ -44,12 +44,12 @@
                                         {
                                             if (int.TryParse(attributeValue.Value, out int age))
                                             {
-                                                <small class="estate-property">| @(2024 - age) Yaşında</small>
+                                                <small class="estate-property">| @(DateTime.Now.Year - age) Yaşında</small>
                                             }
                                         }
                                     </p>
                                     <p class="card-text">
-                                        <i class="fa-regular fa-location-dot"></i><small class="text-muted"> @realEstate.Location.District, @realEstate.Location.Neighboord</small>
+                                        <i class="fa-regular fa-location-dot"></i><small class="text-muted location-info"> @realEstate.Location.District, @realEstate.Location.Neighboord</small>
                                     </p>
                                 </div>
                             </div>

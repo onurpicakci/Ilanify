@@ -347,3 +347,34 @@
     }
 }
 
+.description-card {
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.description-title {
+    font-size: 1.5rem; 
+    font-weight: normal; 
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.description-text {
+    font-size: 1rem; 
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .description-title {
+        font-size: 1.2rem;
+    }
+
+    .description-text {
+        font-size: 0.9rem; 
+    }
+}
+

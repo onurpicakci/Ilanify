@@ -26,17 +26,17 @@ public static class RealEstateQueryExtensions
         if (filter.MaxRooms.HasValue)
         {
             query = query.Where(re => re.AttributeValues
-                .Any(av => av.CategoryAttribute.Name == "Oda Sayısı" && int.Parse(av.Value) <= filter.MaxRooms.Value));
+                .Any(av => av.CategoryAttribute.Name == "Oda Sayısı" && int.Parse(av.Value.ToString()) <= filter.MaxRooms.Value));
         }
 
         if (filter.MinPrice.HasValue)
         {
-            query = query.Where(re => re.Price >= filter.MinPrice);
+            query = query.Where(re => re.Price > filter.MinPrice || re.Price == filter.MinPrice);
         }
 
         if (filter.MaxPrice.HasValue)
         {
-            query = query.Where(re => re.Price <= filter.MaxPrice);
+            query = query.Where(re => re.Price < filter.MaxPrice || re.Price == filter.MaxPrice);
         }
 
         return query;

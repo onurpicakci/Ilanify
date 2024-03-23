@@ -1,6 +1,7 @@
 using Ilanify.DataAccess.Context;
 using Ilanify.DataAccess.Dtos;
 using Ilanify.DataAccess.EntityFramework;
+using Ilanify.DataAccess.Extensions;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -74,5 +75,21 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
         }
         
         return realEstate;
+    }
+
+    public async Task<IEnumerable<RealEstate>> GetRealEstatesByFilterAsync(RealEstateFilter filter)
+    {
+        var query = _context.RealEstates
+            .Include(re => re.Location)
+            .Include(re => re.Category)
+                .ThenInclude(c => c.CategoryAttributes)
+            .Include(re => re.ApplicationUser)
+            .Include(re => re.AttributeValues)
+            .Include(re => re.Images)
+            .AsQueryable();
+        
+        query = query.ApplyFilter(filter);
+
+        return await query.ToListAsync();
     }
 }

@@ -20,6 +20,7 @@ public class RealEstate
     
     [Required]
     public int? SquareMeters { get; set; }
+    
     public DateTime ListingDate { get; set; }
     public DateTime? UpdatedDate { get; set; }
     public int LocationId { get; set; }

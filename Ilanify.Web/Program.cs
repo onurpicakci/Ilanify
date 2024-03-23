@@ -22,6 +22,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<IlanifyDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddControllers().AddJsonOptions(x => 
+    x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

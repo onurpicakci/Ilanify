@@ -7,11 +7,41 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    Filtreleme Seçenekleri
+                    <form id="filtersForm">
+                        <div class="form-group">
+                            <label for="categoryId">Category</label>
+                            <select class="form-control" id="categoryId" name="categoryId">
+                                <option value="">Select Category</option>
+                                <option value="1">Apartment</option>
+                                <option value="2">House</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" name="city">
+                        </div>
+                        <div class="form-group">
+                            <label for="minRooms">Min Rooms</label>
+                            <input type="number" class="form-control" id="minRooms" name="minRooms">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxRooms">Max Rooms</label>
+                            <input type="number" class="form-control" id="maxRooms" name="maxRooms">
+                        </div>
+                        <div class="form-group">
+                            <label for="minPrice">Min Price</label>
+                            <input type="text" class="form-control" id="minPrice" name="minPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxPrice">Max Price</label>
+                            <input type="text" class="form-control" id="maxPrice" name="maxPrice">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" id="realEstateContainer">
             @foreach (var realEstate in Model)
             {
                 <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="text-decoration-none">
@@ -44,7 +74,7 @@
                                         {
                                             if (int.TryParse(attributeValue.Value, out int age))
                                             {
-                                                <small class="estate-property">| @(DateTime.Now.Year - age) Yaşında</small>
+                                                <small class="estate-property">| @(DateTime.Now.Year - age) Yıllık</small>
                                             }
                                         }
                                     </p>

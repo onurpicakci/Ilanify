@@ -1,3 +1,4 @@
+using Ilanify.Application.Interfaces;
 using Ilanify.Domain.Entities;
 using Ilanify.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -9,11 +10,13 @@ namespace Ilanify.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IRealEstateService _realEstateService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRealEstateService realEstateService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _realEstateService = realEstateService;
         }
 
         [HttpGet]
@@ -94,7 +97,8 @@ namespace Ilanify.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                ProfileImageUrl = user.ProfileImageUrl
             };
             return View(model);
         }
@@ -107,15 +111,31 @@ namespace Ilanify.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.Email = model.Email;
                 user.PhoneNumber = model.PhoneNumber;
-                user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.Password);
+
+                if (!string.IsNullOrWhiteSpace(model.Password) && model.Password == model.ConfirmPassword)
+                {
+                    user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.Password);
+                }
+
+                if (model.ProfileImage != null && model.ProfileImage.Length > 0)
+                {
+                    var fileName = Path.GetFileName(model.ProfileImage.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profile-pictures",
+                        fileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.ProfileImage.CopyToAsync(fileStream);
+                    }
+
+                    user.ProfileImageUrl = fileName;
+                }
 
                 var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Logout", "Account");
+                    return RedirectToAction("Index", "RealEstate");
                 }
 
                 foreach (var error in result.Errors)
@@ -125,6 +145,15 @@ namespace Ilanify.Controllers
             }
 
             return View(model);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> RealEstates()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var realEstates = await _realEstateService.GetRealEstatesByUserIdAsync(user.Id);
+            
+            return View(realEstates);
         }
     }
 }

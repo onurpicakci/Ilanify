@@ -5,39 +5,60 @@
     Layout = "_Layout";
 }
 
-<div class="container  profile-page">
+<div class="container profile-page my-4">
     <div class="row">
         <div class="col-md-3">
             @Html.Partial("/Views/Default/_Leftbar.cshtml")
         </div>
         <div class="col-md-9">
-            <form asp-action="Profile" asp-controller="Account" method="post">
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">Adınız</label>
-                    <input type="text" class="form-control" id="firstName" name="FirstName" value="@Model.FirstName">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Profile" asp-controller="Account" method="post" enctype="multipart/form-data">
+                        <div class="text-center mb-4">
+                            <div class="profile-photo-container">
+                                @if (Model.ProfileImageUrl != null)
+                                {
+                                    <img src="@Url.Content("~/images/profile-pictures/" + Model.ProfileImageUrl)" class="" alt="Profil Fotoğrafı" width="140" height="140"/>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-user-circle fa-6x"></i>
+                                }
+                                <br>
+                                <label for="ProfileImage" class="btn btn-outline-primary mt-2">Fotoğraf Yükle</label>
+                                <input type="file" name="ProfileImage" id="ProfileImage" style="display: none;" onchange="onFileSelected(event)">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Adınız</label>
+                            <input type="text" class="form-control" id="firstName" name="FirstName" value="@Model.FirstName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Soyadınız</label>
+                            <input type="text" class="form-control" id="lastName" name="LastName" value="@Model.LastName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-posta Adresiniz</label>
+                            <input type="email" class="form-control" id="email" name="Email" value="@Model.Email" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Telefon Numaranız</label>
+                            <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Şifreniz (değiştirmek istemiyorsanız boş bırakın)</label>
+                            <input type="password" class="form-control" id="password" name="Password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Şifrenizi Onaylayın</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Soyadınız</label>
-                    <input type="text" class="form-control" id="lastName" name="LastName" value="@Model.LastName">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">E-posta Adresiniz</label>
-                    <input type="email" class="form-control" id="email" name="Email" value="@Model.Email" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="phoneNumber" class="form-label">Telefon Numaranız</label>
-                    <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Şifreniz</label>
-                    <input type="password" class="form-control" id="password" name="Password" placeholder="Yeni şifrenizi belirleyin">
-                </div>
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Şifrenizi Onaylayın</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" placeholder="Yeni şifrenizi tekrar girin">
-                </div>
-                <button type="submit" class="btn btn-primary">Bilgileri Güncelle</button>
-            </form>
+            </div>
         </div>
     </div>
-</div> 
+</div>

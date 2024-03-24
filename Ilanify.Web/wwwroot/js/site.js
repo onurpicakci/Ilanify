@@ -10,6 +10,20 @@ window.addEventListener("scroll", function () {
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 }, false);
 
+function onFileSelected(event) {
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+
+    var imgtag = document.querySelector(".profile-photo-container img");
+    imgtag.title = selectedFile.name;
+
+    reader.onload = function(event) {
+        imgtag.src = event.target.result;
+    };
+
+    reader.readAsDataURL(selectedFile);
+}
+
 $(document).ready(function () {
     $('#filtersForm').submit(function (e) {
         e.preventDefault();

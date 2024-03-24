@@ -1,6 +1,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Ilanify.Domain.Entities
 @inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
@@ -29,7 +30,13 @@
         </div>
         @if (SignInManager.IsSignedIn(User))
         {
-            <a href="/Account/Profile" class="estate-button">Hesabım</a>
+            <a href="/Account/Profile" class="estate-button">
+                @{
+                    var user = UserManager.Users.FirstOrDefault(u => u.Id == UserManager.GetUserId(User));
+                    var abbreviatedName = $"{user.FirstName} {user.LastName.Substring(0, 1)}.";
+                }
+                @abbreviatedName
+            </a>
             <a href="/RealEstate/Create" class="estate-button">İlan Ver</a>
             <a href="/Account/Logout" class="estate-button">Çıkış Yap</a>
         }

@@ -81,7 +81,7 @@
                 <small class="text-muted">@Model.ListingDate.ToString("dd.MM.yyyy")</small>
             </div>
             <div class="detail-user-card">
-                <img src="/images/user.png" alt="Kullanıcı Resmi" class="detail-user-image" onerror="this.src='/images/no-image.webp'"/>
+                <img src="/images/profile-pictures/@Model.ApplicationUser.ProfileImageUrl" alt="Kullanıcı Resmi" class="detail-user-image" onerror="this.src='/images/no-image.webp'"/>
                 <h2 class="detail-user-name">@Model.ApplicationUser.FirstName @Model.ApplicationUser.LastName</h2>
                 <a href="#" data-phone-number="@Model.ApplicationUser.PhoneNumber" class="detail-user-phone" onclick="showPhoneNumberAndEnableCall(this); return false;">
                     <span class="phone-number">Telefonu Gör</span>

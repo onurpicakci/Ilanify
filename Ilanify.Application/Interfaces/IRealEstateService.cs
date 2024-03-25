@@ -11,7 +11,7 @@ public interface IRealEstateService
     Task<IEnumerable<RealEstate>> GetRealEstatesByLocationAsync(string location);
     Task<RealEstate> GetRealEstateByIdWithDetailsAsync(int realEstateId);
     Task<IEnumerable<RealEstate>> GetRealEstatesByFilterAsync(RealEstateFilter filter);
-    Task<IEnumerable<RealEstate>> GetRealEstatesByUserIdAsync(string userId);
+    Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId);
     Task<RealEstate> GetByIdAsync(int id);
     Task<IEnumerable<RealEstate>> GetAllAsync();
     Task AddAsync(RealEstate entity);

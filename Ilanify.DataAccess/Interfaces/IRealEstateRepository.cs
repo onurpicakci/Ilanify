@@ -11,5 +11,5 @@ public interface IRealEstateRepository : IRepository<RealEstate>
     Task<IEnumerable<RealEstate>> GetRealEstatesByLocationAsync(string location);
     Task<RealEstate> GetRealEstateByIdWithDetailsAsync(int realEstateId); 
     Task<IEnumerable<RealEstate>> GetRealEstatesByFilterAsync(RealEstateFilter filter);
-    Task<IEnumerable<RealEstate>> GetRealEstatesByUserIdAsync(string userId);
+    Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId);
 }

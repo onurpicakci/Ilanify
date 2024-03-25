@@ -1,7 +1,13 @@
 <div class="card leftbar">
     <ul class="list-group list-group-flush leftbar-menu">
         <li class="list-group-item"><a href="/Account/Profile" class="leftbar-link active">Profil</a></li>
-        <li class="list-group-item"><a href="/Account/RealEstates" class="leftbar-link">İlanlarım</a></li>
+        <li class="list-group-item submenu-parent">
+            <a href="#" class="leftbar-link">İlanlarım</a>
+            <ul class="submenu">
+                <li><a href="/Account/RealEstates" class="leftbar-link">Aktif İlanlarım</a></li>
+                <li><a href="/Account/InactiveRealEstates" class="leftbar-link">Pasif İlanlarım</a></li>
+            </ul>
+        </li>
         <li class="list-group-item"><a href="/Account/Logout" class="leftbar-link">Çıkış Yap</a></li>
     </ul>
 </div>

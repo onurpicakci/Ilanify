@@ -5,12 +5,12 @@
     Layout = "_Layout";
 }
 
-<div class="container profile-page my-4">
+<div class="container profile-page">
     <div class="row">
         <div class="col-md-3">
             @Html.Partial("/Views/Default/_Leftbar.cshtml")
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
                     <form asp-action="Profile" asp-controller="Account" method="post" enctype="multipart/form-data">

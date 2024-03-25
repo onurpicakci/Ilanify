@@ -97,13 +97,14 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
         return await query.ToListAsync();
     }
 
-    public async Task<IEnumerable<RealEstate>> GetRealEstatesByUserIdAsync(string userId)
+    public async Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId)
     {
         return await _context.RealEstates
             .Include(re => re.Location)
             .Include(re => re.Category)
             .Include(re => re.Images)
             .Where(re => re.ApplicationUserId == userId)
+            .Where(re => re.IsActive == true)
             .ToListAsync();
     }
 }

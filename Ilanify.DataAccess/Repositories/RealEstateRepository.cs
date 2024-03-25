@@ -21,6 +21,7 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
     {
         return await _context.RealEstates
             .Where(re => re.CategoryId == categoryId)
+            .Where(re => re.IsActive == true)
             .ToListAsync();
     }
 
@@ -33,6 +34,7 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
     public async Task<IEnumerable<CityRealEstateCount>> GetTop4CitiesByRealEstateCountAsync()
     {
         return await _context.RealEstates
+            .Where(x => x.IsActive == true)
             .Include(re => re.Location)
             .GroupBy(re => re.Location.City)
             .Select(group => new CityRealEstateCount 
@@ -54,6 +56,7 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
             .ThenInclude(av => av.CategoryAttribute)
             .Include(re => re.Images.OrderBy(i => i.Id).Take(1)) // Images tablosundan ilk veriyi al
             .Where(re => re.Location.City == location)
+            .Where(re => re.IsActive == true)
             .ToListAsync();
     }
 
@@ -80,6 +83,7 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
     public async Task<IEnumerable<RealEstate>> GetRealEstatesByFilterAsync(RealEstateFilter filter)
     {
         var query = _context.RealEstates
+            .Where(re => re.IsActive == true)
             .Include(re => re.Location)
             .Include(re => re.Category)
                 .ThenInclude(c => c.CategoryAttributes)

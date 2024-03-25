@@ -32,5 +32,6 @@ public class RealEstate
     public List<RealEstateImage> Images { get; set; }
     public RealEstateType Type { get; set; }
     public List<AttributeValue> AttributeValues { get; set; } 
+    public bool IsActive { get; set; }
 }
 

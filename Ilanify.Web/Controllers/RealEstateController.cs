@@ -46,6 +46,7 @@ public class RealEstateController : Controller
 
         realEstate.ApplicationUserId = loggedUser.Id;
         realEstate.ListingDate = DateTime.Today;
+        realEstate.IsActive = true;
 
         await _realEstateService.AddAsync(realEstate);
 

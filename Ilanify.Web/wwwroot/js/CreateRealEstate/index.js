@@ -60,10 +60,9 @@ $(document).ready(function () {
                 success: function (data) {
                     var attributesContainer = $('#categoryAttributes');
                     attributesContainer.empty();
-                    $.each(data, function (index, attr) {
+                    $.each(data.$values, function (index, attr) {
                         var attributeHtml = '<div class="form-group">';
                         attributeHtml += '<label>' + attr.name + '</label>';
-
                         switch(attr.dataType) {
                             case 1: // Text
                                 attributeHtml += '<input type="text" name="attributeValues[' + index + '].Value" class="form-control" />';

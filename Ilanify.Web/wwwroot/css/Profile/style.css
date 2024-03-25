@@ -1,8 +1,84 @@
-.my-estate-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #007bff;
-    position: absolute;
-    margin-top: 10px;
+.my-listings {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+}
+.my-listings .card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
 }
 
+.my-listings .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.my-listings .card-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.my-listings .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile-estate-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.profile-estate-text {
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #c51b2e;
+    top: 0;
+    margin-left: 29rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-custom {
+    margin-left: 28rem;
+    position: absolute;
+    width: 90px;
+    height: 28px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #c51b2e;
+    border: none;
+    bottom: 0;
+    margin-bottom: 0.5rem;
+}
+
+.btn-custom:hover {
+    background-color: #a6172b;
+}
+
+.btn-primary{
+    background-color: #c51b2e;
+    color: #fff;
+    border-color: #c51b2e;
+}
+
+.btn-primary:hover{
+    background-color: #a6172b;
+    border-color: #a6172b;
+}
+
+.btn-outline-primary{
+    color: #c51b2e;
+    border-color: #c51b2e;
+}
+
+.btn-outline-primary:hover{
+    color: #fff;
+    background-color: #c51b2e;
+}

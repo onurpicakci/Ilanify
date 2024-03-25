@@ -6,36 +6,36 @@
     Layout = "_Layout";
 }
 
-<div class="container mt-4 profile-page">
+<div class="container my-listings">
     <div class="row">
         <div class="col-md-3">
             @Html.Partial("/Views/Default/_Leftbar.cshtml")
         </div>
-        <div class="col-md-9">
-            <div class="list-group">
-                @foreach (var realEstate in Model)
-                {
-                    <div class="list-group-item">
-                        <div class="row align-items-center">
-                            <div class="col-md-3 position-absolute">
-                                @foreach (var image in realEstate.Images.Take(1))
-                                {
-                                    <img src="@Url.Content($"~/images/real-estate-images/{image.ImageUrl}")" class="img-thumbnail" alt="@realEstate.Title" style="width: 100px; height: 75px; object-fit: cover;">
-                                }
-                            </div>
-                            <div class="col-md-9">
-                                <h6 class="my-estate-title">@realEstate.Title</h6>
-                                <small class="d-block text-muted">@realEstate.Category.Name - @realEstate.Location.District/@realEstate.Location.Neighboord</small>
-                                <small class="text-muted">@realEstate.ListingDate.ToString("dd.MM.yyyy")</small>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <small class="text-muted my-estate-price">@realEstate.Price.ToString("C")</small>
-                                    <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="btn btn-primary">Detaylar</a>
+        <div class="col-md-8">
+            @foreach (var realEstate in Model)
+            {
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-3">
+                            @foreach (var image in realEstate.Images.Take(1))
+                            {
+                                <img src="@Url.Content($"~/images/real-estate-images/{image.ImageUrl}")" class="card-img" alt="@realEstate.Title">
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="profile-estate-title">@realEstate.Title</h5>
+                                <p class="profile-estate-text mt-2">@realEstate.Type @realEstate.Category.Name - @realEstate.Location.District / @realEstate.Location.Neighboord</p>
+                                <p class="profile-estate-text">Yayınlanma Tarihi: @realEstate.ListingDate.ToString("dd.MM.yyyy")</p>
+                                <div class="position-absolute">
+                                    <span class="price">@realEstate.Price.ToString("N1") TL</span>
                                 </div>
+                                <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="btn btn-custom">Detaylar</a>
                             </div>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
 </div>

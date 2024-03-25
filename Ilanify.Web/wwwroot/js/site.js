@@ -17,7 +17,7 @@ function onFileSelected(event) {
     var imgtag = document.querySelector(".profile-photo-container img");
     imgtag.title = selectedFile.name;
 
-    reader.onload = function(event) {
+    reader.onload = function (event) {
         imgtag.src = event.target.result;
     };
 
@@ -62,7 +62,10 @@ $(document).ready(function () {
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="estate-price">${realEstate.price.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} TL</h5>
+                                            <h5 class="estate-price">${realEstate.price.toLocaleString('tr-TR', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1
+                    })} TL</h5>
                                             <p class="estate-title">${realEstate.title}</p>
                                             <p class="card-text">
                                                 <small class="estate-property">${realEstate.type === 1 ? "Satılık" : "Kiralık"} ${realEstate.category.name} | ${realEstate.squareMeters} m²`;

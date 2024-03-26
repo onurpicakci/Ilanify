@@ -86,16 +86,17 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
             .Where(re => re.IsActive == true)
             .Include(re => re.Location)
             .Include(re => re.Category)
-                .ThenInclude(c => c.CategoryAttributes)
+            .ThenInclude(c => c.CategoryAttributes)
             .Include(re => re.ApplicationUser)
             .Include(re => re.AttributeValues)
             .Include(re => re.Images)
             .AsQueryable();
-        
+    
         query = query.ApplyFilter(filter);
 
         return await query.ToListAsync();
     }
+
 
     public async Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId)
     {

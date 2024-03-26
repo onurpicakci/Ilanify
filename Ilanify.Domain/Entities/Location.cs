@@ -13,6 +13,6 @@ public class Location
     public string District { get; set; }
     
     [Required]
-    public string Neighboord { get; set; }
+    public string Neighborhood { get; set; }
     public List<RealEstate> RealEstates { get; set; }
 }

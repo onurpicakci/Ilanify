@@ -29,12 +29,15 @@ $(document).ready(function () {
         e.preventDefault();
 
         var formData = {
-            city: $('#city').val(),
+            city: $('#city').val() || null,
+            district: $('#district').val() || null,
+            neighborhood: $('#neighborhood').val() || null,
             categoryId: parseInt($('#categoryId').val()) || null,
             minPrice: parseFloat($('#minPrice').val()) || null,
             maxPrice: parseFloat($('#maxPrice').val()) || null,
-            minRooms: parseInt($('#minRooms').val()) || null,
-            maxRooms: parseInt($('#maxRooms').val()) || null
+            roomCount: ($('#roomCount').val()) || null,
+            minSquareMeters: parseFloat($('#minSquareMeters').val()) || null,
+            maxSquareMeters: parseFloat($('#maxSquareMeters').val()) || null,
         };
 
         $.ajax({
@@ -91,7 +94,7 @@ $(document).ready(function () {
                                             </p>
                                             <p class="card-text">
                                                 <i class="fa-regular fa-location-dot"></i>
-                                                <small class="text-muted location-info"> ${realEstate.location.district}, ${realEstate.location.neighboord}</small>
+                                                <small class="text-muted location-info"> ${realEstate.location.district}, ${realEstate.location.neighborhood}</small>
                                             </p>
                                         </div>
                                     </div>
@@ -108,15 +111,3 @@ $(document).ready(function () {
         });
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-

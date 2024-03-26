@@ -17,16 +17,20 @@ public static class RealEstateQueryExtensions
             query = query.Where(re => re.Location.City == filter.City);
         }
 
-        if (filter.MinRooms.HasValue)
+        if (!string.IsNullOrEmpty(filter.District))
         {
-            query = query.Where(re => re.AttributeValues
-                .Any(av => av.CategoryAttribute.Name == "Oda Sayısı" && int.Parse(av.Value) >= filter.MinRooms.Value));
+            query = query.Where(re => re.Location.District == filter.District);
+        }
+        
+        if (!string.IsNullOrEmpty(filter.Neighborhood))
+        {
+            query = query.Where(re => re.Location.Neighborhood == filter.Neighborhood);
         }
 
-        if (filter.MaxRooms.HasValue)
+        if (!string.IsNullOrEmpty(filter.RoomCount))
         {
             query = query.Where(re => re.AttributeValues
-                .Any(av => av.CategoryAttribute.Name == "Oda Sayısı" && int.Parse(av.Value.ToString()) <= filter.MaxRooms.Value));
+                .Any(av => av.CategoryAttribute.Name == "Oda Sayısı" && av.Value == filter.RoomCount));    
         }
 
         if (filter.MinPrice.HasValue)
@@ -38,7 +42,17 @@ public static class RealEstateQueryExtensions
         {
             query = query.Where(re => re.Price < filter.MaxPrice || re.Price == filter.MaxPrice);
         }
-
+        
+        if (filter.MinSquareMeters.HasValue)
+        {
+            query = query.Where(re => re.SquareMeters > filter.MinSquareMeters || re.SquareMeters == filter.MinSquareMeters);
+        }
+        
+        if (filter.MaxSquareMeters.HasValue)
+        {
+            query = query.Where(re => re.SquareMeters < filter.MaxSquareMeters || re.SquareMeters == filter.MaxSquareMeters);
+        }
+        
         return query;
     }
 }

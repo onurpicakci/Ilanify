@@ -19,15 +19,25 @@
                         </div>
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input type="text" class="form-control" id="city" name="city">
+                            <input type="text" class="form-control" id="city" name="city" value="@ViewBag.City">
                         </div>
                         <div class="form-group">
-                            <label for="minRooms">Min Rooms</label>
-                            <input type="number" class="form-control" id="minRooms" name="minRooms">
+                            <label for="district">District</label>
+                            <input type="text" class="form-control" id="district" name="district">
                         </div>
                         <div class="form-group">
-                            <label for="maxRooms">Max Rooms</label>
-                            <input type="number" class="form-control" id="maxRooms" name="maxRooms">
+                            <label for="neighborhood">Neighboord</label>
+                            <input type="text" class="form-control" id="neighborhood" name="neighborhood">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomCount">Room Count</label>
+                            <select class="form-control" id="roomCount" name="roomCount">
+                                <option value="">Select Room Count</option>
+                                <option value="1+0">1+0</option><option value="1+1">1+1</option>
+                                <option value="2+1">2+1</option><option value="3+1">3+1</option>
+                                <option value="4+1">4+1</option><option value="5+1">5+1</option>
+                                <option value="6+1">6+1</option><option value="7+1">7+1</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="minPrice">Min Price</label>
@@ -36,6 +46,14 @@
                         <div class="form-group">
                             <label for="maxPrice">Max Price</label>
                             <input type="text" class="form-control" id="maxPrice" name="maxPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="minSquareMeters">Min Square Meters</label>
+                            <input type="text" class="form-control" id="minSquareMeters" name="minSquareMeters">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxSquareMeters">Max Square Meters</label>
+                            <input type="text" class="form-control" id="maxSquareMeters" name="maxSquareMeters">
                         </div>
                         <button type="submit" class="btn btn-primary">Apply Filters</button>
                     </form>
@@ -80,7 +98,7 @@
                                         }
                                     </p>
                                     <p class="card-text">
-                                        <i class="fa-regular fa-location-dot"></i><small class="text-muted location-info"> @realEstate.Location.District, @realEstate.Location.Neighboord</small>
+                                        <i class="fa-regular fa-location-dot"></i><small class="text-muted location-info"> @realEstate.Location.District, @realEstate.Location.Neighborhood</small>
                                     </p>
                                 </div>
                             </div>

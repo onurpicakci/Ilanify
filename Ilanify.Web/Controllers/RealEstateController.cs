@@ -105,6 +105,7 @@ public class RealEstateController : Controller
     public async Task<IActionResult> ListRealEstatesByLocation(string location)
     {
         var realEstates = await _realEstateService.GetRealEstatesByLocationAsync(location);
+        ViewBag.City = location;
         return View(realEstates);
     }
 

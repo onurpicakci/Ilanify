@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Api\" />
       <Folder Include="wwwroot\images\profile-pictures\" />
       <Folder Include="wwwroot\images\real-estate-images\" />
     </ItemGroup>

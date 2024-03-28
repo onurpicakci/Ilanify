@@ -1,55 +1,56 @@
 $(document).ready(function () {
     function loadCities() {
         $.ajax({
-            url: 'http://api.geonames.org/searchJSON?country=TR&featureClass=P&maxRows=81&username=onurpicakci',
+            url: 'https://turkiyeapi.dev/api/v1/provinces',
             type: 'GET',
-            success: function (data) {
+            success: function (response) {
                 var citySelect = $('#citySelect');
                 citySelect.empty();
                 citySelect.append('<option value="">Şehir Seçiniz</option>');
-                $.each(data.geonames, function (index, city) {
-                    citySelect.append('<option value="' + city.name + '" data-code="' + city.adminCodes1.ISO3166_2 + '">' + city.name + '</option>');
+                $.each(response.data, function (index, city) {
+                    citySelect.append('<option value="' + city.name + '">' + city.name + '</option>');
                 });
             }
         });
     }
 
-    window.loadDistricts = function() {
-        var selectedCityCode = $("#citySelect option:selected").attr('data-code');
-        if (selectedCityCode) {
+    window.loadDistricts = function () {
+        var cityName = $("#citySelect").val();
+        if (cityName) {
             $.ajax({
-                url: `http://api.geonames.org/searchJSON?country=TR&featureClass=A&maxRows=500&adminCode1=${selectedCityCode}&username=onurpicakci`,
+                url: `https://turkiyeapi.dev/api/v1/provinces?name=${cityName}`,
                 type: 'GET',
-                success: function (data) {
+                success: function (response) {
                     var districtSelect = $('#districtSelect');
                     districtSelect.empty();
                     districtSelect.append('<option value="">İlçe Seçiniz</option>');
-                    $.each(data.geonames, function (index, district) {
-                        districtSelect.append('<option value="' + district.name + '">' + district.name + '</option>');
+                    $.each(response.data[0].districts, function (index, district) {
+                        districtSelect.append('<option value="' + district.name + '" data-id="'+ district.id +'">' + district.name + '</option>');
                     });
                 }
             });
         }
     }
 
+
     function loadNeighborhoods() {
-        var selectedCity = $('#citySelect').val();
-        var selectedDistrict = $('#districtSelect').val();
-        if (selectedCity && selectedDistrict) {
+        var districtId = $('#districtSelect option:selected').data('id');
+        if (districtId) {
             $.ajax({
-                url: 'http://api.geonames.org/searchJSON?country=TR&featureClass=L&maxRows=500&adminCode1=' + selectedCity + '&adminCode2=' + selectedDistrict + '&username=onurpicakci',
+                url: `https://turkiyeapi.dev/api/v1/districts/${districtId}`,
                 type: 'GET',
-                success: function (data) {
+                success: function (response) {
                     var neighborhoodSelect = $('#neighborhoodSelect');
                     neighborhoodSelect.empty();
                     neighborhoodSelect.append('<option value="">Mahalle Seçiniz</option>');
-                    $.each(data.geonames, function (index, neighborhood) {
+                    $.each(response.data.neighborhoods, function (index, neighborhood) {
                         neighborhoodSelect.append('<option value="' + neighborhood.name + '">' + neighborhood.name + '</option>');
                     });
                 }
             });
         }
     }
+
 
     function loadCategoryAttributes() {
         var categoryId = $('#categorySelect').val();
@@ -63,14 +64,14 @@ $(document).ready(function () {
                     $.each(data.$values, function (index, attr) {
                         var attributeHtml = '<div class="form-group">';
                         attributeHtml += '<label>' + attr.name + '</label>';
-                        switch(attr.dataType) {
+                        switch (attr.dataType) {
                             case 1: // Text
                                 attributeHtml += '<input type="text" name="attributeValues[' + index + '].Value" class="form-control" />';
                                 break;
                             case 2: // Number
-                                if(attr.name === "Oda Sayısı") {
+                                if (attr.name === "Oda Sayısı") {
                                     attributeHtml += '<select name="attributeValues[' + index + '].Value" class="form-control">';
-                                    attributeHtml += '<option value="">Seçiniz</option>'; 
+                                    attributeHtml += '<option value="">Seçiniz</option>';
                                     attributeHtml += '<option value="1+0">1+0</option>';
                                     attributeHtml += '<option value="1+1">1+1</option>';
                                     attributeHtml += '<option value="2+1">2+1</option>';
@@ -85,14 +86,14 @@ $(document).ready(function () {
                                 }
                                 break;
                             case 3: // Boolean
-                                attributeHtml +=  '<div class="btn-group btn-group-toggle" data-toggle="buttons">';
-                                attributeHtml +=  '<label class="btn btn-danger">';
-                                attributeHtml +=  '<input type="radio" name="attributeValues[' + index + '].Value" value="Evet"> Evet';
-                                attributeHtml +=  '</label>';
-                                attributeHtml +=  '<label class="btn btn-dark">';
-                                attributeHtml +=  '<input type="radio" name="attributeValues[' + index + '].Value" value="Hayır"> Hayır';
-                                attributeHtml +=  '</label>';
-                                attributeHtml +=  '</div>';
+                                attributeHtml += '<div class="btn-group btn-group-toggle" data-toggle="buttons">';
+                                attributeHtml += '<label class="btn btn-danger">';
+                                attributeHtml += '<input type="radio" name="attributeValues[' + index + '].Value" value="Evet"> Evet';
+                                attributeHtml += '</label>';
+                                attributeHtml += '<label class="btn btn-dark">';
+                                attributeHtml += '<input type="radio" name="attributeValues[' + index + '].Value" value="Hayır"> Hayır';
+                                attributeHtml += '</label>';
+                                attributeHtml += '</div>';
                                 break;
                             default:
                                 attributeHtml += '<input type="text" name="attributeValues[' + index + '].Value" class="form-control" />';
@@ -128,9 +129,9 @@ $(document).ready(function () {
     loadCities();
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector("form").addEventListener("submit", function() {
-        document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("form").addEventListener("submit", function () {
+        document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
             if (checkbox.checked) {
                 checkbox.value = "true";
             } else {

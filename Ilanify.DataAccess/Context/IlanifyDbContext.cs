@@ -18,9 +18,7 @@ namespace Ilanify.DataAccess.Context
         public DbSet<RealEstateImage> RealEstateImages { get; set; }
         public DbSet<CategoryAttribute> CategoryAttributes { get; set; }
         public DbSet<AttributeValue> AttributeValues { get; set; }
-
-  
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

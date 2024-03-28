@@ -17,7 +17,7 @@ public class RealEstate
     
     [Required]
     public decimal Price { get; set; }
-    
+     
     [Required]
     public int? SquareMeters { get; set; }
     
@@ -34,4 +34,3 @@ public class RealEstate
     public List<AttributeValue> AttributeValues { get; set; } 
     public bool IsActive { get; set; }
 }
-

@@ -42,7 +42,9 @@
         </div>
         <div class="form-group">
             <label for="Location.Neighborhood">Mahalle</label>
-            <input id="neighborhoodInput" asp-for="Location.Neighborhood" class="form-control" placeholder="Mahalle giriniz">
+            <select id="neighborhoodSelect" asp-for="Location.Neighborhood" class="form-control">
+            <option value="">Mahalle Seçiniz</option>
+            </select>
         </div>
 
         <div class="form-group">

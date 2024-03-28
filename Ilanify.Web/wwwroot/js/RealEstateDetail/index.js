@@ -75,8 +75,8 @@ $(document).ready(function () {
 
     $.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`, function (data) {
         if (data.length > 0) {
-            var lat = data[0].lat;
-            var lon = data[0].lon;
+            var lat = parseFloat(data[0].lat);
+            var lon = parseFloat(data[0].lon);
 
             var map = L.map('map').setView([lat, lon], 13);
 
@@ -92,4 +92,5 @@ $(document).ready(function () {
         }
     });
 });
+
 

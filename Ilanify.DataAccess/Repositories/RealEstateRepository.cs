@@ -54,7 +54,7 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
             .Include(re => re.Category)
             .Include(re => re.AttributeValues) 
             .ThenInclude(av => av.CategoryAttribute)
-            .Include(re => re.Images.OrderBy(i => i.Id).Take(1)) // Images tablosundan ilk veriyi al
+            .Include(re => re.Images.OrderBy(i => i.Id).Take(1))
             .Where(re => re.Location.City == location)
             .Where(re => re.IsActive == true)
             .ToListAsync();

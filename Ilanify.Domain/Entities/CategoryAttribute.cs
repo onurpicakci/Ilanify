@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Ilanify.Domain.Enums;
 
 namespace Ilanify.Domain.Entities;

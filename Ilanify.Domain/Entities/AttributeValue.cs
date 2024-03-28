@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Ilanify.Domain.Entities;
 
 public class AttributeValue

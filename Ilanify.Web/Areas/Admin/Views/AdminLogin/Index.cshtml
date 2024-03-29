@@ -1,0 +1,20 @@
+@model Ilanify.Areas.Admin.Models.ViewModels.AdminLoginViewModel
+
+@{
+    ViewBag.Title = "Admin Login";
+    Layout = "";
+}
+
+<h2>Admin Login</h2>
+
+<form asp-action="Index" asp-controller="AdminLogin" method="post">
+    <div class="form-group">
+        <label for="Username">Username</label>
+        <input type="text" class="form-control" id="Username" name="Username" asp-for="Username" required>
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="Password" name="Password" asp-for="Password" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

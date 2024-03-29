@@ -34,13 +34,14 @@ namespace Ilanify.Controllers
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    UserName = model.Email,
+                    UserName = model.UserName,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "RealEstate");
                 }

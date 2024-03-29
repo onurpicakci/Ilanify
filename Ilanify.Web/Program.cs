@@ -1,6 +1,7 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.Application.Services;
 using Ilanify.DataAccess.Context;
+using Ilanify.DataAccess.EntityFramework;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.DataAccess.Repositories;
 using Ilanify.Domain.Entities;
@@ -15,8 +16,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IRealEstateService, RealEstateService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+
 builder.Services.AddScoped<IRealEstateRepository, RealEstateRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+builder.Services.AddScoped<IRepository<Category>, EfRepository<Category>>();
+
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<IlanifyDbContext>()
@@ -45,5 +50,12 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=RealEstate}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}" );
+});
 
 app.Run();

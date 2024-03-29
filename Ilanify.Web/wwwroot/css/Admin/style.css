@@ -1,0 +1,38 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+    font-size: .9rem;
+}
+.sidebar-bg {
+    background-color: #233348;
+    color: #c0ccda;
+}
+.nav-link {
+    color: #c0ccda;
+}
+.nav-link:hover, .nav-link:focus {
+    color: #ffffff;
+    background-color: #2e4562;
+}
+.nav-link.active {
+    color: #ffffff;
+    background-color: #1a2e40;
+}
+.content-area {
+    background-color: #ffffff;
+    margin-top: 1rem;
+    padding: 2rem;
+    border-radius: .5rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+}
+.navbar {
+    padding: .8rem 2rem;
+    box-shadow: 0 0.075rem 0.75rem rgba(18,38,63,.06);
+    background-color: #ffffff;
+    border-bottom: 1px solid #e1e9f1;
+}
+.navbar-brand {
+    color: #233348;
+}

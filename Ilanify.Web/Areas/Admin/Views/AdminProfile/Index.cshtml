@@ -1,0 +1,35 @@
+@model System.Collections.Generic.List<Ilanify.Domain.Entities.ApplicationUser>
+
+@{
+    ViewBag.Title = "Admin Profile";
+    Layout = "_AdminLayout";
+}
+
+<h2>Admin Profile</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>
+                <a href="@Url.Action("", "AdminProfile", new { id = user.Id })" class="btn btn-primary">Edit</a>
+                <a href="@Url.Action("", "AdminProfile", new { id = user.Id })" class="btn btn-danger">Delete</a>
+                <a href="@Url.Action("AddRole", "AdminProfile", new { userId = user.Id })" class="btn btn-secondary">Add Role</a>
+
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

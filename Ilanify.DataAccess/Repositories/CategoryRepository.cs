@@ -1,3 +1,4 @@
+using System.Collections;
 using Ilanify.DataAccess.Context;
 using Ilanify.DataAccess.EntityFramework;
 using Ilanify.DataAccess.Interfaces;
@@ -18,12 +19,5 @@ public class CategoryRepository : EfRepository<Category>, ICategoryRepository
     public async Task<IEnumerable<Category>> GetCategoriesAsync()
     {
         return await _ilanifyDbContext.Categories.ToListAsync();
-    }
-
-    public async Task<List<CategoryAttribute>> GetCategoryAttributesAsync(int categoryId)
-    {
-        return await _ilanifyDbContext.CategoryAttributes
-            .Where(x => x.CategoryId == categoryId)
-            .ToListAsync();
     }
 }

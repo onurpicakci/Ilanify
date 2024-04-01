@@ -1,0 +1,35 @@
+@model Ilanify.Areas.Admin.Models.ViewModels.AdminEditUserViewModel
+
+@{
+    ViewBag.Title = "Edit User";
+    Layout = "_AdminLayout";
+}
+
+<h2>Edit User @Model.UserName</h2>
+
+<form asp-action="Edit" asp-controller="AdminProfile" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group">
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" class="form-control" id="FirstName" name="FirstName" asp-for="FirstName" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="LastName">Last Name</label>
+            <input type="text" class="form-control" id="LastName" name="LastName" asp-for="LastName" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="Email">Email</label>
+            <input type="email" class="form-control" id="Email" name="Email" asp-for="Email" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="UserName">Username</label>
+            <input type="text" class="form-control" id="UserName" name="UserName" asp-for="UserName" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="PhoneNumber">Phone Number</label>
+            <input type="tel" class="form-control" id="PhoneNumber" name="PhoneNumber" asp-for="PhoneNumber" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+</form>

@@ -10,14 +10,16 @@ public class RealEstateController : Controller
 {
     private readonly IRealEstateService _realEstateService;
     private readonly ICategoryService _categoryService;
+    private readonly ICategoryAttributeService _categoryAttributeService;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public RealEstateController(IRealEstateService realEstateService, ICategoryService categoryService,
-        UserManager<ApplicationUser> userManager)
+        UserManager<ApplicationUser> userManager, ICategoryAttributeService categoryAttributeService)
     {
         _realEstateService = realEstateService;
         _categoryService = categoryService;
         _userManager = userManager;
+        _categoryAttributeService = categoryAttributeService;
     }
 
     public async Task<IActionResult> Index()
@@ -92,7 +94,7 @@ public class RealEstateController : Controller
     [HttpGet("GetCategoryAttributes/{categoryId}")]
     public async Task<IActionResult> GetCategoryAttributes(int categoryId)
     {
-        var attributes = await _categoryService.GetCategoryAttributesAsync(categoryId);
+        var attributes = await _categoryAttributeService.GetCategoryAttributesAsync(categoryId);
         if (attributes == null || !attributes.Any())
         {
             return NotFound();

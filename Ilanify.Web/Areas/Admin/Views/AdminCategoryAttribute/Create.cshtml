@@ -1,0 +1,29 @@
+@using System.Collections
+@model Ilanify.Domain.Entities.CategoryAttribute
+
+@{
+    ViewBag.Title = "Create Category Attribute";
+    Layout = "_AdminLayout";
+}
+
+<h2>Create Category Attribute</h2>
+
+<form asp-action="Create" asp-controller="AdminCategoryAttribute" method="post">
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select class="form-control" id="CategoryId" name="CategoryId" asp-for="CategoryId" asp-items="ViewBag.Categories" required></select>
+    </div>
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" asp-for="Name" required>
+    </div>
+    <div class="form-group">
+        <label for="DataType">Type</label>
+        <select class="form-control" id="DataType" name="DataType" asp-for="DataType" required>
+            <option value="1">Text</option>
+            <option value="2">Number</option>
+            <option value="3">Boolean</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

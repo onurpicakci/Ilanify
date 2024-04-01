@@ -16,12 +16,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IRealEstateService, RealEstateService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<ICategoryAttributeService, CategoryAttributeService>();
+builder.Services.AddScoped<ICategoryAttributeRepository, CategoryAttributeRepository>();
 
 builder.Services.AddScoped<IRealEstateRepository, RealEstateRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddScoped<IRepository<Category>, EfRepository<Category>>();
-
+builder.Services.AddScoped<IRepository<CategoryAttribute>, EfRepository<CategoryAttribute>>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<IlanifyDbContext>()

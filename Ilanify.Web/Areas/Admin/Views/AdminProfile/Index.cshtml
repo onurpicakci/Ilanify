@@ -5,6 +5,7 @@
     Layout = "_AdminLayout";
 }
 
+<a href="@Url.Action("Create", "AdminProfile")" class="btn btn-outline-primary float-end">Create User</a>
 <h2>Admin Profile</h2>
 
 <table class="table">
@@ -24,8 +25,8 @@
             <td>@user.UserName</td>
             <td>@user.Email</td>
             <td>
-                <a href="@Url.Action("", "AdminProfile", new { id = user.Id })" class="btn btn-primary">Edit</a>
-                <a href="@Url.Action("", "AdminProfile", new { id = user.Id })" class="btn btn-danger">Delete</a>
+                <a href="@Url.Action("Edit", "AdminProfile", new { userId = user.Id })" class="btn btn-primary">Edit</a>
+                <a href="@Url.Action("Delete", "AdminProfile", new { userId = user.Id })" class="btn btn-danger">Delete</a>
                 <a href="@Url.Action("AddRole", "AdminProfile", new { userId = user.Id })" class="btn btn-secondary">Add Role</a>
 
             </td>

@@ -19,6 +19,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryAttributeService, CategoryAttributeService>();
 builder.Services.AddScoped<ICategoryAttributeRepository, CategoryAttributeRepository>();
 
+builder.Services.AddScoped<IAttributeValueService, AttributeValueService>();
+builder.Services.AddScoped<IAttributeValueRepository, AttributeValueRepository>();
+
 builder.Services.AddScoped<IRealEstateRepository, RealEstateRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 

@@ -1,0 +1,36 @@
+@model IEnumerable<Ilanify.Domain.Entities.AttributeValue>
+
+@{
+    ViewBag.Title = "Attribute Values";
+    Layout = "_AdminLayout";
+}
+
+<a href="@Url.Action("Index" ,"AdminAttributeValue")" class="btn btn-outline-primary float-end">Create New Attribute Value</a>
+<h2>Attribute Values</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>RealEstateId</th>
+        <th>CategoryAttribute Name</th>
+        <th>Value</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var attributeValue in Model)
+    {
+        <tr>
+            <td>@attributeValue.AttributeValueId</td>
+            <td>@attributeValue.RealEstate.Id</td>
+            <td>@attributeValue.CategoryAttribute.Name</td>
+            <td>@attributeValue.Value</td>
+            <td>
+                <a asp-action="" asp-route-id="@attributeValue.AttributeValueId" class="btn btn-primary">Edit</a>
+                <a asp-action="" asp-route-id="@attributeValue.AttributeValueId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

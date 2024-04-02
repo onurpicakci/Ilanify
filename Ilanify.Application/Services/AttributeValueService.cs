@@ -17,4 +17,24 @@ public class AttributeValueService : IAttributeValueService
     {
         return await _attributeValueRepository.GetAllAttributeValuesAsync();
     }
+
+    public async Task<AttributeValue> GetByIdAsync(int id)
+    {
+        return await _attributeValueRepository.GetByIdAsync(id);
+    }
+
+    public async Task AddAsync(AttributeValue entity)
+    {
+        await _attributeValueRepository.AddAsync(entity);
+    }
+
+    public async Task UpdateAsync(AttributeValue entity)
+    {
+        await _attributeValueRepository.UpdateAsync(entity);
+    }
+
+    public async Task DeleteAsync(AttributeValue entity)
+    {
+        await _attributeValueRepository.DeleteAsync(entity);
+    }
 }

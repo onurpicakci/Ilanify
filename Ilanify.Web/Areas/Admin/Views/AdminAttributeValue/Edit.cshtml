@@ -1,0 +1,29 @@
+@model Ilanify.Domain.Entities.AttributeValue
+
+@{
+    ViewBag.Title = "Edit Attribute Value";
+    Layout = "_AdminLayout";
+}
+
+<h2>Edit Attribute Value</h2>
+
+<form asp-action="Edit" asp-controller="AdminAttributeValue" method="post">
+    <input type="hidden" asp-for="AttributeValueId">
+    <input type="hidden" asp-for="RealEstateId">
+    <input type="hidden" asp-for="CategoryAttributeId">
+    <input type="hidden" asp-for="RealEstate"/>
+    <input type="hidden" asp-for="RealEstate.Category"/>
+    <div class="form-group">
+        <label asp-for="Value">Value</label>
+        <input type="text" class="form-control" asp-for="Value" required>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryAttribute.Name">Category Attribute</label>
+        <input type="text" class="form-control" asp-for="CategoryAttribute.Name" readonly>
+    </div>
+    <div class="form-group">
+        <label asp-for="RealEstate.Id">Real Estate</label>
+        <input type="text" class="form-control" asp-for="RealEstate.Id" readonly>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

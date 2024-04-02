@@ -1,3 +1,4 @@
+using Ilanify.Application.Interfaces;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -9,24 +10,25 @@ namespace Ilanify.Areas.Admin.Controllers
     [Route("Admin/CategoryAttribute/[action]")]
     public class AdminCategoryAttributeController : Controller
     {
-        private readonly ICategoryAttributeRepository _categoryAttributeRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryAttributeService _categoryAttributeService;
+        private readonly ICategoryService _categoryService;
 
-        public AdminCategoryAttributeController(ICategoryAttributeRepository categoryAttributeRepository, ICategoryRepository categoryRepository)
+
+        public AdminCategoryAttributeController(ICategoryAttributeService categoryAttributeService, ICategoryService categoryService)
         {
-            _categoryAttributeRepository = categoryAttributeRepository;
-            _categoryRepository = categoryRepository;
+            _categoryAttributeService = categoryAttributeService;
+            _categoryService = categoryService;
         }
-        
+
         public async Task<IActionResult> Index()
         {
-            var categoryAttributes = await _categoryAttributeRepository.GetAllCategoryAttributesAsync();
+            var categoryAttributes = await _categoryAttributeService.GetAllCategoryAttributesAsync();
             return View(categoryAttributes);
         }
         
         public async Task<IActionResult> Create()
         {
-            var categories = await _categoryRepository.GetCategoriesAsync();
+            var categories = await _categoryService.GetCategoriesAsync();
             ViewBag.Categories = new SelectList(categories, "Id", "Name");
             return View();
         }
@@ -34,38 +36,38 @@ namespace Ilanify.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryAttribute categoryAttribute)
         {
-            await _categoryAttributeRepository.AddAsync(categoryAttribute);
+            await _categoryAttributeService.AddAsync(categoryAttribute);
             return RedirectToAction("Index");
         }
         
         public async Task<IActionResult> Edit(int id)
         {
-            var categoryAttribute = await _categoryAttributeRepository.GetByIdAsync(id);
+            var categoryAttribute = await _categoryAttributeService.GetByIdAsync(id);
             if (categoryAttribute == null)
             {
                 return NotFound();
             }
-            @ViewBag.Categories = new SelectList(await _categoryRepository.GetCategoriesAsync(), "Id", "Name");
+            @ViewBag.Categories = new SelectList(await _categoryService.GetCategoriesAsync(), "Id", "Name");
             return View(categoryAttribute);
         }
         
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryAttribute categoryAttribute)
         {
-            await _categoryAttributeRepository.UpdateAsync(categoryAttribute);
+            await _categoryAttributeService.UpdateAsync(categoryAttribute);
             return RedirectToAction("Index");
         }
         
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var categoryAttribute = await _categoryAttributeRepository.GetByIdAsync(id);
+            var categoryAttribute = await _categoryAttributeService.GetByIdAsync(id);
             if (categoryAttribute == null)
             {
                 return NotFound();
             }
            
-            await _categoryAttributeRepository.DeleteAsync(categoryAttribute);
+            await _categoryAttributeService.DeleteAsync(categoryAttribute);
             return RedirectToAction("Index");
         }
     }

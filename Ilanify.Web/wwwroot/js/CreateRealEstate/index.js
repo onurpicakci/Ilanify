@@ -50,8 +50,6 @@ $(document).ready(function () {
             });
         }
     }
-
-
     function loadCategoryAttributes() {
         var categoryId = $('#categorySelect').val();
         if (categoryId) {

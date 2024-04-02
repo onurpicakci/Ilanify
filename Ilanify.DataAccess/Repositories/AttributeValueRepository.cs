@@ -22,28 +22,35 @@ public class AttributeValueRepository : IAttributeValueRepository
             .ToListAsync();
     }
 
-    public Task<AttributeValue> GetByIdAsync(int id)
+    public async Task<AttributeValue> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.AttributeValues
+            .Include(x => x.RealEstate)
+            .ThenInclude(x => x.Category)
+            .Include(x => x.CategoryAttribute)
+            .FirstOrDefaultAsync(x => x.AttributeValueId == id);
     }
 
-    public Task<IEnumerable<AttributeValue>> GetAllAsync()
+    public async Task<IEnumerable<AttributeValue>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.AttributeValues.ToListAsync();
     }
 
-    public Task AddAsync(AttributeValue entity)
+    public async Task AddAsync(AttributeValue entity)
     {
-        throw new NotImplementedException();
+        await _context.AttributeValues.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
-    public Task UpdateAsync(AttributeValue entity)
+    public async Task UpdateAsync(AttributeValue entity)
     {
-        throw new NotImplementedException();
+        _context.AttributeValues.Update(entity);
+        await _context.SaveChangesAsync();
     }
 
-    public Task DeleteAsync(AttributeValue entity)
+    public async Task DeleteAsync(AttributeValue entity)
     {
-        throw new NotImplementedException();
+        _context.AttributeValues.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 }

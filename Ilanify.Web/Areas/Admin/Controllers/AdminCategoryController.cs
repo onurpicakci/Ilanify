@@ -1,3 +1,4 @@
+using Ilanify.Application.Interfaces;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -8,16 +9,16 @@ namespace Ilanify.Areas.Admin.Controllers
     [Route("Admin/Category/[action]")]
     public class AdminCategoryController : Controller
     {
-        private readonly IRepository<Category> _categoryRepository;
+        private readonly ICategoryService _categoryService;
 
-        public AdminCategoryController(IRepository<Category> categoryRepository)
+        public AdminCategoryController(ICategoryService categoryService)
         {
-            _categoryRepository = categoryRepository;
+            _categoryService = categoryService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _categoryRepository.GetAllAsync();
+            var categories = await _categoryService.GetAllAsync();
             return View(categories);
         }
 
@@ -29,7 +30,7 @@ namespace Ilanify.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
-            await _categoryRepository.AddAsync(category);
+            await _categoryService.AddAsync(category);
             return RedirectToAction("Index");
         }
 
@@ -37,7 +38,7 @@ namespace Ilanify.Areas.Admin.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var category = await _categoryRepository.GetByIdAsync(id);
+            var category = await _categoryService.GetByIdAsync(id);
             return View(category);
         }
 
@@ -45,7 +46,7 @@ namespace Ilanify.Areas.Admin.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Edit(Category category)
         {
-            await _categoryRepository.UpdateAsync(category);
+            await _categoryService.UpdateAsync(category);
             return RedirectToAction("Index");
         }
         
@@ -53,8 +54,8 @@ namespace Ilanify.Areas.Admin.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var category = await _categoryRepository.GetByIdAsync(id);
-            await _categoryRepository.DeleteAsync(category);
+            var category = await _categoryService.GetByIdAsync(id);
+            await _categoryService.DeleteAsync(category);
             return RedirectToAction("Index");
         }
     }

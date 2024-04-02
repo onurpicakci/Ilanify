@@ -22,4 +22,24 @@ public class CategoryAttributeService : ICategoryAttributeService
     {
         return await _categoryAttributeRepository.GetCategoryAttributesAsync(categoryId);
     }
+
+    public async Task AddAsync(CategoryAttribute entity)
+    {
+        await _categoryAttributeRepository.AddAsync(entity);
+    }
+
+    public async Task UpdateAsync(CategoryAttribute entity)
+    {
+        await _categoryAttributeRepository.UpdateAsync(entity);
+    }
+
+    public async Task DeleteAsync(CategoryAttribute entity)
+    {
+        await _categoryAttributeRepository.DeleteAsync(entity);
+    }
+
+    public async Task<CategoryAttribute> GetByIdAsync(int id)
+    {
+        return await _categoryAttributeRepository.GetByIdAsync(id);
+    }
 }

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ilanify.DataAccess.Repositories;
 
-public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateRepository
+public class RealEstateRepository : IRealEstateRepository
 {
     private readonly IlanifyDbContext _context;
     
-    public RealEstateRepository(IlanifyDbContext context) : base(context)
+    public RealEstateRepository(IlanifyDbContext context)
     {
         _context = context;
     }
@@ -107,5 +107,47 @@ public class RealEstateRepository : EfRepository<RealEstate>, IRealEstateReposit
             .Where(re => re.ApplicationUserId == userId)
             .Where(re => re.IsActive == true)
             .ToListAsync();
+    }
+
+    public async Task<RealEstate> GetByIdAsync(int id)
+    {
+        return await _context.RealEstates
+            .Include(re => re.Images)
+            .Include(re => re.Location)
+            .Include(re => re.Category)
+            .ThenInclude(c => c.CategoryAttributes)
+            .Include(re => re.AttributeValues)
+            .ThenInclude(av => av.CategoryAttribute)
+            .Include(re => re.ApplicationUser)
+            .FirstOrDefaultAsync(re => re.Id == id);
+    }
+
+    public async Task<IEnumerable<RealEstate>> GetAllAsync()
+    {
+        return await _context.RealEstates
+            .Include(re => re.Images)
+            .Include(re => re.Location)
+            .Include(re => re.Category)
+            .ThenInclude(c => c.CategoryAttributes)
+            .Include(re => re.AttributeValues)
+            .ThenInclude(av => av.CategoryAttribute)
+            .Include(re => re.ApplicationUser)
+            .ToListAsync();
+    }
+
+    public Task AddAsync(RealEstate entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdateAsync(RealEstate entity)
+    {
+        _context.RealEstates.Update(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public Task DeleteAsync(RealEstate entity)
+    {
+        throw new NotImplementedException();
     }
 }

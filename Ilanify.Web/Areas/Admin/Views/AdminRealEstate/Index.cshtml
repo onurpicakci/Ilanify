@@ -1,0 +1,56 @@
+@model IEnumerable<Ilanify.Domain.Entities.RealEstate>
+
+@{
+    ViewBag.Title = "Real Estates";
+    Layout = "_AdminLayout";
+}
+
+<h2>Real Estates</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>City</th>
+        <th>District</th>
+        <th>Neighborhood</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Images</th>
+        <th>Username</th>
+        <th>Listing Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var realEstate in Model)
+    {
+        <tr>
+            <td>@realEstate.Id</td>
+            <td>@realEstate.Title</td>
+            <td>@realEstate.Category.Name</td>
+            <td>@realEstate.Location.City</td>
+            <td>@realEstate.Location.District</td>
+            <td>@realEstate.Location.Neighborhood</td>
+            <td>@realEstate.Type</td>
+            <td>@realEstate.Price</td>
+                @{
+                    var firstImage = @realEstate.Images.FirstOrDefault();
+                    if (firstImage != null)
+                    {
+                        <td>
+                            <img src="/images/real-estate-images/@firstImage.ImageUrl" class="img-thumbnail" width="55px" height="55px"></img>
+                        </td>
+                    }
+                }
+            <td>@realEstate.ApplicationUser.UserName</td>
+            <td>@realEstate.ListingDate.ToString("g")</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@realEstate.Id" class="btn btn-primary">Edit</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

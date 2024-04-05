@@ -1,0 +1,39 @@
+@model Ilanify.Domain.Entities.RealEstate
+
+@{
+    ViewBag.Title = "Edit Real Estate";
+    Layout = "_AdminLayout";
+}
+
+<h2>Edit Real Estate @Model.Title</h2>
+
+<form asp-action="Edit" asp-controller="AdminRealEstate" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" asp-for="Title" required>
+    </div>
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <input type="number" class="form-control" id="Price" name="Price" asp-for="Price" required>
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea class="form-control" id="Description" name="Description" asp-for="Description" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select class="form-control" id="CategoryId" name="CategoryId" asp-for="CategoryId" asp-items="ViewBag.Categories" required>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="SquareMeters">Square Meters</label>
+        <input type="number" class="form-control" id="SquareMeters" name="SquareMeters" asp-for="SquareMeters" required>
+    </div>
+    <div class="form-group">
+        <label for="ApplicationUserId">User</label>
+        <select class="form-control" id="ApplicationUserId" name="ApplicationUserId" asp-for="ApplicationUserId" asp-items="ViewBag.Users" required>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

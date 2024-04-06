@@ -1,4 +1,4 @@
-@model Ilanify.Domain.Entities.RealEstate
+@model Ilanify.Areas.Admin.Models.ViewModels.AdminRealEstateEditViewModel
 
 @{
     ViewBag.Title = "Edit Real Estate";
@@ -29,11 +29,6 @@
     <div class="form-group">
         <label for="SquareMeters">Square Meters</label>
         <input type="number" class="form-control" id="SquareMeters" name="SquareMeters" asp-for="SquareMeters" required>
-    </div>
-    <div class="form-group">
-        <label for="ApplicationUserId">User</label>
-        <select class="form-control" id="ApplicationUserId" name="ApplicationUserId" asp-for="ApplicationUserId" asp-items="ViewBag.Users" required>
-        </select>
     </div>
     <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>

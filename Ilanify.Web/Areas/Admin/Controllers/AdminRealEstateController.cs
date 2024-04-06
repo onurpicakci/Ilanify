@@ -1,4 +1,5 @@
 using Ilanify.Application.Interfaces;
+using Ilanify.Areas.Admin.Models.ViewModels;
 using Ilanify.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,21 +28,32 @@ namespace Ilanify.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var realEstate = await _realEstateService.GetByIdAsync(id);
-            if (realEstate == null)
-            {
-                return NotFound();
-            }
             @ViewBag.Categories = new SelectList(await _categoryService.GetCategoriesAsync(), "Id", "Name");
-            return View(realEstate);
+            return View(new AdminRealEstateEditViewModel
+            {
+                Id = realEstate.Id,
+                Title = realEstate.Title,
+                Description = realEstate.Description,
+                Price = realEstate.Price,
+                CategoryId = realEstate.CategoryId,
+                SquareMeters = realEstate.SquareMeters
+            });
         }
         
         [HttpPost]
-        public async Task<IActionResult> Edit(RealEstate realEstate)
+        public async Task<IActionResult> Edit(AdminRealEstateEditViewModel realEstate)
         {
-            
-                realEstate.Category = await _categoryService.GetByIdAsync(realEstate.CategoryId);
-                await _realEstateService.UpdateAsync(realEstate);
+            if (ModelState.IsValid)
+            {
+                var entity = await _realEstateService.GetByIdAsync(realEstate.Id);
+                entity.Title = realEstate.Title;
+                entity.Price = realEstate.Price;
+                entity.Description = realEstate.Description;
+                entity.CategoryId = realEstate.CategoryId;
+                entity.SquareMeters = realEstate.SquareMeters;
+                await _realEstateService.UpdateAsync(entity);
                 return RedirectToAction(nameof(Index));
+            }
             return View(realEstate);
         }
     }

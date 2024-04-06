@@ -18,9 +18,9 @@
         <th>Neighborhood</th>
         <th>Type</th>
         <th>Price</th>
-        <th>Images</th>
         <th>Username</th>
         <th>Listing Date</th>
+        <th>Details</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -36,19 +36,15 @@
             <td>@realEstate.Location.Neighborhood</td>
             <td>@realEstate.Type</td>
             <td>@realEstate.Price</td>
-                @{
-                    var firstImage = @realEstate.Images.FirstOrDefault();
-                    if (firstImage != null)
-                    {
-                        <td>
-                            <img src="/images/real-estate-images/@firstImage.ImageUrl" class="img-thumbnail" width="55px" height="55px"></img>
-                        </td>
-                    }
-                }
+            
             <td>@realEstate.ApplicationUser.UserName</td>
-            <td>@realEstate.ListingDate.ToString("g")</td>
+            <td>@realEstate.ListingDate.ToString("dd/MM/yyyy")</td>
+            <td>
+                <a href="/RealEstate/Details?realEstateId=@realEstate.Id" class="btn btn-outline-success">Details</a>
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@realEstate.Id" class="btn btn-primary">Edit</a>
+                <a asp-action="Delete" asp-route-id="@realEstate.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     }

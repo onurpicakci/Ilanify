@@ -13,22 +13,52 @@
         <label for="Title">Title</label>
         <input type="text" class="form-control" id="Title" name="Title" asp-for="Title" required>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-3">
         <label for="Price">Price</label>
         <input type="number" class="form-control" id="Price" name="Price" asp-for="Price" required>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-3">
         <label for="Description">Description</label>
         <textarea class="form-control" id="Description" name="Description" asp-for="Description" required></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-3">
         <label for="CategoryId">Category</label>
         <select class="form-control" id="CategoryId" name="CategoryId" asp-for="CategoryId" asp-items="ViewBag.Categories" required>
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-3">
+        <label for="Type">Type</label>
+        <select class="form-control" id="Type" name="Type" asp-for="Type" asp-items="ViewBag.Types" required>
+        </select>
+    </div>
+    <div class="form-group mt-3">
+        <label for="City">City</label>
+        <input type="text" class="form-control" id="City" name="City" asp-for="City" required>
+    </div>
+    <div class="form-group mt-3">
+        <label for="District">District</label>
+        <input type="text" class="form-control" id="District" name="District" asp-for="District" required>
+    </div>
+    <div class="form-group mt-3">
+        <label for="Neighborhood">Neighborhood</label>
+        <input type="text" class="form-control" id="Neighborhood" name="Neighborhood" asp-for="Neighborhood" required>
+    </div>
+    <div class="form-group mt-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="IsActive" name="IsActive" asp-for="IsActive">
+            <label class="form-check-label" for="IsActive">Is Active</label>
+        </div>
+    </div>
+    <div class="form-group mt-3">
         <label for="SquareMeters">Square Meters</label>
         <input type="number" class="form-control" id="SquareMeters" name="SquareMeters" asp-for="SquareMeters" required>
     </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    @* @for (var i = 0; i < Model.AttributeValues.Count; i++) *@
+    @* { *@
+    @*     <div class="form-group mt-3"> *@
+    @*         <label for="AttributeValues[@i].Value">@Model.AttributeValues[i].CategoryAttribute.Name</label> *@
+    @*         <input type="text" class="form-control" id="AttributeValues[@i].Value" name="AttributeValues[@i].Value" asp-for="@Model.AttributeValues[i].Value" required> *@
+    @*     </div> *@
+    @* } *@
+    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
 </form>

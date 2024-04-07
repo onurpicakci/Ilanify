@@ -1,5 +1,6 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.Domain.Entities;
+using Ilanify.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -108,6 +109,13 @@ public class RealEstateController : Controller
     {
         var realEstates = await _realEstateService.GetRealEstatesByLocationAsync(location);
         ViewBag.City = location;
+        return View(realEstates);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> ListRealEstatesByType(int realEstateType)
+    {
+        var realEstates = await _realEstateService.GetRealEstatesByTypeAsync((RealEstateType)realEstateType);
         return View(realEstates);
     }
 

@@ -4,6 +4,7 @@ using Ilanify.DataAccess.EntityFramework;
 using Ilanify.DataAccess.Extensions;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
+using Ilanify.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ilanify.DataAccess.Repositories;
@@ -112,6 +113,22 @@ public class RealEstateRepository : IRealEstateRepository
     public async Task<int> GetRealEstatesCount()
     {
         return await _context.RealEstates.CountAsync();
+    }
+
+    public async Task<IEnumerable<RealEstate>> GetRealEstatesByTypeAsync(RealEstateType realEstateType)
+    {
+        RealEstateType typeEnum = (RealEstateType)Enum.Parse(typeof(RealEstateType), realEstateType.ToString());
+
+
+        return await _context.RealEstates
+            .Include(re => re.Location)
+            .Include(re => re.Category)
+            .Include(re => re.AttributeValues) 
+            .ThenInclude(av => av.CategoryAttribute)
+            .Include(re => re.Images.OrderBy(i => i.Id).Take(1))
+            .Where(re => re.IsActive == true)
+            .Where(re => re.Type == typeEnum)
+            .ToListAsync();
     }
 
     public async Task<RealEstate> GetByIdAsync(int id)

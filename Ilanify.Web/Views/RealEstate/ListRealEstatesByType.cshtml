@@ -1,7 +1,10 @@
-@using Ilanify.Domain.Entities
-@model IEnumerable<RealEstate>
+@model System.Collections.Generic.IEnumerable<Ilanify.Domain.Entities.RealEstate>
 
-<h2>@ViewData["Location"]</h2>
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
 <div class="location-page">
     <div class="row">
         <div class="col-md-3">

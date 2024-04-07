@@ -1,5 +1,6 @@
 using Ilanify.DataAccess.Dtos;
 using Ilanify.Domain.Entities;
+using Ilanify.Domain.Enums;
 
 namespace Ilanify.Application.Interfaces;
 
@@ -12,6 +13,7 @@ public interface IRealEstateService
     Task<RealEstate> GetRealEstateByIdWithDetailsAsync(int realEstateId);
     Task<IEnumerable<RealEstate>> GetRealEstatesByFilterAsync(RealEstateFilter filter);
     Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId);
+    Task<IEnumerable<RealEstate>> GetRealEstatesByTypeAsync(RealEstateType realEstateType);
     Task<int> GetRealEstatesCount();
     Task<RealEstate> GetByIdAsync(int id);
     Task<IEnumerable<RealEstate>> GetAllAsync();

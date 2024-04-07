@@ -377,3 +377,45 @@ body {
 .leftbar-menu li a[href="/Account/Logout"]:before {
     content: '\f08b';
 }
+
+.icon-categories {
+    position: absolute;
+    bottom: -75px; 
+    width: 100%; 
+    display: flex;
+    justify-content: space-around; 
+    gap: 40px;
+    padding-right: 65px;
+}
+
+.icon-category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #c51b2e;
+}
+
+.icon-category i {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.icon-category span {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.icon-category:hover {
+    color: #c51b2e;
+}
+
+.icon-category:hover i {
+    color: #c51b2e;
+}
+
+.icon-category:hover span {
+    color: #c51b2e;
+}
+

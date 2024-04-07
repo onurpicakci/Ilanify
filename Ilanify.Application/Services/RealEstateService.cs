@@ -2,12 +2,14 @@ using Ilanify.Application.Interfaces;
 using Ilanify.DataAccess.Dtos;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
+using Ilanify.Domain.Enums;
 
 namespace Ilanify.Application.Services;
 
 public class RealEstateService : IRealEstateService
 {
     private readonly IRealEstateRepository _realEstateRepository;
+    private IRealEstateService _realEstateServiceImplementation;
 
     public RealEstateService(IRealEstateRepository realEstateRepository)
     {
@@ -47,6 +49,11 @@ public class RealEstateService : IRealEstateService
     public async Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId)
     {
         return await _realEstateRepository.GetActiveRealEstatesByUserIdAsync(userId);
+    }
+
+    public async Task<IEnumerable<RealEstate>> GetRealEstatesByTypeAsync(RealEstateType realEstateType)
+    {
+        return await _realEstateRepository.GetRealEstatesByTypeAsync(realEstateType);
     }
 
     public async  Task<int>  GetRealEstatesCount()

@@ -32,8 +32,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<IlanifyDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddControllers().AddJsonOptions(x => 
-    x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(x => 
+        x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 var app = builder.Build();
 

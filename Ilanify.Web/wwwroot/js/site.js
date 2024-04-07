@@ -35,7 +35,7 @@ $(document).ready(function () {
             categoryId: parseInt($('#categoryId').val()) || null,
             minPrice: parseFloat($('#minPrice').val()) || null,
             maxPrice: parseFloat($('#maxPrice').val()) || null,
-            roomCount: ($('#roomCount').val()) || null,
+            roomCount: $('#roomCount').val() || null,
             minSquareMeters: parseFloat($('#minSquareMeters').val()) || null,
             maxSquareMeters: parseFloat($('#maxSquareMeters').val()) || null,
         };
@@ -46,12 +46,31 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(formData),
             success: function (data) {
+                console.log(data);
                 $('#realEstateContainer').empty();
 
-                data.$values.forEach(function (realEstate) {
-                    var imageUrl = realEstate.images && realEstate.images.$values.length > 0
-                        ? `/images/real-estate-images/${realEstate.images.$values[0].imageUrl}`
+                data.forEach(function (realEstate) {
+                    var imageUrl = realEstate.images && realEstate.images.length > 0
+                        ? `/images/real-estate-images/${realEstate.images[0].imageUrl}`
                         : '/images/placeholder-image.jpg';
+
+                    var attributesHtml = '';
+                    if (realEstate.category && realEstate.category.categoryAttributes) {
+                        realEstate.category.categoryAttributes.forEach(function (attr) {
+                            realEstate.attributeValues.forEach(function (attrValue) {
+                                    if (attr.id === attrValue.categoryAttributeId) {
+                                        if (attr.name === "Oda Sayısı")
+                                            attributesHtml += "| " + attrValue.value
+                                        if (attr.name === "Kat Sayısı")
+                                            attributesHtml += " | " + attrValue.value + ". Kat ";
+                                        if (attr.name === "Bina Yaşı")
+                                            attributesHtml += " | " + (new Date().getFullYear() - attrValue.value) + " Yıllık";
+                                    }
+                                }
+                            );
+
+                        });
+                    }
 
                     var realEstateHtml = `
                         <a href="/RealEstate/Details/?realEstateId=${realEstate.id}" class="text-decoration-none">
@@ -71,26 +90,7 @@ $(document).ready(function () {
                     })} TL</h5>
                                             <p class="estate-title">${realEstate.title}</p>
                                             <p class="card-text">
-                                                <small class="estate-property">${realEstate.type === 1 ? "Satılık" : "Kiralık"} ${realEstate.category.name} | ${realEstate.squareMeters} m²`;
-
-                    realEstate.category.categoryAttributes.$values.forEach(function (catAttr) {
-                        if (catAttr.attributeValues && catAttr.attributeValues.$values) {
-                            var attrValue = catAttr.attributeValues.$values.find(av => av.realEstateId === realEstate.id);
-                            if (attrValue && (catAttr.name === "Oda Sayısı" || catAttr.name === "Kat Sayısı" || catAttr.name === "Bina Yaşı")) {
-                                let additionalText = '';
-                                if (catAttr.name === "Kat Sayısı") {
-                                    additionalText = ". Kat";
-                                } else if (catAttr.name === "Bina Yaşı") {
-                                    const buildingAge = new Date().getFullYear() - new Date(attrValue.value).getFullYear();
-                                    additionalText = ` Yıllık`;
-                                    attrValue.value = buildingAge.toString();
-                                }
-                                realEstateHtml += ` | ${attrValue.value}${additionalText}`;
-                            }
-                        }
-                    });
-
-                    realEstateHtml += `</small>
+                                                <small class="estate-property">${realEstate.type === 1 ? "Satılık" : "Kiralık"} ${realEstate.category.name} | ${realEstate.squareMeters} m² ${attributesHtml}</small>
                                             </p>
                                             <p class="card-text">
                                                 <i class="fa-regular fa-location-dot"></i>

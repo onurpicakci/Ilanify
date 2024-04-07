@@ -109,6 +109,11 @@ public class RealEstateRepository : IRealEstateRepository
             .ToListAsync();
     }
 
+    public async Task<int> GetRealEstatesCount()
+    {
+        return await _context.RealEstates.CountAsync();
+    }
+
     public async Task<RealEstate> GetByIdAsync(int id)
     {
         return await _context.RealEstates

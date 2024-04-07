@@ -12,4 +12,5 @@ public interface IRealEstateRepository : IRepository<RealEstate>
     Task<RealEstate> GetRealEstateByIdWithDetailsAsync(int realEstateId); 
     Task<IEnumerable<RealEstate>> GetRealEstatesByFilterAsync(RealEstateFilter filter);
     Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId);
+    Task<int> GetRealEstatesCount();
 }

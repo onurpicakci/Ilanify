@@ -49,6 +49,11 @@ public class RealEstateService : IRealEstateService
         return await _realEstateRepository.GetActiveRealEstatesByUserIdAsync(userId);
     }
 
+    public async  Task<int>  GetRealEstatesCount()
+    {
+        return await _realEstateRepository.GetRealEstatesCount();
+    }
+
     public async Task<RealEstate> GetByIdAsync(int id)
     {
         return await _realEstateRepository.GetByIdAsync(id);

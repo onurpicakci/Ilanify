@@ -109,6 +109,7 @@ public class RealEstateController : Controller
     {
         var realEstates = await _realEstateService.GetRealEstatesByLocationAsync(location);
         ViewBag.City = location;
+        ViewBag.Count = realEstates.Count();
         return View(realEstates);
     }
     

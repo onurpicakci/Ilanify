@@ -35,22 +35,22 @@ public static class RealEstateQueryExtensions
 
         if (filter.MinPrice.HasValue)
         {
-            query = query.Where(re => re.Price > filter.MinPrice || re.Price == filter.MinPrice);
+            query = query.Where(re => re.Price > filter.MinPrice);
         }
 
         if (filter.MaxPrice.HasValue)
         {
-            query = query.Where(re => re.Price < filter.MaxPrice || re.Price == filter.MaxPrice);
+            query = query.Where(re => re.Price < filter.MaxPrice);
         }
         
         if (filter.MinSquareMeters.HasValue)
         {
-            query = query.Where(re => re.SquareMeters > filter.MinSquareMeters || re.SquareMeters == filter.MinSquareMeters);
+            query = query.Where(re => re.SquareMeters > filter.MinSquareMeters);
         }
         
         if (filter.MaxSquareMeters.HasValue)
         {
-            query = query.Where(re => re.SquareMeters < filter.MaxSquareMeters || re.SquareMeters == filter.MaxSquareMeters);
+            query = query.Where(re => re.SquareMeters < filter.MaxSquareMeters);
         }
         
         return query;

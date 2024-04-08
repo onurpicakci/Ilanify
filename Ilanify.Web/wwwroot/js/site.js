@@ -46,7 +46,6 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(formData),
             success: function (data) {
-                console.log(data);
                 $('#realEstateContainer').empty();
 
                 data.forEach(function (realEstate) {

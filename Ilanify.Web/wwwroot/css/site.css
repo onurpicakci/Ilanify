@@ -418,4 +418,23 @@ body {
 .icon-category:hover span {
     color: #c51b2e;
 }
+#infoCard {
+    padding: 5px;
+    margin-bottom: 10px;
+}
 
+.infoContainer {
+    padding: 10px 10px 10px 10px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    width: 17%;
+    height: 30px;
+}
+
+.container-count{
+    padding-left: 93px;
+    padding-top: 14px;
+    font-size: 15px;
+    position: absolute;
+}

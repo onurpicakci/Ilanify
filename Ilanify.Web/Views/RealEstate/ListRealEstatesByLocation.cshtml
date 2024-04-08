@@ -60,11 +60,20 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-9" id="realEstateContainer">
+            <div class="card" id="infoCard">
+                <b class="infoContainer">@ViewBag.City </b>
+                <p class="container-count">için @ViewBag.Count ilan bulundu</p>
+                <hr/>
+                <div class="selected-filter">
+
+                </div>
+            </div>
             @foreach (var realEstate in Model)
             {
                 <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="text-decoration-none">
-                    <div class="card mb-3">
+                    <div class="card mb-3 mt-3">
                         <div class="listing-date position-absolute">
                             <small class="text-muted">@realEstate.ListingDate.ToString("dd.MM.yyyy")</small>
                         </div>

@@ -29,6 +29,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         var formData = {
+            realEstateType: parseInt($('#realEstateType').val()) || null,
             city: $('#city').val() || null,
             district: $('#district').val() || null,
             neighborhood: $('#neighborhood').val() || null,
@@ -40,13 +41,55 @@ $(document).ready(function () {
             maxSquareMeters: parseFloat($('#maxSquareMeters').val()) || null,
         };
 
+        function createFilterTags() {
+            $('.selected-filter').empty();
+
+            $('#filtersForm label').each(function () {
+                var filterName = $(this).text().trim();
+                var filterId = $(this).attr('for');
+                var filterValue = $('#' + filterId).val();
+
+                if (filterValue) {
+                    var filterItem = $(`<span class="badge filter-badge">${filterName}: ${filterValue}</span>`);
+                    var removeButton = $(`<button type="button" class="close-filter" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>`);
+
+                    removeButton.on('click', function () {
+                        $('#' + filterId).val('');
+                        $(this).parent().remove();
+                        $('#filtersForm').submit();
+                    });
+
+                    filterItem.append(removeButton).appendTo('.selected-filter');
+                }
+            });
+        }
+
+
         $.ajax({
             url: '/api/RealEstateFilter',
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(formData),
             success: function (data) {
-                $('#realEstateContainer').empty();
+                var city = $('#city').val();
+                var estateType = $('#realEstateType').val();
+                var infoData;
+                if (city == null && estateType == null || city == "" && !estateType)
+                    infoData = "Toplam";
+                else if (city != null || estateType != null) {
+                    infoData = estateType == 1 ? city + " Satılık": estateType == 2 ? city + " Kiralık" : city;
+                }
+                var count = data.length;
+
+                $('#realEstateContainer').empty().append(
+                    `<div class="card" id="infoCard">
+                        <b class="infoContainer">${infoData}</b>
+                        <p class="container-count">için ${count} ilan bulundu</p>
+                        <hr/>
+                     <div class="selected-filter"></div>
+                    </div>`
+                );
+                createFilterTags();
 
                 data.forEach(function (realEstate) {
                     var imageUrl = realEstate.images && realEstate.images.length > 0

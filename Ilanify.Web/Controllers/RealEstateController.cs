@@ -117,6 +117,8 @@ public class RealEstateController : Controller
     public async Task<IActionResult> ListRealEstatesByType(int realEstateType)
     {
         var realEstates = await _realEstateService.GetRealEstatesByTypeAsync((RealEstateType)realEstateType);
+        @ViewBag.Type = (RealEstateType)realEstateType;
+        @ViewBag.Count = realEstates.Count();
         return View(realEstates);
     }
 

@@ -1,3 +1,5 @@
+using Ilanify.Domain.Enums;
+
 namespace Ilanify.DataAccess.Dtos;
 
 public class RealEstateFilter
@@ -11,4 +13,5 @@ public class RealEstateFilter
     public int? MinSquareMeters { get; set; }
     public int? MaxSquareMeters { get; set; }
     public string? RoomCount { get; set; }
+    public RealEstateType? RealEstateType { get; set; }
 }

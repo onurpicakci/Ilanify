@@ -53,6 +53,11 @@ public static class RealEstateQueryExtensions
             query = query.Where(re => re.SquareMeters < filter.MaxSquareMeters);
         }
         
+        if (filter.RealEstateType.HasValue)
+        {
+            query = query.Where(re => re.Type == filter.RealEstateType);
+        }
+        
         return query;
     }
 }

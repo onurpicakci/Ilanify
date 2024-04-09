@@ -21,6 +21,14 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="realEstateType">Satılık/Kiralık</label>
+                            <select class="form-control" id="realEstateType" name="realEstateType">
+                                <option value="">Satılık/Kiralık Seçin</option>
+                                <option value="1">Satılık</option>
+                                <option value="2">Kiralık</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="city">Şehir</label>
                             <input type="text" class="form-control" id="city" name="city" value="@ViewBag.City">
                         </div>
@@ -64,6 +72,14 @@
             </div>
         </div>
         <div class="col-md-9" id="realEstateContainer">
+            <div class="card" id="infoCard">
+                <b class="infoContainer">@ViewBag.Type</b>
+                <p class="container-count">için @ViewBag.Count ilan bulundu</p>
+                <hr/>
+                <div class="selected-filter">
+
+                </div>
+            </div>
             @foreach (var realEstate in Model)
             {
                 <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="text-decoration-none">

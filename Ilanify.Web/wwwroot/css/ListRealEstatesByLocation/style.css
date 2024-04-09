@@ -38,6 +38,66 @@
     position: absolute;
 }
 
+#infoCard {
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.infoContainer {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    width: auto;
+    height: 30px;
+}
+
+.container-count {
+    padding-left: 93px;
+    padding-top: 14px;
+    font-size: 15px;
+    position: absolute;
+}
+
+#infoCard:hover {
+    background-color: #f8f9fa;
+}
+
+#infoCard .infoContainer {
+    color: #c51b2e;
+}
+
+.selected-filter .filter-badge {
+    background-color: #f2f2f2;
+    color: #6c757d;
+    margin: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.selected-filter .filter-badge:hover,
+.selected-filter .filter-badge:focus {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.close-filter {
+    color: #c51b2e;
+    background: transparent;
+    border: none;
+    padding-left: 0.5rem;
+    cursor: pointer;
+}
+
+.close-filter:hover {
+    color: #a94442;
+}
+
 @media (max-width: 768px) {
     .listing-date {
         margin-left: 200px;

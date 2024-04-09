@@ -152,7 +152,16 @@ namespace Ilanify.Controllers
         public async Task<IActionResult> RealEstates()
         {
             var user = await _userManager.GetUserAsync(User);
-            var realEstates = await _realEstateService.GetActiveRealEstatesByUserIdAsync(user.Id);
+            var realEstates = await _realEstateService.GetRealEstatesByUserIdAsync(user.Id);
+            
+            return View(realEstates);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> InactiveRealEstates()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var realEstates = await _realEstateService.GetRealEstatesByUserIdAsync(user.Id, false);
             
             return View(realEstates);
         }

@@ -10,11 +10,12 @@
         @foreach (var locationGroup in Model)
         {
             <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@locationGroup.City</h5>
-                        <p class="card-text">Toplam @locationGroup.Count ilan</p>
-                        <a href="@Url.Action("ListRealEstatesByLocation", "RealEstate", new { location = locationGroup.City })" class="btn btn-primary">İlanları Gör</a>
+                <div class="home-card">
+                    <img src="/images/city-images/@locationGroup.ImageUrl" class="home-card-img-top" alt="@locationGroup.City">
+                    <div class="home-card-body">
+                        <h5 class="home-card-title">@locationGroup.City</h5>
+                        <p class="home-card-text">Toplam @locationGroup.Count ilan</p>
+                        <a href="@Url.Action("ListRealEstatesByLocation", "RealEstate", new { location = locationGroup.City })" class="home-card-btn">İlanları Gör</a>
                     </div>
                 </div>
             </div>

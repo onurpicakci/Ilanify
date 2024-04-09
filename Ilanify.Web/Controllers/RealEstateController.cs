@@ -1,4 +1,5 @@
 using Ilanify.Application.Interfaces;
+using Ilanify.DataAccess.Dtos;
 using Ilanify.Domain.Entities;
 using Ilanify.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
@@ -26,7 +27,16 @@ public class RealEstateController : Controller
     public async Task<IActionResult> Index()
     {
         var locations = await _realEstateService.GetTop4CitiesByRealEstateCountAsync();
-        return View(locations);
+        var cityRealEstateCounts = locations.ToList();
+        var cities = new List<CityRealEstateCount>
+        {
+            new CityRealEstateCount {City = "Istanbul", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "Istanbul")?.Count ?? 0, ImageUrl = "istanbul.jpg"},
+            new CityRealEstateCount {City = "Ankara", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "Ankara")?.Count ?? 0, ImageUrl = "ankara.jpg"},
+            new CityRealEstateCount {City = "Izmir", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "Izmir")?.Count ?? 0, ImageUrl = "izmir.jpg"},
+            new CityRealEstateCount {City = "Bursa", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "Bursa")?.Count ?? 0, ImageUrl = "bursa.jpg"}
+        };
+        
+        return View(cities);
     }
 
     public async Task<IActionResult> Create()

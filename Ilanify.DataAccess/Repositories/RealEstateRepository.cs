@@ -104,15 +104,24 @@ public class RealEstateRepository : IRealEstateRepository
     }
 
 
-    public async Task<IEnumerable<RealEstate>> GetActiveRealEstatesByUserIdAsync(string userId)
+    public async Task<IEnumerable<RealEstate>> GetRealEstatesByUserIdAsync(string userId, bool isActive = true)
     {
-        return await _context.RealEstates
+        IQueryable<RealEstate> query = _context.RealEstates
             .Include(re => re.Location)
             .Include(re => re.Category)
             .Include(re => re.Images)
-            .Where(re => re.ApplicationUserId == userId)
-            .Where(re => re.IsActive == true)
-            .ToListAsync();
+            .Where(re => re.ApplicationUserId == userId);
+
+        if (isActive)
+        {
+            query = query.Where(re => re.IsActive == true);
+        }
+        else
+        {
+            query = query.Where(re => re.IsActive == false);
+        }
+        
+        return await query.ToListAsync();
     }
 
     public async Task<int> GetRealEstatesCount()

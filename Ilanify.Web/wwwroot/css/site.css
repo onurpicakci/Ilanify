@@ -416,7 +416,7 @@ body {
 }
 
 .icon-category:hover span {
-    color: #c8c0c0;
+    color: #666777;
 }
 #infoCard {
     padding: 5px;
@@ -473,4 +473,58 @@ body {
 
 .close-filter:hover {
     color: #a94442;
+}
+
+.home-card {
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.home-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.home-card-img-top {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.home-card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.home-card-title {
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 1.25rem; 
+}
+
+.home-card-text {
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.home-card-btn {
+    background-color: #c51b2e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.home-card-btn:hover {
+    background-color: #a94442;
+    color: white;
 }

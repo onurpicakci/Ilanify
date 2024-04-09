@@ -21,6 +21,11 @@ public class RealEstateRepository : IRealEstateRepository
     public async Task<IEnumerable<RealEstate>> GetRealEstatesByCategoryAsync(int categoryId)
     {
         return await _context.RealEstates
+            .Include(re => re.Location)
+            .Include(re => re.Category)
+            .Include(re => re.AttributeValues) 
+            .ThenInclude(av => av.CategoryAttribute)
+            .Include(re => re.Images.OrderBy(i => i.Id).Take(1))
             .Where(re => re.CategoryId == categoryId)
             .Where(re => re.IsActive == true)
             .ToListAsync();
@@ -119,7 +124,6 @@ public class RealEstateRepository : IRealEstateRepository
     {
         RealEstateType typeEnum = (RealEstateType)Enum.Parse(typeof(RealEstateType), realEstateType.ToString());
 
-
         return await _context.RealEstates
             .Include(re => re.Location)
             .Include(re => re.Category)
@@ -157,9 +161,10 @@ public class RealEstateRepository : IRealEstateRepository
             .ToListAsync();
     }
 
-    public Task AddAsync(RealEstate entity)
+    public async Task AddAsync(RealEstate entity)
     {
-        throw new NotImplementedException();
+        await _context.RealEstates.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(RealEstate entity)
@@ -168,8 +173,9 @@ public class RealEstateRepository : IRealEstateRepository
         await _context.SaveChangesAsync();
     }
 
-    public Task DeleteAsync(RealEstate entity)
+    public async Task DeleteAsync(RealEstate entity)
     {
-        throw new NotImplementedException();
+        _context.RealEstates.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 }

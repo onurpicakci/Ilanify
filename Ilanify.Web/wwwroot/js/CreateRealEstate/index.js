@@ -51,6 +51,7 @@ $(document).ready(function () {
         }
     }
     function loadCategoryAttributes() {
+        debugger
         var categoryId = $('#categorySelect').val();
         if (categoryId) {
             $.ajax({
@@ -59,7 +60,7 @@ $(document).ready(function () {
                 success: function (data) {
                     var attributesContainer = $('#categoryAttributes');
                     attributesContainer.empty();
-                    $.each(data.$values, function (index, attr) {
+                    $.each(data, function (index, attr) {
                         var attributeHtml = '<div class="form-group">';
                         attributeHtml += '<label>' + attr.name + '</label>';
                         switch (attr.dataType) {

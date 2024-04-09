@@ -30,7 +30,6 @@
       <Folder Include="Areas\Admin\Controllers\" />
       <Folder Include="Areas\Admin\Data\" />
       <Folder Include="wwwroot\images\profile-pictures\" />
-      <Folder Include="wwwroot\images\real-estate-images\" />
     </ItemGroup>
 
 </Project>

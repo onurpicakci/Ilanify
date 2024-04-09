@@ -53,7 +53,7 @@ namespace Ilanify.DataAccess.Context
                 .HasOne(av => av.RealEstate)
                 .WithMany(re => re.AttributeValues)
                 .HasForeignKey(av => av.RealEstateId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AttributeValue>()
                 .HasOne(av => av.CategoryAttribute)

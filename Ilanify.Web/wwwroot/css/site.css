@@ -408,15 +408,15 @@ body {
 }
 
 .icon-category:hover {
-    color: #c51b2e;
+    color: #c8c0c0;
 }
 
 .icon-category:hover i {
-    color: #c51b2e;
+    color: #c8c0c0;
 }
 
 .icon-category:hover span {
-    color: #c51b2e;
+    color: #c8c0c0;
 }
 #infoCard {
     padding: 5px;

@@ -108,6 +108,9 @@ public class RealEstateController : Controller
     public async Task<IActionResult> ListRealEstatesByLocation(string location)
     {
         var realEstates = await _realEstateService.GetRealEstatesByLocationAsync(location);
+        var categories = await _categoryService.GetCategoriesAsync();
+        
+        ViewBag.Categories = new SelectList(categories, "Id", "Name");
         ViewBag.City = location;
         ViewBag.Count = realEstates.Count();
         return View(realEstates);
@@ -117,8 +120,25 @@ public class RealEstateController : Controller
     public async Task<IActionResult> ListRealEstatesByType(int realEstateType)
     {
         var realEstates = await _realEstateService.GetRealEstatesByTypeAsync((RealEstateType)realEstateType);
-        @ViewBag.Type = (RealEstateType)realEstateType;
-        @ViewBag.Count = realEstates.Count();
+        var categories = await _categoryService.GetCategoriesAsync();
+        
+        ViewBag.Categories = new SelectList(categories, "Id", "Name");
+        ViewBag.Type = (RealEstateType)realEstateType;
+        ViewBag.Count = realEstates.Count();
+        return View(realEstates);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> ListRealEstatesByCategory(int categoryId)
+    {
+        var realEstates = await _realEstateService.GetRealEstatesByCategoryAsync(categoryId);
+        var categories = await _categoryService.GetCategoriesAsync();
+        
+        
+        ViewBag.Categories = new SelectList(categories, "Id", "Name");
+        ViewBag.CategoryName = categories.FirstOrDefault(c => c.Id == categoryId)?.Name;
+        ViewBag.Count = realEstates.Count();
+        
         return View(realEstates);
     }
 
@@ -131,7 +151,7 @@ public class RealEstateController : Controller
 
         var uniqueFileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
 
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", uniqueFileName);
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/real-estate-images/", uniqueFileName);
         using (var fileStream = new FileStream(filePath, FileMode.Create))
         {
             await image.CopyToAsync(fileStream);

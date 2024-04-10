@@ -153,3 +153,43 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).ready(function () {
+    var currentRolesList = $('#currentRoles');
+    var availableRolesSelect = $('#availableRoles');
+
+    $('.role-add-btn').click(function () {
+        availableRolesSelect.find(':selected').each(function () {
+            var role = $(this).text();
+            currentRolesList.append(
+                $('<li></li>')
+                    .text(role)
+                    .addClass('list-group-item d-flex justify-content-between align-items-center')
+                    .data('role', role)
+                    .append($('<button></button>')
+                        .text('Remove')
+                        .addClass('role-remove-btn btn btn-danger btn-sm')
+                    ));
+            $(this).remove();
+        });
+    });
+
+    currentRolesList.on('click', '.role-remove-btn', function () {
+        var role = $(this).parent().data('role');
+        availableRolesSelect.append(new Option(role, role));
+        $(this).parent().remove();
+    });
+
+    $('.save-changes-btn').click(function (e) {
+        e.preventDefault();
+        var selectedRoles = currentRolesList.find('li').map(function() {
+            return $(this).data('role');
+        }).get();
+        $('<input>').attr({
+            type: 'hidden',
+            name: 'UserRoles',
+            value: JSON.stringify(selectedRoles)
+        }).appendTo('form.role-change-form');
+        $('form.role-change-form').submit();
+    });
+});

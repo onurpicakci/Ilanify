@@ -1,5 +1,6 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.Areas.Admin.Models.ViewModels;
+using Ilanify.Domain.Entities;
 using Ilanify.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -31,14 +32,23 @@ namespace Ilanify.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var realEstate = await _realEstateService.GetByIdAsync(id);
-            @ViewBag.Categories = new SelectList(await _categoryService.GetCategoriesAsync(), "Id", "Name");
-            @ViewBag.Types = Enum.GetValues(typeof(RealEstateType)).Cast<RealEstateType>().Select(v =>
-                new SelectListItem
-                {
-                    Text = v.ToString(),
-                    Value = ((int)v).ToString()
-                }).ToList();
-            return View(new AdminRealEstateEditViewModel
+            var attributeValuesViewModels = realEstate.AttributeValues.Select(av => new AttributeValueEditViewModel
+            {
+                Id = av.AttributeValueId,
+                CategoryAttributeId = av.CategoryAttributeId,
+                Value = av.Value,
+                CategoryAttributeName = av.CategoryAttribute.Name
+            }).ToList();
+
+            ViewBag.Categories = new SelectList(await _categoryService.GetCategoriesAsync(), "Id", "Name");
+            ViewBag.Types = Enum.GetValues(typeof(RealEstateType)).Cast<RealEstateType>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
+
+
+            var viewModel = new AdminRealEstateEditViewModel
             {
                 Id = realEstate.Id,
                 Title = realEstate.Title,
@@ -50,9 +60,11 @@ namespace Ilanify.Areas.Admin.Controllers
                 District = realEstate.Location.District,
                 Neighborhood = realEstate.Location.Neighborhood,
                 Type = realEstate.Type,
-                IsActive = realEstate.IsActive
-                //AttributeValues = realEstate.AttributeValues,
-            });
+                IsActive = realEstate.IsActive,
+                AttributeValues = attributeValuesViewModels
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -72,14 +84,21 @@ namespace Ilanify.Areas.Admin.Controllers
                 entity.Location.Neighborhood = realEstate.Neighborhood;
                 entity.Type = realEstate.Type;
                 entity.IsActive = realEstate.IsActive;
-                //entity.AttributeValues = realEstate.AttributeValues;
+                entity.AttributeValues = realEstate.AttributeValues.Select(av => new AttributeValue
+                {
+                    AttributeValueId = av.Id,
+                    Value = av.Value,
+                    CategoryAttributeId = av.CategoryAttributeId,
+                    RealEstateId = av.RealEstateId
+                }).ToList();
+
                 await _realEstateService.UpdateAsync(entity);
                 return RedirectToAction(nameof(Index));
             }
 
             return View(realEstate);
         }
-        
+
         public async Task<IActionResult> Delete(int id)
         {
             var realEstate = await _realEstateService.GetByIdAsync(id);

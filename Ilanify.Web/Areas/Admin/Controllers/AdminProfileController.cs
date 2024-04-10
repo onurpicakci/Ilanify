@@ -139,7 +139,7 @@ namespace Ilanify.Areas.Admin.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddRole(ChangeRoleViewModel model)
+        public async Task<IActionResult> AddRole(ChangeRoleViewModel model, [FromForm] string[] selectedRoles)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
             if (user == null)
@@ -149,10 +149,22 @@ namespace Ilanify.Areas.Admin.Controllers
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var addedRoles = model.UserRoles.Except(userRoles);
-            var removedRoles = userRoles.Except(model.UserRoles);
+            var removedRoles = userRoles.Except(selectedRoles);
 
-            await _userManager.AddToRolesAsync(user, addedRoles);
-            await _userManager.RemoveFromRolesAsync(user, removedRoles);
+            var result = await _userManager.AddToRolesAsync(user, addedRoles);
+            
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Cannot add roles to user");
+                return View(model);
+            }
+            
+            result = await _userManager.RemoveFromRolesAsync(user, removedRoles);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Cannot remove roles from user");
+                return View(model);
+            }
 
             return RedirectToAction("Index");
         }

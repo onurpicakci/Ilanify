@@ -8,23 +8,34 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Category ID</th>
-            <th>Category Name</th>
-            <th>Actions</th>
-        </tr>
+    <tr>
+        <th>Category ID</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model)
-        {
-            <tr>
-                <td>@category.Id</td>
-                <td>@category.Name</td>
-                <td>
-                    <a href="/Admin/Category/Edit/@category.Id" class="btn btn-primary">Edit</a>
-                    <a href="/Admin/Category/Delete/@category.Id" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
+    @foreach (var category in Model)
+    {
+        <tr>
+            <td>@category.Id</td>
+            <td>@category.Name</td>
+            <td>
+                <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton@category.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                    Actions
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@category.Id">
+                    <li>
+                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                    </li>
+                </ul>
+                </div>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>

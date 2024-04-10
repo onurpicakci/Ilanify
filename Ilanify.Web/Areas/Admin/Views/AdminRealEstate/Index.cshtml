@@ -36,15 +36,26 @@
             <td>@realEstate.Location.Neighborhood</td>
             <td>@realEstate.Type</td>
             <td>@realEstate.Price</td>
-            
+
             <td>@realEstate.ApplicationUser.UserName</td>
             <td>@realEstate.ListingDate.ToString("dd/MM/yyyy")</td>
             <td>
                 <a href="/RealEstate/Details?realEstateId=@realEstate.Id" class="btn btn-outline-success">Details</a>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@realEstate.Id" class="btn btn-primary">Edit</a>
-                <a asp-action="Delete" asp-route-id="@realEstate.Id" class="btn btn-danger">Delete</a>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton@realEstate.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@realEstate.Id">
+                        <li>
+                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@realEstate.Id">Edit</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@realEstate.Id">Delete</a>
+                        </li>
+                    </ul>
+                </div>
             </td>
         </tr>
     }

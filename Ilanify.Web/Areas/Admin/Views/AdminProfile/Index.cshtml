@@ -25,9 +25,22 @@
             <td>@user.UserName</td>
             <td>@user.Email</td>
             <td>
-                <a href="@Url.Action("Edit", "AdminProfile", new { userId = user.Id })" class="btn btn-primary">Edit</a>
-                <a href="@Url.Action("Delete", "AdminProfile", new { userId = user.Id })" class="btn btn-danger">Delete</a>
-                <a href="@Url.Action("AddRole", "AdminProfile", new { userId = user.Id })" class="btn btn-secondary">Add Role</a>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="actionMenuButton@user.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="actionMenuButton@user.Id">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Edit", "AdminProfile", new { userId = user.Id })">Edit</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Delete", "AdminProfile", new { userId = user.Id })">Delete</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("AddRole", "AdminProfile", new { userId = user.Id })">Add Role</a>
+                        </li>
+                    </ul>
+                </div>
 
             </td>
         </tr>

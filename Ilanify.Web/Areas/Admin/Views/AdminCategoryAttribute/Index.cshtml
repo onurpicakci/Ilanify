@@ -26,11 +26,21 @@
             <td>@categoryAttribute.Name</td>
             <td>@((int)categoryAttribute.DataType == 1 ? "Text" : (int)categoryAttribute.DataType == 2 ? "Number" : "Boolean")</td>
             <td>
-                <a href="@Url.Action("Edit", "AdminCategoryAttribute", new { id = categoryAttribute.Id })" class="btn btn-primary">Edit</a>
-                <a href="@Url.Action("Delete", "AdminCategoryAttribute", new { id = categoryAttribute.Id })" class="btn btn-danger">Delete</a>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton@categoryAttribute.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@categoryAttribute.Id">
+                        <li>
+                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@categoryAttribute.Id">Edit</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@categoryAttribute.Id">Delete</a>
+                        </li>
+                    </ul>
+                </div>
             </td>
         </tr>
     }
     </tbody>
 </table>
-

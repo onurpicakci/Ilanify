@@ -18,4 +18,5 @@ public class AdminRealEstateEditViewModel
     public string Neighborhood { get; set; }
     public bool IsActive { get; set; }
     public RealEstateType Type { get; set; }
+    public List<AttributeValueEditViewModel> AttributeValues { get; set; } = new List<AttributeValueEditViewModel>();
 }

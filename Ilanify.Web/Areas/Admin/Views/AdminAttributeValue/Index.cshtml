@@ -26,8 +26,16 @@
             <td>@attributeValue.CategoryAttribute.Name</td>
             <td>@attributeValue.Value</td>
             <td>
-                <a asp-action="Edit" asp-route-id="@attributeValue.AttributeValueId" class="btn btn-primary">Edit</a>
-                <a asp-action="Delete" asp-route-id="@attributeValue.AttributeValueId" class="btn btn-danger">Delete</a>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton@attributeValue.AttributeValueId" data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton@attributeValue.AttributeValueId">
+                        <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@attributeValue.AttributeValueId">Edit</a></li>
+                        <li><a class="dropdown-item" asp-action="Delete" asp-route-id="@attributeValue.AttributeValueId">Delete</a></li>
+                    </ul>
+                </div>
+
             </td>
         </tr>
     }

@@ -1,8 +1,10 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.Domain.Entities;
+using Ilanify.Domain.Enums;
 using Ilanify.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ilanify.Controllers
 {
@@ -11,12 +13,14 @@ namespace Ilanify.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IRealEstateService _realEstateService;
+        private readonly ICategoryService _categoryService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRealEstateService realEstateService)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRealEstateService realEstateService, ICategoryService categoryService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _realEstateService = realEstateService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -196,6 +200,96 @@ namespace Ilanify.Controllers
             await _realEstateService.UpdateAsync(realEstate);
             
             return RedirectToAction("InactiveRealEstates");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> EditRealEstate(int id)
+        {
+            var realEstate = await _realEstateService.GetByIdAsync(id);
+            
+            if(realEstate == null)
+            {
+                return NotFound();
+            }
+            
+            var attributeValues = realEstate.AttributeValues.Select(av => new AttributeValueEditViewModel
+            {
+                Id = av.AttributeValueId,
+                Value = av.Value,
+                CategoryAttributeId = av.CategoryAttributeId,
+                RealEstateId = av.RealEstateId,
+                CategoryAttributeName = av.CategoryAttribute.Name
+            }).ToList();
+            
+            ViewBag.Categories = new SelectList(await _categoryService.GetAllAsync(), "Id", "Name");
+            ViewBag.Types = Enum.GetValues(typeof(RealEstateType)).Cast<RealEstateType>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
+            
+            
+            var viewModel = new RealEstateEditViewModel
+            {
+                Id = realEstate.Id,
+                Title = realEstate.Title,
+                Description = realEstate.Description,
+                Price = realEstate.Price,
+                CategoryId = realEstate.CategoryId,
+                SquareMeters = realEstate.SquareMeters,
+                City = realEstate.Location.City,
+                District = realEstate.Location.District,
+                Neighborhood = realEstate.Location.Neighborhood,
+                Type = realEstate.Type,
+                AttributeValues = attributeValues
+            };
+            
+            return View(viewModel);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> EditRealEstate(RealEstateEditViewModel realEstate)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = await _realEstateService.GetByIdAsync(realEstate.Id);
+                entity.Title = realEstate.Title;
+                entity.Price = realEstate.Price;
+                entity.Description = realEstate.Description;
+                entity.CategoryId = realEstate.CategoryId;
+                entity.SquareMeters = realEstate.SquareMeters;
+                entity.UpdatedDate = DateTime.Now;
+                entity.Location.City = realEstate.City;
+                entity.Location.District = realEstate.District;
+                entity.Location.Neighborhood = realEstate.Neighborhood;
+                entity.Type = realEstate.Type;
+                entity.AttributeValues = realEstate.AttributeValues.Select(av => new AttributeValue
+                {
+                    AttributeValueId = av.Id,
+                    Value = av.Value,
+                    CategoryAttributeId = av.CategoryAttributeId,
+                    RealEstateId = av.RealEstateId
+                }).ToList();
+                
+                await _realEstateService.UpdateAsync(entity);
+                return RedirectToAction(nameof(ActivateRealEstates));
+            }
+            
+            return View(realEstate);
+        }
+        
+        public async Task<IActionResult> DeleteRealEstate(int id)
+        {
+            var realEstate = await _realEstateService.GetByIdAsync(id);
+            
+            if(realEstate == null)
+            {
+                return NotFound();
+            }
+            
+            await _realEstateService.DeleteAsync(realEstate);
+            
+            return RedirectToAction("ActivateRealEstates");
         }
     }
 }

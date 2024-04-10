@@ -1,9 +1,9 @@
 using Ilanify.Domain.Entities;
 using Ilanify.Domain.Enums;
 
-namespace Ilanify.Areas.Admin.Models.ViewModels;
+namespace Ilanify.Models.ViewModels;
 
-public class AdminRealEstateEditViewModel
+public class RealEstateEditViewModel
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -16,7 +16,6 @@ public class AdminRealEstateEditViewModel
     public string City { get; set; }
     public string District { get; set; }
     public string Neighborhood { get; set; }
-    public bool IsActive { get; set; }
     public RealEstateType Type { get; set; }
-    public List<AdminAttributeValueEditViewModel> AttributeValues { get; set; } = new List<AdminAttributeValueEditViewModel>();
+    public List<AttributeValueEditViewModel> AttributeValues { get; set; } = new List<AttributeValueEditViewModel>();
 }

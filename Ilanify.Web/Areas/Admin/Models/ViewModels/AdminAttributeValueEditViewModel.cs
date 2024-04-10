@@ -1,6 +1,6 @@
 namespace Ilanify.Areas.Admin.Models.ViewModels;
 
-public class AttributeValueEditViewModel
+public class AdminAttributeValueEditViewModel
 {
     public int Id { get; set; }
     public string Value { get; set; }

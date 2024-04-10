@@ -18,7 +18,9 @@
                         <div class="col-md-3">
                             @foreach (var image in realEstate.Images.Take(1))
                             {
-                                <img src="@Url.Content($"~/images/real-estate-images/{image.ImageUrl}")" class="card-img" alt="@realEstate.Title">
+                                <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="text-decoration-none">
+                                    <img src="@Url.Content($"~/images/real-estate-images/{image.ImageUrl}")" class="card-img" alt="@realEstate.Title">
+                                </a>
                             }
                         </div>
                         <div class="col-md-8">
@@ -39,10 +41,12 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li>
-                                            <a class="dropdown-item" asp-action="" asp-route-id="@realEstate.Id">Düzenle</a>
+                                            <a class="dropdown-item" asp-action="Details" asp-controller="RealEstate" asp-route-realEstateId="@realEstate.Id">İlanı Görüntüle</a>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="EditRealEstate" asp-route-id="@realEstate.Id">Düzenle</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" asp-action="" asp-route-id="@realEstate.Id">Sil</a>
+                                            <a class="dropdown-item" asp-action="DeleteRealEstate" asp-route-id="@realEstate.Id">Sil</a>
                                         </li>
                                     </ul>
                                 </div>

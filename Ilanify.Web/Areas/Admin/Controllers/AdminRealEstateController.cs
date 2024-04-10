@@ -32,7 +32,7 @@ namespace Ilanify.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var realEstate = await _realEstateService.GetByIdAsync(id);
-            var attributeValuesViewModels = realEstate.AttributeValues.Select(av => new AttributeValueEditViewModel
+            var attributeValuesViewModels = realEstate.AttributeValues.Select(av => new AdminAttributeValueEditViewModel
             {
                 Id = av.AttributeValueId,
                 CategoryAttributeId = av.CategoryAttributeId,

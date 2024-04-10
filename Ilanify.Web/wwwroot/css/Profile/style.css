@@ -45,9 +45,8 @@
 }
 
 .btn-custom {
-    margin-left: 28rem;
     position: absolute;
-    width: 90px;
+    width: 100px;
     height: 28px;
     font-size: 0.7rem;
     font-weight: bold;
@@ -82,3 +81,19 @@
     color: #fff;
     background-color: #c51b2e;
 }
+
+.active-form,
+.dropdown-button {
+    position: relative;
+}
+
+.active-form {
+    left: 20rem;
+    top: 2.2rem;
+}
+
+.dropdown-button {
+    left: 27rem;
+    top: 2.2rem;
+}
+

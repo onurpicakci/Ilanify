@@ -67,7 +67,7 @@ namespace Ilanify.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(
-                    model.Email,
+                    model.Username,
                     model.Password,
                     model.RememberMe,
                     lockoutOnFailure: false);
@@ -149,12 +149,28 @@ namespace Ilanify.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> RealEstates()
+        public async Task<IActionResult> ActivateRealEstates()
         {
             var user = await _userManager.GetUserAsync(User);
             var realEstates = await _realEstateService.GetRealEstatesByUserIdAsync(user.Id);
             
             return View(realEstates);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActivateRealEstates(int id)
+        {
+            var realEstate = await _realEstateService.GetByIdAsync(id);
+            
+            if(realEstate == null)
+            {
+                return NotFound();
+            }
+            
+            realEstate.IsActive = true;
+            await _realEstateService.UpdateAsync(realEstate);
+            
+            return RedirectToAction("ActivateRealEstates");
         }
         
         [HttpGet]
@@ -164,6 +180,22 @@ namespace Ilanify.Controllers
             var realEstates = await _realEstateService.GetRealEstatesByUserIdAsync(user.Id, false);
             
             return View(realEstates);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> InactiveRealEstates(int id)
+        {
+            var realEstate = await _realEstateService.GetByIdAsync(id);
+            
+            if(realEstate == null)
+            {
+                return NotFound();
+            }
+            
+            realEstate.IsActive = false;
+            await _realEstateService.UpdateAsync(realEstate);
+            
+            return RedirectToAction("InactiveRealEstates");
         }
     }
 }

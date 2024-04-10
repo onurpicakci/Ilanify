@@ -30,7 +30,23 @@
                                 <div class="position-absolute">
                                     <span class="price">@realEstate.Price.ToString("N1") TL</span>
                                 </div>
-                                <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="btn btn-custom">Detaylar</a>
+                                <form asp-action="InactiveRealEstates" asp-route-id="@realEstate.Id" method="post" class="active-form">
+                                    <button type="submit" class="btn btn-custom">Yayından Al</button>
+                                </form>
+
+                                <div class="dropdown dropdown-button">
+                                    <button class="btn btn-custom dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        İşlemler
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <a class="dropdown-item" asp-action="" asp-route-id="@realEstate.Id">Düzenle</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-action="" asp-route-id="@realEstate.Id">Sil</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

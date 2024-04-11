@@ -14,17 +14,17 @@ public static class RealEstateQueryExtensions
 
         if (!string.IsNullOrEmpty(filter.City))
         {
-            query = query.Where(re => re.Location.City == filter.City);
+            query = query.Where(re => re.Location.City.Contains(filter.City));
         }
 
         if (!string.IsNullOrEmpty(filter.District))
         {
-            query = query.Where(re => re.Location.District == filter.District);
+            query = query.Where(re => re.Location.District.Contains(filter.District));
         }
         
         if (!string.IsNullOrEmpty(filter.Neighborhood))
         {
-            query = query.Where(re => re.Location.Neighborhood == filter.Neighborhood);
+            query = query.Where(re => re.Location.Neighborhood.Contains(filter.Neighborhood));
         }
 
         if (!string.IsNullOrEmpty(filter.RoomCount))

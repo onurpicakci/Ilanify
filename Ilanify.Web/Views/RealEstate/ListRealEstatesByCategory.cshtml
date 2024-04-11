@@ -18,7 +18,14 @@
                                 <option value="">Kategori Seçin</option>
                                 @foreach (var category in ViewBag.Categories)
                                 {
-                                    <option value="@category.Value">@category.Text</option>
+                                    if (category.Text == ViewBag.CategoryName)
+                                    {
+                                        <option value="@category.Value" selected>@category.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@category.Value">@category.Text</option>
+                                    }
                                 }
                             </select>
                         </div>

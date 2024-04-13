@@ -267,6 +267,8 @@ body {
     padding: 0 20px;
     cursor: pointer;
     font-size: 16px;
+    position: absolute;
+    margin-top: 9px;
 }
 
 .search-button:hover {

@@ -46,6 +46,11 @@ public class RealEstateService : IRealEstateService
         return await _realEstateRepository.GetRealEstatesByFilterAsync(filter);
     }
 
+    public async Task<IEnumerable<RealEstate>> SearchRealEstatesAsync(RealEstateSearchQuery searchFilter)
+    {
+        return await _realEstateRepository.SearchRealEstatesAsync(searchFilter);
+    }
+
     public async Task<IEnumerable<RealEstate>> GetRealEstatesByUserIdAsync(string userId, bool isActive = true)
     {
         return await _realEstateRepository.GetRealEstatesByUserIdAsync(userId, isActive);

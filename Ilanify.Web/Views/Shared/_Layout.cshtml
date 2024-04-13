@@ -23,8 +23,11 @@
         <section class="hero-section">
             <div class="container d-flex flex-column align-items-center justify-content-center fs-1">
                 <div class="search-container">
-                    <input type="text" placeholder="Konum, ilan no ya da emlak ofisi adıyla arayın (Örn. 1234-123456)" class="search-input">
-                    <button class="search-button">Ara</button>
+                    <form id="searchForm" method="GET" action="/RealEstate/Search">
+                        <input class="search-input" type="search" placeholder="İlan no,ilan başlığı veya konum adıyla arayın (Örn. 22, Satılık, İstanbul" aria-label="Search" name="searchText">
+                        <button class="search-button" type="submit">Ara</button>
+                    </form>
+
                     <div class="icon-categories d-flex justify-content-center">
                         <a href="/RealEstate/ListRealEstatesByType?realEstateType=1" class="icon-category d-flex flex-column align-items-center"><i class="fas fa-home"></i> <span>Satılık</span></a>
                         <a href="/RealEstate/ListRealEstatesByType?realEstateType=2" class="icon-category d-flex flex-column align-items-center"><i class="fas fa-key"></i> <span>Kiralık</span></a>

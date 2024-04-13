@@ -1,0 +1,136 @@
+@using Ilanify.Domain.Entities
+@using Ilanify.Domain.Enums
+@model IEnumerable<RealEstate>
+
+@{
+    ViewBag.Title = "İlan Arama ve Filtreleme";
+    Layout = "_Layout";
+}
+
+<div class="location-page">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form id="filtersForm">
+                        <div class="form-group">
+                            <label for="categoryId">Kategori</label>
+                            <select class="form-control" id="categoryId" name="categoryId">
+                                <option value="">Kategori Seçin</option>
+                                @foreach (var category in ViewBag.Categories)
+                                {
+                                    <option value="@category.Value">@category.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="realEstateType">Satılık/Kiralık</label>
+                            <select class="form-control" id="realEstateType" name="realEstateType">
+                                <option value="">Satılık/Kiralık Seçin</option>
+                                @foreach (var realEstateType in Enum.GetValues(typeof(RealEstateType)))
+                                {
+                                    <option value="@((int)realEstateType)">@Enum.GetName(typeof(RealEstateType), realEstateType)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Şehir</label>
+                            <input type="text" class="form-control" id="city" name="city">
+                        </div>
+                        <div class="form-group">
+                            <label for="district">İlçe</label>
+                            <input type="text" class="form-control" id="district" name="district">
+                        </div>
+                        <div class="form-group">
+                            <label for="neighborhood">Mahalle</label>
+                            <input type="text" class="form-control" id="neighborhood" name="neighborhood">
+                        </div>
+                        <div class="form-group">
+                            <label for="roomCount">Oda Sayısı</label>
+                            <select class="form-control" id="roomCount" name="roomCount">
+                                <option value="">Oda Sayısı Seçin</option>
+                                <option value="1+0">1+0</option><option value="1+1">1+1</option>
+                                <option value="2+1">2+1</option><option value="3+1">3+1</option>
+                                <option value="4+1">4+1</option><option value="5+1">5+1</option>
+                                <option value="6+1">6+1</option><option value="7+1">7+1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="minPrice">Minimum Fiyat</label>
+                            <input type="text" class="form-control" id="minPrice" name="minPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxPrice">Maksimum Fiyat</label>
+                            <input type="text" class="form-control" id="maxPrice" name="maxPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="minSquareMeters">Minimum Metrekare</label>
+                            <input type="text" class="form-control" id="minSquareMeters" name="minSquareMeters">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxSquareMeters">Maksimum Metrekare</label>
+                            <input type="text" class="form-control" id="maxSquareMeters" name="maxSquareMeters">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Filtreleri Uygula</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9" id="realEstateContainer">
+            <div class="card" id="infoCard">
+                <b class="infoContainer">@ViewBag.SearchQuery </b>
+                <p class="container-count">filtresi için @ViewBag.Count ilan bulundu</p>
+                <hr/>
+                <div class="selected-filter">
+
+                </div>
+            </div>
+            @foreach (var realEstate in Model)
+            {
+                <a href="@Url.Action("Details", "RealEstate", new { realEstateId = realEstate.Id })" class="text-decoration-none">
+                    <div class="card mb-3 mt-3">
+                        <div class="listing-date position-absolute">
+                            <small class="text-muted">@realEstate.ListingDate.ToString("dd.MM.yyyy")</small>
+                        </div>
+                        <div class="row no-gutters m-1">
+                            <div class="col-md-4 mt-3 mb-3">
+                                @foreach (var image in realEstate.Images)
+                                {
+                                    <img src="/images/real-estate-images/@image.ImageUrl" class="card-img" style="width:100%; height:auto;">
+                                }
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="estate-price">@realEstate.Price.ToString("N1") TL</h5>
+                                    <p class="estate-title">@realEstate.Title</p>
+                                    <p class="card-text">
+                                        <small class="estate-property">@realEstate.Type @realEstate.Category.Name | @realEstate.SquareMeters m²</small>
+                                        @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Oda Sayısı"))
+                                        {
+                                            <small class="estate-property">| @attributeValue.Value</small>
+                                        }
+                                        @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Kat Sayısı"))
+                                        {
+                                            <small class="estate-property">| @(attributeValue.Value). Kat</small>
+                                        }
+                                        @foreach (var attributeValue in realEstate.AttributeValues.Where(av => av.CategoryAttribute.Name == "Bina Yaşı"))
+                                        {
+                                            if (int.TryParse(attributeValue.Value, out int age))
+                                            {
+                                                <small class="estate-property">| @(DateTime.Now.Year - age) Yıllık</small>
+                                            }
+                                        }
+                                    </p>
+                                    <p class="card-text">
+                                        <i class="fa-regular fa-location-dot"></i><small class="text-muted location-info"> @realEstate.Location.District, @realEstate.Location.Neighborhood</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>

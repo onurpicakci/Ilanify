@@ -12,7 +12,7 @@ namespace Ilanify.DataAccess.Repositories;
 public class RealEstateRepository : IRealEstateRepository
 {
     private readonly IlanifyDbContext _context;
-    
+
     public RealEstateRepository(IlanifyDbContext context)
     {
         _context = context;
@@ -23,7 +23,7 @@ public class RealEstateRepository : IRealEstateRepository
         return await _context.RealEstates
             .Include(re => re.Location)
             .Include(re => re.Category)
-            .Include(re => re.AttributeValues) 
+            .Include(re => re.AttributeValues)
             .ThenInclude(av => av.CategoryAttribute)
             .Include(re => re.Images.OrderBy(i => i.Id).Take(1))
             .Where(re => re.CategoryId == categoryId)
@@ -43,10 +43,10 @@ public class RealEstateRepository : IRealEstateRepository
             .Where(x => x.IsActive == true)
             .Include(re => re.Location)
             .GroupBy(re => re.Location.City)
-            .Select(group => new CityRealEstateCount 
-            { 
-                City = group.Key, 
-                Count = group.Count() 
+            .Select(group => new CityRealEstateCount
+            {
+                City = group.Key,
+                Count = group.Count()
             })
             .OrderByDescending(x => x.Count)
             .Take(4)
@@ -58,7 +58,7 @@ public class RealEstateRepository : IRealEstateRepository
         return await _context.RealEstates
             .Include(re => re.Location)
             .Include(re => re.Category)
-            .Include(re => re.AttributeValues) 
+            .Include(re => re.AttributeValues)
             .ThenInclude(av => av.CategoryAttribute)
             .Include(re => re.Images.OrderBy(i => i.Id).Take(1))
             .Where(re => re.Location.City == location)
@@ -82,7 +82,7 @@ public class RealEstateRepository : IRealEstateRepository
         {
             return null;
         }
-        
+
         return realEstate;
     }
 
@@ -97,12 +97,26 @@ public class RealEstateRepository : IRealEstateRepository
             .Include(re => re.AttributeValues)
             .Include(re => re.Images)
             .AsQueryable();
-    
+
         query = query.ApplyFilter(filter);
 
         return await query.ToListAsync();
     }
 
+    public async Task<IEnumerable<RealEstate>> SearchRealEstatesAsync(RealEstateSearchQuery searchFilter)
+    {
+        var query = _context.RealEstates
+            .Where(re => re.IsActive == true)
+            .Include(re => re.Location)
+            .Include(re => re.Category)
+            .ThenInclude(c => c.CategoryAttributes)
+            .Include(re => re.ApplicationUser)
+            .Include(re => re.AttributeValues)
+            .Include(re => re.Images.OrderBy(i => i.Id).Take(1))
+            .AsQueryable();
+
+        return await query.SearchRealEstatesAsync(searchFilter);
+    }
 
     public async Task<IEnumerable<RealEstate>> GetRealEstatesByUserIdAsync(string userId, bool isActive = true)
     {
@@ -120,7 +134,7 @@ public class RealEstateRepository : IRealEstateRepository
         {
             query = query.Where(re => re.IsActive == false);
         }
-        
+
         return await query.ToListAsync();
     }
 
@@ -136,7 +150,7 @@ public class RealEstateRepository : IRealEstateRepository
         return await _context.RealEstates
             .Include(re => re.Location)
             .Include(re => re.Category)
-            .Include(re => re.AttributeValues) 
+            .Include(re => re.AttributeValues)
             .ThenInclude(av => av.CategoryAttribute)
             .Include(re => re.Images.OrderBy(i => i.Id).Take(1))
             .Where(re => re.IsActive == true)

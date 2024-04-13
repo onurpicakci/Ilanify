@@ -3,7 +3,7 @@ using Ilanify.Domain.Entities;
 
 namespace Ilanify.DataAccess.Extensions;
 
-public static class RealEstateQueryExtensions
+public static class RealEstateFilterQueryExtensions
 {
     public static IQueryable<RealEstate> ApplyFilter(this IQueryable<RealEstate> query, RealEstateFilter filter)
     {

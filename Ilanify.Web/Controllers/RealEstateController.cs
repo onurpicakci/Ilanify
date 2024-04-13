@@ -144,11 +144,24 @@ public class RealEstateController : Controller
         var realEstates = await _realEstateService.GetRealEstatesByCategoryAsync(categoryId);
         var categories = await _categoryService.GetCategoriesAsync();
         
-        
         ViewBag.Categories = new SelectList(categories, "Id", "Name");
         ViewBag.CategoryName = categories.FirstOrDefault(c => c.Id == categoryId)?.Name;
         ViewBag.Count = realEstates.Count();
         
+        return View(realEstates);
+    }
+    
+    
+
+    public async Task<IActionResult> Search(string searchText)
+    {
+        var searchFilter = new RealEstateSearchQuery { SearchText = searchText };
+        var realEstates = await _realEstateService.SearchRealEstatesAsync(searchFilter);
+        var categories = await _categoryService.GetCategoriesAsync();
+        
+        ViewBag.Categories = new SelectList(categories, "Id", "Name");
+        ViewBag.SearchQuery = searchText;
+        ViewBag.Count = realEstates.Count();
         return View(realEstates);
     }
 

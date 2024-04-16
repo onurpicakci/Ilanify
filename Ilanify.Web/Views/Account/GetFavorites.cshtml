@@ -1,8 +1,7 @@
-@using Ilanify.Domain.Entities
-@model IEnumerable<RealEstate>
+@model System.Collections.Generic.IEnumerable<Ilanify.Domain.Entities.RealEstate>
 
 @{
-    ViewBag.Title = "Profilim - İlanlarım";
+    ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
@@ -28,6 +27,7 @@
                             <div class="card-body">
                                 <h5 class="profile-estate-title">@realEstate.Title</h5>
                                 <p class="profile-estate-text mt-2">@realEstate.Type @realEstate.Category.Name - @realEstate.Location.District / @realEstate.Location.Neighborhood</p>
+
                                 <p class="profile-estate-text">Yayınlanma Tarihi: @realEstate.ListingDate.ToString("dd.MM.yyyy")</p>
                                 <div class="position-absolute">
                                     <span class="price">@realEstate.Price.ToString("N1") TL</span>

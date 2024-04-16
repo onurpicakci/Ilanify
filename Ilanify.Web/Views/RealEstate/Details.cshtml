@@ -1,4 +1,5 @@
 @using Ilanify.Domain.Entities
+@using System.Security.Claims
 @model RealEstate
 
 @{
@@ -87,9 +88,13 @@
                     <span class="phone-number">Telefonu Gör</span>
                 </a>
                 <div class="detail-actions">
-                    <button class="action-button favorite">
-                        <i class="fa fa-heart" aria-hidden="true"></i> Favorilere Ekle
-                    </button>
+                    <form id="addFavoriteForm" method="post" action="/RealEstate/AddFavorite">
+                        <input type="hidden" name="userId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)"/>
+                        <input type="hidden" name="realEstateId" value="@Model.Id"/>"
+                        <button class="action-button favorite">
+                            <i class="fa fa-heart" aria-hidden="true"></i> Favorilere Ekle
+                        </button>
+                    </form>
                     <button class="action-button share">
                         <i class="fa fa-share-alt" aria-hidden="true"></i> İlanı Paylaş
                     </button>

@@ -8,4 +8,5 @@ public class ApplicationUser : IdentityUser
     public string LastName { get; set; }
     public string? ProfileImageUrl { get; set; }
     public List<RealEstate> RealEstates { get; set; }
+    public List<Favorites> Favorites { get; set; }
 }

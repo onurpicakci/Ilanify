@@ -14,13 +14,15 @@ namespace Ilanify.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IRealEstateService _realEstateService;
         private readonly ICategoryService _categoryService;
+        private readonly IFavoriteService _favoriteService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRealEstateService realEstateService, ICategoryService categoryService)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IRealEstateService realEstateService, ICategoryService categoryService, IFavoriteService favoriteService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _realEstateService = realEstateService;
             _categoryService = categoryService;
+            _favoriteService = favoriteService;
         }
 
         [HttpGet]
@@ -290,6 +292,15 @@ namespace Ilanify.Controllers
             await _realEstateService.DeleteAsync(realEstate);
             
             return RedirectToAction("ActivateRealEstates");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetFavorites()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var favorites = await _favoriteService.GetFavoritesAsync(user.Id);
+            
+            return View(favorites);
         }
     }
 }

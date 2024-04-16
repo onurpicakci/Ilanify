@@ -28,6 +28,9 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IRepository<Category>, EfRepository<Category>>();
 builder.Services.AddScoped<IRepository<CategoryAttribute>, EfRepository<CategoryAttribute>>();
 
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<IlanifyDbContext>()
     .AddDefaultTokenProviders();

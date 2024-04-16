@@ -18,7 +18,8 @@ namespace Ilanify.DataAccess.Context
         public DbSet<RealEstateImage> RealEstateImages { get; set; }
         public DbSet<CategoryAttribute> CategoryAttributes { get; set; }
         public DbSet<AttributeValue> AttributeValues { get; set; }
-        
+        public DbSet<Favorites> Favorites { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -42,7 +43,7 @@ namespace Ilanify.DataAccess.Context
                 .HasOne(i => i.RealEstate)
                 .WithMany(r => r.Images)
                 .HasForeignKey(i => i.RealEstateId);
-            
+
             modelBuilder.Entity<CategoryAttribute>()
                 .HasOne(ca => ca.Category)
                 .WithMany(c => c.CategoryAttributes)
@@ -60,6 +61,12 @@ namespace Ilanify.DataAccess.Context
                 .WithMany(ca => ca.AttributeValues)
                 .HasForeignKey(av => av.CategoryAttributeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Favorites>()
+                .HasOne(fr => fr.RealEstate)
+                .WithMany()
+                .HasForeignKey(fr => fr.RealEstateId)
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
     }

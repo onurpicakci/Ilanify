@@ -1,3 +1,4 @@
+@using System.Security.Claims
 @model System.Collections.Generic.IEnumerable<Ilanify.Domain.Entities.RealEstate>
 
 @{
@@ -32,26 +33,11 @@
                                 <div class="position-absolute">
                                     <span class="price">@realEstate.Price.ToString("N1") TL</span>
                                 </div>
-                                <form asp-action="InactiveRealEstates" asp-route-id="@realEstate.Id" method="post" class="active-form">
-                                    <button type="submit" class="btn btn-custom">Yayından Al</button>
+                                <form asp-action="RemoveFavorite" asp-controller="RealEstate" method="post" class="favorite-form">
+                                    <input type="hidden" name="userId" value="@User.FindFirst(ClaimTypes.NameIdentifier).Value"/>
+                                    <input type="hidden" name="realEstateId" value="@realEstate.Id"/>
+                                    <button type="submit" class="btn btn-favorite">Favorilerden Çıkar</button>
                                 </form>
-
-                                <div class="dropdown dropdown-button">
-                                    <button class="btn btn-custom dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        İşlemler
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                        <a class="dropdown-item" asp-action="Details" asp-controller="RealEstate" asp-route-realEstateId="@realEstate.Id">İlanı Görüntüle</a>
-                                        <li>
-                                        <li>
-                                            <a class="dropdown-item" asp-action="EditRealEstate" asp-route-id="@realEstate.Id">Düzenle</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-action="DeleteRealEstate" asp-route-id="@realEstate.Id">Sil</a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>

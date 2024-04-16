@@ -36,7 +36,7 @@ namespace Ilanify.Areas.Admin.Controllers
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return RedirectToAction("", "AdminHome");
+                return RedirectToAction("Index", "AdminHome");
             }
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return View(model);

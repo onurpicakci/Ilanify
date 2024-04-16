@@ -188,6 +188,13 @@ public class RealEstateController : Controller
         await _favoriteService.AddFavoriteAsync(userId, realEstateId);
         return RedirectToAction("Index");
     }
+    
+    [HttpPost]
+    public async Task<IActionResult> RemoveFavorite(string userId, int realEstateId)
+    {
+        await _favoriteService.RemoveFavoriteAsync(userId, realEstateId);
+        return RedirectToAction("Index");
+    }
 
     private async Task<string> UploadImage(IFormFile image)
     {

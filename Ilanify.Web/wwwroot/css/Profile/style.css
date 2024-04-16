@@ -97,6 +97,38 @@
     top: 2.2rem;
 }
 
+.favorite-form {
+    position: absolute;
+    padding-top: 7.5rem;
+    width: 100%;
+    padding-left: 26rem;
+}
+
+.btn-favorite {
+    background-color: #c51b2e;
+    color: #fff;
+    border-color: #c51b2e;
+    position: absolute;
+    font-size: 0.7rem;
+}
+
+.btn-favorite:hover {
+    background-color: #a6172b;
+    border-color: #a6172b;
+}
+
+.btn-favorite:active {
+    background-color: #a6172b;
+    border-color: #a6172b;
+}
+
+.btn-favorite:focus {
+    background-color: #a6172b;
+    border-color: #a6172b;
+}
+
+
+
 @media screen and (max-width: 768px) {
     .my-listings {
         padding-top: 4rem;

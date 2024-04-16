@@ -97,3 +97,31 @@
     top: 2.2rem;
 }
 
+@media screen and (max-width: 768px) {
+    .my-listings {
+        padding-top: 4rem;
+        padding-bottom: 1rem;
+    }
+
+    .price {
+        margin-left: 25rem;
+    }
+
+    .btn-custom,
+    .btn-primary,
+    .btn-outline-primary {
+        font-size: 0.8rem;
+    }
+
+    .active-form {
+        left: 17.5rem;
+        bottom: 0.5rem;
+        position: absolute;
+    }
+
+    .dropdown-button {
+        left: 25.4rem;
+        bottom: 0.5rem;
+        position: absolute;
+    }
+}

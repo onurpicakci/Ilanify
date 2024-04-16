@@ -377,12 +377,12 @@ body {
     content: '\f007';
 }
 
-.leftbar-menu li a[href="/Account/RealEstates"]:before {
-    content: '\f03e';
+.leftbar-menu li a[href="/Account/ActivateRealEstates"]:before {
+    content: '\e1b0';
 }
 
 .leftbar-menu li a[href="/Account/InactiveRealEstates"]:before {
-    content: '\f02d';
+    content: '\e3b1';
 }
 
 .leftbar-menu li a[href="/Account/Logout"]:before {
@@ -428,6 +428,24 @@ body {
 
 .icon-category:hover span {
     color: #c8c0c0;
+}
+
+@media screen and (max-width: 768px) {
+    .leftbar {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .leftbar-menu li a {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .leftbar-menu li a:before {
+        margin-right: 5px; /* Adjust margin for smaller screens */
+    }
+
+    .icon-categories {
+        display: none; /* Hide icon categories on smaller screens */
+    }
 }
 
 .home-card {

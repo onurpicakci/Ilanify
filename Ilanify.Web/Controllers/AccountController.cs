@@ -176,7 +176,7 @@ namespace Ilanify.Controllers
             realEstate.IsActive = true;
             await _realEstateService.UpdateAsync(realEstate);
             
-            return RedirectToAction("ActivateRealEstates");
+            return RedirectToAction("InactiveRealEstates");
         }
         
         [HttpGet]
@@ -201,7 +201,7 @@ namespace Ilanify.Controllers
             realEstate.IsActive = false;
             await _realEstateService.UpdateAsync(realEstate);
             
-            return RedirectToAction("InactiveRealEstates");
+            return RedirectToAction("ActivateRealEstates");
         }
         
         [HttpGet]

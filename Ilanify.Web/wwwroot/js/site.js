@@ -193,3 +193,17 @@ $(document).ready(function () {
         $('form.role-change-form').submit();
     });
 });
+
+var currentUrl = window.location.href;
+
+document.querySelectorAll('.leftbar-link').forEach(function(link) {
+    if (link.href === currentUrl) {
+        link.classList.add('active');
+    }
+});
+
+document.querySelectorAll('.nav-link').forEach(function(link) {
+    if (link.href === currentUrl) {
+        link.classList.add('active');
+    }
+});

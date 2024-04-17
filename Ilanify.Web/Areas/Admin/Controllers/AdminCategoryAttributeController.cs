@@ -1,6 +1,7 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,6 +9,7 @@ namespace Ilanify.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/CategoryAttribute/[action]")]
+    [Authorize(Roles = "Admin")]
     public class AdminCategoryAttributeController : Controller
     {
         private readonly ICategoryAttributeService _categoryAttributeService;

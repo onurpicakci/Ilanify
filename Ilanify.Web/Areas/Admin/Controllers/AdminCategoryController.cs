@@ -1,12 +1,14 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ilanify.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Category/[action]")]
+    [Authorize(Roles = "Admin")]
     public class AdminCategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

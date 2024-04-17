@@ -1,5 +1,6 @@
 using Ilanify.Areas.Admin.Models.ViewModels;
 using Ilanify.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace Ilanify.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/Profile/[action]")]
+    [Authorize(Roles = "Admin")]
     public class AdminProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

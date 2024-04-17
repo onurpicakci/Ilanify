@@ -2,6 +2,7 @@ using Ilanify.Application.Interfaces;
 using Ilanify.Areas.Admin.Models.ViewModels;
 using Ilanify.Domain.Entities;
 using Ilanify.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -9,6 +10,7 @@ namespace Ilanify.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/RealEstate/[action]")]
+    [Authorize(Roles = "Admin")]
     public class AdminRealEstateController : Controller
     {
         private readonly IRealEstateService _realEstateService;

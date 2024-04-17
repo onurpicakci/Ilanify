@@ -1,5 +1,6 @@
 using Ilanify.Application.Interfaces;
 using Ilanify.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -7,6 +8,7 @@ namespace Ilanify.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/AttributeValue/[action]")]
+    [Authorize(Roles = "Admin")]
     public class AdminAttributeValueController : Controller
     {
        private readonly IAttributeValueService _attributeValueService;

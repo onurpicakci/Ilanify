@@ -155,7 +155,6 @@ body {
     color: #fff;
     font-size: 14px;
     padding: 8px 20px;
-    border-radius: 50px;
     text-decoration: none;
     transition: 0.3s background-color;
     margin-left: 10px;
@@ -389,6 +388,10 @@ body {
     content: '\f08b';
 }
 
+.leftbar-menu li a[href="/Account/GetFavorites"]:before {
+    content: '\f004';
+}
+
 .icon-categories {
     position: absolute;
     bottom: -75px; 
@@ -529,4 +532,13 @@ body {
 
 .no-gutters{
     min-height: 172px;
+}
+
+.fa-heart {
+    color: #c51b2e;
+    padding-right: 5px;
+}
+
+.fa-heart:hover {
+    color: #a6172b;
 }

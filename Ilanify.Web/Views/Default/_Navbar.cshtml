@@ -29,6 +29,7 @@
         </div>
         @if (SignInManager.IsSignedIn(User))
         {
+            <a href="/Account/GetFavorites"><i class="fa-regular fa-heart fa-xl"></i></a>
             <a href="/Account/Profile" class="estate-button">
                 @{
                     var user = UserManager.Users.FirstOrDefault(u => u.Id == UserManager.GetUserId(User));

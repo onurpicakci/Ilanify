@@ -5,6 +5,7 @@ using Ilanify.DataAccess.EntityFramework;
 using Ilanify.DataAccess.Interfaces;
 using Ilanify.DataAccess.Repositories;
 using Ilanify.Domain.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,23 @@ builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<IlanifyDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+    })
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/Login";
+    })
+    
+    .AddCookie("AdminCookieScheme", options =>
+    {
+        options.LoginPath = "/Admin/Login/Index";
+        options.AccessDeniedPath = "/Admin/Login/Index";
+    });
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(x => 

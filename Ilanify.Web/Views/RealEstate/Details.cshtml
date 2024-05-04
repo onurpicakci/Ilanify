@@ -16,12 +16,13 @@
             <div class="detail-card">
                 <h1 class="detail-title">@Model.Title</h1>
                 <div class="main-image-container">
-                    <button class="image-nav left-arrow" onclick="navigateMainImage(-1)">&#10094;</button>
+                    <button class="image-nav left-arrow">&#10094;</button>
                     <img id="main-image" src="/images/real-estate-images/@Model.Images.FirstOrDefault()?.ImageUrl" alt="İlan Resmi" class="detail-main-image"/>
-                    <button class="image-nav right-arrow" onclick="navigateMainImage(1)">&#10095;</button>
+                    <button class="image-nav right-arrow">&#10095;</button>
+
                 </div>
                 <div class="thumbnail-navigation">
-                    <div class="thumbnail-nav left-arrow" onclick="navigateThumbnail(-1)">&#10094;</div>
+                    <div class="thumbnail-nav left-arrow">&#10094;</div>
                     <div class="thumbnails-wrapper">
                         @foreach (var image in Model.Images.Select((value, index) => new { value, index }))
                         {
@@ -29,11 +30,11 @@
                                  alt="İlan Resmi"
                                  class="detail-thumbnail-image"
                                  data-index="@image.index"
-                                 data-image-url="/images/@image.value.ImageUrl"
+                                 data-image-url="/images/real-estate-images/@image.value.ImageUrl"
                                  onclick="changeMainImage(@image.index)">
                         }
                     </div>
-                    <div class="thumbnail-nav right-arrow" onclick="navigateThumbnail(1)">&#10095;</div>
+                    <div class="thumbnail-nav right-arrow">&#10095;</div>
                 </div>
             </div>
             <div class="location-card">

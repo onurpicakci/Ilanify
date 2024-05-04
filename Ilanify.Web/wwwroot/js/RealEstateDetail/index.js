@@ -7,12 +7,20 @@ $(document).ready(function () {
         changeMainImage($(this).index());
     });
 
-    $('.left-arrow').on('click', function () {
+    $('.image-nav.left-arrow').on('click', function () {
         navigateMainImage(-1);
     });
 
-    $('.right-arrow').on('click', function () {
+    $('.image-nav.right-arrow').on('click', function () {
         navigateMainImage(1);
+    });
+
+    $('.thumbnail-nav.left-arrow').on('click', function () {
+        navigateThumbnail(-1);
+    });
+
+    $('.thumbnail-nav.right-arrow').on('click', function () {
+        navigateThumbnail(1);
     });
 
     function changeMainImage(index) {
@@ -29,17 +37,9 @@ $(document).ready(function () {
     }
 
     function navigateThumbnail(step) {
-        var scrollAmount = thumbnailsWrapper.scrollLeft() + step * 100; // Adjust as necessary
+        var scrollAmount = thumbnailsWrapper.scrollLeft() + step * 100; 
         thumbnailsWrapper.animate({scrollLeft: scrollAmount}, 'slow');
     }
-
-    $('.thumbnail-nav.left-arrow').on('click', function () {
-        navigateThumbnail(-1);
-    });
-
-    $('.thumbnail-nav.right-arrow').on('click', function () {
-        navigateThumbnail(1);
-    });
 });
 
 function showPhoneNumberAndEnableCall(element) {

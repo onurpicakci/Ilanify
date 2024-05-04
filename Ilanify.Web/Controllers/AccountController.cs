@@ -1,7 +1,10 @@
+using System.Security.Claims;
 using Ilanify.Application.Interfaces;
 using Ilanify.Domain.Entities;
 using Ilanify.Domain.Enums;
 using Ilanify.Models.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -68,15 +71,27 @@ namespace Ilanify.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(
-                    model.Username,
-                    model.Password,
-                    model.RememberMe,
-                    lockoutOnFailure: false);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, model.Username),
+                };
+        
+                var claimsIdentity = new ClaimsIdentity(claims, "UserLogin");
+        
+                var authProperties = new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(20),
+                    AllowRefresh = true,
+                    IsPersistent = true
+                };
+        
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
                 if (result.Succeeded)
                 {
@@ -89,9 +104,11 @@ namespace Ilanify.Controllers
             return View(model);
         }
 
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "RealEstate");
         }
 

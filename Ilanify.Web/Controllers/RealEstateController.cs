@@ -35,7 +35,7 @@ public class RealEstateController : Controller
         {
             new CityRealEstateCount
             {
-                City = "Istanbul", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "Istanbul")?.Count ?? 0,
+                City = "İstanbul", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "İstanbul")?.Count ?? 0,
                 ImageUrl = "istanbul.jpg"
             },
             new CityRealEstateCount
@@ -45,7 +45,7 @@ public class RealEstateController : Controller
             },
             new CityRealEstateCount
             {
-                City = "Izmir", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "Izmir")?.Count ?? 0,
+                City = "İzmir", Count = cityRealEstateCounts.FirstOrDefault(l => l.City == "İzmir")?.Count ?? 0,
                 ImageUrl = "izmir.jpg"
             },
             new CityRealEstateCount
@@ -70,13 +70,13 @@ public class RealEstateController : Controller
     public async Task<IActionResult> Create(RealEstate realEstate, [FromForm] List<AttributeValue> attributeValues,
         List<IFormFile> images)
     {
-        var loggedUser = await _userManager.GetUserAsync(HttpContext.User);
+        var loggedUser = await _userManager.GetUserAsync(User);
         if (loggedUser == null)
         {
             return RedirectToAction("Login", "Account");
         }
 
-        realEstate.ApplicationUserId = loggedUser.Id;
+        realEstate.ApplicationUserId = loggedUser.Id.ToString();
         realEstate.ListingDate = DateTime.Today;
         realEstate.IsActive = true;
 

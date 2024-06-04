@@ -435,19 +435,19 @@ body {
 
 @media screen and (max-width: 768px) {
     .leftbar {
-        width: 100%; /* Full width on smaller screens */
+        width: 100%; 
     }
 
     .leftbar-menu li a {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px; 
     }
 
     .leftbar-menu li a:before {
-        margin-right: 5px; /* Adjust margin for smaller screens */
+        margin-right: 5px; 
     }
 
-    .icon-categories {
-        display: none; /* Hide icon categories on smaller screens */
+    .icon-categories {  
+        display: none; 
     }
 }
 

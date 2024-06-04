@@ -14,6 +14,9 @@
         <div class="col-md-8 mt-4">
             @foreach (var realEstate in Model)
             {
+                var maxChars = 30; 
+                var title = realEstate.Title;
+                var displayedTitle = title.Length > maxChars ? title.Substring(0, maxChars) + "..." : title;
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-3">
@@ -26,7 +29,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="profile-estate-title">@realEstate.Title</h5>
+                                <h5 class="profile-estate-title">@displayedTitle</h5>
                                 <p class="profile-estate-text mt-2">@realEstate.Type @realEstate.Category.Name - @realEstate.Location.District / @realEstate.Location.Neighborhood</p>
                                 <p class="profile-estate-text">Yayınlanma Tarihi: @realEstate.ListingDate.ToString("dd.MM.yyyy")</p>
                                 <div class="position-absolute">

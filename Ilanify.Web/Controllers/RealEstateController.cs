@@ -185,6 +185,11 @@ public class RealEstateController : Controller
     [HttpPost]
     public async Task<IActionResult> AddFavorite(string userId, int realEstateId)
     {
+        if (string.IsNullOrEmpty(userId))
+        {
+            return RedirectToAction("Login", "Account");
+        }
+        
         await _favoriteService.AddFavoriteAsync(userId, realEstateId);
         return RedirectToAction("Index");
     }

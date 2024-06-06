@@ -17,13 +17,7 @@
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <div class="form-check">
-                <input asp-for="RememberMe" class="form-check-input"/>
-                <label class="form-check-label" asp-for="RememberMe"></label>
-            </div>
-        </div>
-
+        <p class="text-muted">Hesabınız yok mu? <a asp-action="Register" asp-controller="Account" class="text-primary">Kayıt Ol</a></p>
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
 </div>
